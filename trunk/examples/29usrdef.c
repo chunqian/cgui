@@ -35,9 +35,10 @@ static void user_defiend_widget_select(void *data)
    DisplayWin();
 }
 
-static void draw(void *data, BITMAP *bmp)
+static void draw(void *data, BITMAP *bmp, enum cgui_widget_sates state)
 {
    char **string = data;
+   (void)state;
    _soft_ellipsefill(bmp, bmp->w/2, bmp->h/2, bmp->w/2-20, bmp->h/2-1, makecol(255,255,255));
    _soft_floodfill(bmp, 0, 0, makecol(210,210,210));
    textout_centre_ex(bmp, GetCguiFont(), *string, bmp->w/2, 4, makecol(0,0,0), -1);
