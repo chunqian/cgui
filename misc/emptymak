@@ -1,0 +1,8 @@
+error:
+	@echo No makefile generated! You must first run one of the following:
+	@echo fix.bat djgpp - to compile the djgpp version
+	@echo fix.sh unix - to compile the unix version
+	@echo fix.bat mingw32 - to compile the mingw32 version
+	@echo fix.bat bcc32 - to compile the borland version
+	@echo fix.bat msvc - to compile the msvc version
+	@echo See also readme.txt.

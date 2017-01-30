@@ -1,0 +1,178 @@
+\input texinfo
+@setfilename internal.inf
+@settitle CGUI Internal
+@setchapternewpage odd
+@paragraphindent 0
+
+@ifinfo
+@direntry
+* Internal: (internal). Internal description of CGUI.
+@end direntry
+This is the Info version of the CGUI Internal description.
+
+By Christer Sandberg
+@end ifinfo
+
+@node Top, , (dir), (dir)
+@example
+
+
+                          CGUI a GUI addon to Allegro
+
+                             Internal description
+
+                             by Christer Sandberg
+
+
+@end example
+
+
+@menu
+* Introduction to the internals of CGUI::Introduction to the internals of CGUI
+* Event processing::        Event processing
+* Mouse messages.::         Mouse messages.
+* Object handling of mouse messages::Object handling of mouse messages
+* Keys to important things::Keys to important things
+* Releasing::               Releasing
+* -::                       -
+@end menu
+
+@node Introduction to the internals of CGUI, Event processing, , Top
+@chapter Introduction to the internals of CGUI
+
+@node Event processing, Mouse messages., Introduction to the internals of CGUI, Top
+@chapter Event processing
+
+The "event processing" is an important part of CGUI. Messages can be put
+into the queue either explicitly or because of an external event. The
+external events taken care of by CGUI is mouse, keyboard and timer events.
+The external events are transfered from the external device (mouse etc.) to
+the queue by an interrupt routine. This routine entirely uses Allegro's
+hooks and therefore they will maybe not be called by true ISR:s on some
+platforms, it will depend on the Allegro implementation. However, since
+Allegro will emulate properly in such cases, you should think of them as
+real ISR hooks.
+@*
+The queue is made such a way that it will always be safe for the hooks to
+insert messages. All provided that the queue size is big enough to contain
+all messages that need to be queued. The size is enough for any "normal
+desktop application" but can be tuned by the application to fit other other
+requirements. Any application in any event driven system can be done in a
+way that it overruns any size of the queue. If that happens the queue in
+CGUI will not be crashed, and no attempt to allocate more memory will be
+done in interrupt mode, instead the event will be dropped. See comments and
+code in event.c to find out details about how it is all done.
+@*
+A message consists of a pair: <function pointer, data pointer>. The function
+pointer takes a single parameter that is of type void* and the data pointer
+is of type void*. When a message is processed it will first be removed from
+the queue and the function will be invoked passing it the data pointer as
+argument. So the function inserting the <function pointer, data pointer>
+is responsible to do that in a way that they match.
+@*
+How do an hook know which <function, data> to put into the queue? - Each
+event type will have its own.
+
+@itemize @bullet
+
+@item  The timer hook will scan the delayed event queue to decrement the
+timer counters of all delayed messages, and if it thereby finds that
+the counter of any message expired that message will be moved into
+the current queue.
+@item  To minimize the processing in interrupt mode of the processor, as
+much as possible of the algorithms has rather been put into the code
+of <function,data> for the keyboard event handling. So the keyboard
+hook will always put `KeyBoardHandlerWrapper' into the queue. See
+cgkeybrd.c for details.
+@item  The mouse hook will for the same reason as the keyboard hook do it
+similarly, it will put `ExecuteMouseEvent' into the queue. It is
+however worth mentioning there is a second kind of (queue or buffer).
+The mouse can easily produce lots of events (typically the user moves
+the mouse irritatingly if the application seems "frozen" due to heavy
+calculations). The queue is used to buffer repeated clicks. If the
+mouse is moved between clicks the moves are filtered out (i.e. the
+latest coordinate is the one beeing in the queue - the mouse hook
+keeps a pointer to the data in the queue and updates if conditions are
+fullfilled, and `ExecuteMouseEvent' will acknowledge when ready).
+@end itemize
+
+
+@node Mouse messages., Object handling of mouse messages, Event processing, Top
+@chapter Mouse messages.
+
+`ExecuteMouseEvent' will be applied to the data in the messages queue when
+time has come. How does it know what to do? - Since the mouse events
+concerns what is shown on the screen, it will search the object
+tree for any object that want to receive the message. There is a number of
+cases where this is not sufficient. I will mention two obvious
+cases.
+
+@itemize @bullet
+
+@item  Suppose the mouse presses a push button widget down (in). While the
+mouse button is still down the mouse is dragged off. In that case the
+button will still catch all mouse messages until the mouse button is
+released. (the push button need to be drawn in the "out" view, and
+wants the ability to draw in the "in" view in case the mouse is dragged
+over again whlie the mouse button is still down).
+@item  A draggable object is gripped, and the mouse is moved to some other
+object.
+@end itemize
+
+In both these cases it is obvious that CGUI needs some more sophisticated
+mechanism than just broadcasting "who wants this mouse message". Any object
+that "takes" a message (returns true) can go into a state where it is
+prepared to recive all subsequent messages. When it does this it signals
+to the mouse handling system that it is "in mouse focus". So
+`ExecuteMouseEvent' will always start with passing the event-message to
+such a "mouse focus" if there is one. There may be also "second mouse focus"
+(for now that is only used by the "drop-object" that a gripped object is
+held over). If such "mouse focused" object(s) decide they should no longer
+be in focus (because e.g. the mouse event was something like "button up" or
+"no longer over" etc.) it will signal this by its return value.
+@*There is also a similar mechansim for windows.
+
+@node Object handling of mouse messages, Keys to important things, Mouse messages., Top
+@chapter Object handling of mouse messages
+
+All objects have a state machine for mouse messages. This machine is
+implemented as a function table and a few variables in the object struct.
+Different categories of objects can have different tables (e.g. menu items
+doesn't behave the same as push-buttons, and therefore needs another state
+machine). However the default one covers a lot of possibilities. This is
+to make it simple to combine e.g. click+drag-drop or maybe double-click+
+only-grip. The default machine allows to combine click, double-click,
+grip, recive-drop and sliding in almost any combination for any combination
+of mouse buttons.@*
+For a modified behaviour for a subset of object types you will need to make
+a copy of the default table and replace the desired states and finally
+of course attach the new pointer table to instances of the object
+type(s) concerned.
+
+@node Keys to important things, Releasing, Object handling of mouse messages, Top
+@chapter Keys to important things
+
+This document was actually a bit fun to write when I started, however after
+a while I realized that probably no one will ever read it so I stopped. If I
+happen to be wrong my e-mail is rya.christer@@gmail.com
+
+@node Releasing, -, Keys to important things, Top
+@chapter Releasing
+
+How to release a new version of CGUI:
+
+@itemize @bullet
+
+@item  Run "sh misc/fixver.sh [version]".
+@item  Run "sh misc/fixdll.sh".
+@item  Run "sh misc/zipup.sh". It works under dos/djgpp, haven't tested
+elsewhere.
+@item  Notify [AL] and create a news item at allegro.cc.
+@end itemize
+
+
+
+
+@node -, , Releasing, Top
+@chapter -
+

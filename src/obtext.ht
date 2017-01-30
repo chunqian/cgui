@@ -1,0 +1,7 @@
+/* Generated header-file <generator=mktext.1.1> */
+#ifndef OBTEXT_HT
+#define OBTEXT_HT
+#define ERROR_OPENING_FILE_NN_OK 0
+#define SIZE_obtext 1
+
+#endif

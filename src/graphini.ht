@@ -1,0 +1,18 @@
+/* Generated header-file <generator=mktext.1.1> */
+#ifndef GRAPHINI_HT
+#define GRAPHINI_HT
+#define SCREEN_RESOLUTION 0
+#define SETTING_TAB 1
+#define INFO_TAB 2
+#define AVAILABLE_MODES 3
+#define CURRENT_MODE 4
+#define SELECTED_MODE 5
+#define APPLY_MODE 6
+#define FAILING_MODE 7
+#define GRAPHICS_DRIVER 8
+#define FAILED_TO_DETECT_MODES 9
+#define MORE_TRIES 10
+#define CLOSE_LABEL 11
+#define SIZE_graphini 12
+
+#endif

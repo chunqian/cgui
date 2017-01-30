@@ -1,0 +1,97 @@
+@#
+@# This is the source for the CGUI wishlist file, in Allegro's custom format.
+@# Read allegro/docs/makedoc.c for a description of what is going on...
+@#
+@#ignore_css
+@multiwordheaders
+@#locale=latin1
+@document_title=CGUI whishlist
+@# Note: this version number is patched by fixver.sh
+@manh="version 2.0.5" "CGUI" "CGUI whishlist"
+@rtfh=CGUI Wish List
+@$\input texinfo
+@$@setfilename wishlist.inf
+@$@settitle CGUI Wish List
+@$@setchapternewpage odd
+@$@paragraphindent 0
+@$@setchapternewpage off
+@# This should remain commented at the moment (dvi output) @$@finalout
+@$
+@$@ifinfo
+@$@direntry
+@$* Wish List: (wishlist). CGUI Wish List
+@$@end direntry
+@$This is the Info version of the CGUI Wish List file.
+@$
+@$By Christer Sandberg
+@$@end ifinfo
+@$
+@$@node Top, , (dir), (dir)
+@<html>
+@<head>
+@<title>CGUI Wish List</title>
+@<body>
+<center><img src="cgui.png" alt="CGUI"></center>
+<center><b>A C Graphical User Interface [add on to Allegro] by Christer Sandberg</center></b>
+<center>Email: <email>rya.christer@gmail.com</a></center>
+<center>Homepage: <a href="http://cgui.sourceforge.net/">http://cgui.sourceforge.net/</a></center>
+                                   Wish List
+@#!text
+@#heading
+@#Contents
+
+@#shortcontents
+
+
+
+@text
+@heading
+Wish List
+
+Below is listed features that would be useful to have in CGUI. Some of these
+includes quite a lot of work for a single person, so they will probably
+not be done by me. So if you want some of these features, it's better to
+write it yourself and send me a patch. Or maybe you just have an idea what
+would be yet one useful feature? -Just send a mail!
+<ul>
+<li>
+   Adding skinnability (to some extent)
+<LI>
+   Support for mouse wheel.
+<li>
+   Feature request, file browser: The data file objects could inherit the
+   viewed permission flags from the ones of the data file itself.
+<li>
+   Feature request, file selector: The possibility to pass named file name suffixes (or e
+   groups of) to be used as fixed alternatives instead of the editable one. A complementary
+   function will be needed for that.
+<li>
+   Feature request, file browser: An option to dock the preview window into the browser.
+<li>
+   Performance: The mouse is very inresponsive running on some Linux boxes.
+<li>
+   Feature request: Speed up the mouse by using harware mouse when such is detected.
+<li>
+   Feature request: It would be great to have the usual window buttons for controling the
+   window size etc. at the top.
+<LI>
+   Remove the DOS-ish beep that sounds when an erroneous key is pressed
+   in an edit-box (or add support for Allegro sound )
+<LI>
+   Creating makefiles for the more of the platforms supported by Allegro, specially MAC.
+<li>
+   Porting to Unicode.
+<li>
+   Making an RPM for Linux.
+<li>
+   A widget for help text viewing (HTML-based).
+<li>
+   A widget for multi line input.
+<li>
+   Internally prefixing.
+<li>
+   Exporting a subset of the now external declared variables and functions in an "include/internal"
+   directory similar to Allegro, just to make it easier for people to make som fun things.
+<li>
+   Externally prefixing (for a future version).
+</ul>

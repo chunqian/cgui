@@ -1,0 +1,316 @@
+obj/msvc/cgui_s/browsbar.obj: src/browsbar.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
+ src/tabchain.h src/hotkey.h src/node.h src/browser.h src/browsbar.h
+obj/msvc/cgui_s/browser.obj: src/browser.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/browser.h src/browsbar.h \
+ src/node.h src/hotkey.h src/object.h src/window.h src/tabchain.h \
+ src/scroll.h src/id.h
+obj/msvc/cgui_s/cgkeybrd.obj: src/cgkeybrd.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/cgkeybrd.h src/memint.h \
+ src/event.h src/hotkey.h src/cguiinit.h
+obj/msvc/cgui_s/cguiinit.obj: src/cguiinit.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/memint.h src/font.h \
+ src/filebrow.h src/cursor.h src/node.h src/hotkey.h src/object.h \
+ src/msm.h src/mstates.h src/mouse.h src/graphini.h src/window.h \
+ src/tabchain.h src/menuitem.h src/winscr.h src/cgkeybrd.h src/list.h \
+ src/timer.h src/cguiinit.h src/event.h src/statelog.h
+obj/msvc/cgui_s/clipwin.obj: src/clipwin.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/clock.obj: src/clock.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
+ src/tabchain.h src/hotkey.h src/node.h src/obheader.h src/font.h \
+ src/id.h src/labldata.h src/clock.ht src/event.h
+obj/msvc/cgui_s/cursdata.obj: src/cursdata.c
+obj/msvc/cgui_s/cursor.obj: src/cursor.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/graphini.h src/cursor.h \
+ src/window.h src/object.h src/tabchain.h src/hotkey.h src/node.h \
+ src/rectlist.h src/mouse.h src/id.h src/cursdata.h src/obbutton.h
+obj/msvc/cgui_s/datalpha.obj: src/datalpha.c src/datedit.h
+obj/msvc/cgui_s/datedit.obj: src/datedit.c src/datedit.h src/../obj/unix/plugins.h
+obj/msvc/cgui_s/datfli.obj: src/datfli.c src/datedit.h
+obj/msvc/cgui_s/datfont.obj: src/datfont.c src/datedit.h
+obj/msvc/cgui_s/datgrab.obj: src/datgrab.c src/datedit.h
+obj/msvc/cgui_s/datgrid.obj: src/datgrid.c src/datedit.h
+obj/msvc/cgui_s/datimage.obj: src/datimage.c src/datedit.h
+obj/msvc/cgui_s/datitype.obj: src/datitype.c src/datedit.h
+obj/msvc/cgui_s/datmidi.obj: src/datmidi.c src/datedit.h
+obj/msvc/cgui_s/datpal.obj: src/datpal.c src/datedit.h
+obj/msvc/cgui_s/datsamp.obj: src/datsamp.c src/datedit.h
+obj/msvc/cgui_s/dos2win.obj: src/dos2win.c include/cgui/dw_conv.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/edbmenu.obj: src/edbmenu.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/clipwin.h include/cgui/cguicfg.h src/obedbox.h \
+ src/edbmenu.h
+obj/msvc/cgui_s/event.obj: src/event.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/event.h src/cguiinit.h \
+ src/object.h
+obj/msvc/cgui_s/filebrow.obj: src/filebrow.c src/filebrow.h include/cgui.h \
+ include/cgui/cguicfg.h include/cgui/mem.h include/cgui/cguicfg.h \
+ include/cgui/dw_conv.h src/id.h src/node.h src/hotkey.h src/object.h \
+ src/window.h src/tabchain.h src/filereg.h src/files.h src/filedial.h \
+ src/filedat.h src/fileimpq.h src/filebuff.h src/filebrow.ht \
+ src/datedit.h src/event.h src/memint.h src/cguiinit.h src/labldata.h \
+ src/font.h src/icondata.h
+obj/msvc/cgui_s/filebuff.obj: src/filebuff.c src/datedit.h include/cgui.h \
+ include/cgui/cguicfg.h include/cgui/mem.h include/cgui/cguicfg.h \
+ include/cgui/dw_conv.h src/files.h src/filedat.h src/filebuff.h \
+ src/filebuff.ht src/fileimpq.h src/labldata.h
+obj/msvc/cgui_s/filedat.obj: src/filedat.c include/cgui/dw_conv.h include/cgui/cguicfg.h \
+ src/datedit.h src/fileimpq.h include/cgui/mem.h include/cgui.h \
+ include/cgui/cguicfg.h src/filedat.h src/filebuff.h src/files.h
+obj/msvc/cgui_s/filedial.obj: src/filedial.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/datedit.h src/filedial.h \
+ src/filedial.ht src/filebrow.h src/filebuff.h src/filereg.h src/files.h \
+ src/filedat.h src/labldata.h
+obj/msvc/cgui_s/fileimpq.obj: src/fileimpq.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/filedat.h src/fileimpq.h \
+ src/fileimpq.ht src/labldata.h
+obj/msvc/cgui_s/filereg.obj: src/filereg.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/filedat.h src/filereg.h
+obj/msvc/cgui_s/files.obj: src/files.c src/files.h include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/misc.h include/cgui/cguicfg.h include/cgui/mem.h \
+ include/cgui/dw_conv.h src/filedat.h src/timer.h
+obj/msvc/cgui_s/font.obj: src/font.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/object.h src/font.h \
+ src/memint.h src/fontdata.h
+obj/msvc/cgui_s/fontdata.obj: src/fontdata.c
+obj/msvc/cgui_s/formdate.obj: src/formdate.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/formdate.h include/cgui/cguicfg.h include/cgui/mem.h \
+ src/labldata.h src/formdate.ht
+obj/msvc/cgui_s/fortify.obj: src/fortify.c
+obj/msvc/cgui_s/fortify2.obj: src/fortify2.c include/fortify2.h
+obj/msvc/cgui_s/gencm.obj: src/gencm.c include/cgui.h include/cgui/cguicfg.h src/window.h \
+ src/object.h src/tabchain.h src/hotkey.h src/node.h src/gencm.h \
+ src/mouse.h src/msm.h src/mstates.h
+obj/msvc/cgui_s/graphini.obj: src/graphini.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
+ src/tabchain.h src/hotkey.h src/mouse.h src/cursor.h src/memint.h \
+ src/graphini.h src/graphini.ht src/icondata.h src/labldata.h \
+ src/cursdata.h
+obj/msvc/cgui_s/halfform.obj: src/halfform.c include/cgui/halfform.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/hotkey.obj: src/hotkey.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
+ src/tabchain.h src/hotkey.h src/node.h src/hotkeyau.h src/id.h
+obj/msvc/cgui_s/hotkeyau.obj: src/hotkeyau.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
+ src/tabchain.h src/hotkey.h src/node.h src/hotkeyau.h src/id.h
+obj/msvc/cgui_s/icondata.obj: src/icondata.c
+obj/msvc/cgui_s/id.obj: src/id.c include/cgui.h include/cgui/cguicfg.h include/cgui/mem.h \
+ include/cgui/cguicfg.h src/id.h
+obj/msvc/cgui_s/labldata.obj: src/labldata.c
+obj/msvc/cgui_s/list.obj: src/list.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/list.h src/node.h \
+ src/hotkey.h src/object.h src/mstates.h src/window.h src/tabchain.h \
+ src/obsizer.h src/obcheck.h src/obbutton.h src/font.h src/memint.h \
+ src/ndresize.h src/browser.h src/id.h src/event.h src/mouse.h
+obj/msvc/cgui_s/loadtext.obj: src/loadtext.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/cguiinit.h src/loadtext.h
+obj/msvc/cgui_s/memory.obj: src/memory.c include/cgui/mem.h include/cgui/cguicfg.h \
+ src/../src/memint.h
+obj/msvc/cgui_s/menbarcm.obj: src/menbarcm.c include/cgui.h include/cgui/cguicfg.h \
+ src/window.h src/object.h src/tabchain.h src/hotkey.h src/node.h \
+ src/menbarcm.h src/menuitem.h src/menu.h src/mouse.h src/msm.h \
+ src/mstates.h
+obj/msvc/cgui_s/menu.obj: src/menu.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/mouse.h src/window.h \
+ src/object.h src/tabchain.h src/hotkey.h src/node.h src/msm.h \
+ src/mstates.h src/menuitem.h src/menu.h
+obj/msvc/cgui_s/menubar.obj: src/menubar.c include/cgui.h include/cgui/cguicfg.h src/msm.h \
+ src/mstates.h src/mouse.h include/cgui/mem.h include/cgui/cguicfg.h \
+ src/obbutton.h src/object.h src/menubar.h src/menuitem.h src/menu.h \
+ src/menbarcm.h src/tabchain.h src/hotkey.h src/node.h src/window.h \
+ src/id.h
+obj/msvc/cgui_s/menuitem.obj: src/menuitem.c include/cgui.h include/cgui/cguicfg.h \
+ src/window.h src/object.h src/tabchain.h src/hotkey.h src/node.h \
+ src/obbutton.h include/cgui/mem.h include/cgui/cguicfg.h src/msm.h \
+ src/mstates.h src/menu.h src/mouse.h src/menuitem.h src/gencm.h \
+ src/obmensel.h src/id.h
+obj/msvc/cgui_s/mouse.obj: src/mouse.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/statelog.h src/msm.h \
+ src/mstates.h src/window.h src/object.h src/tabchain.h src/hotkey.h \
+ src/node.h src/event.h src/cursor.h src/mouse.h
+obj/msvc/cgui_s/msm.obj: src/msm.c include/cgui.h include/cgui/cguicfg.h src/object.h \
+ src/node.h src/hotkey.h src/tabchain.h src/window.h src/mouse.h \
+ src/event.h src/msm.h src/mstates.h src/id.h src/statelog.h
+obj/msvc/cgui_s/ndcont.obj: src/ndcont.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/node.h src/hotkey.h \
+ src/object.h src/window.h src/tabchain.h src/ndcont.h
+obj/msvc/cgui_s/ndresize.obj: src/ndresize.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/object.h src/node.h \
+ src/hotkey.h src/window.h src/tabchain.h src/ndresize.h src/obsizer.h \
+ src/mouse.h src/setpos.h src/id.h
+obj/msvc/cgui_s/node.obj: src/node.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/msm.h src/mstates.h \
+ src/mouse.h src/object.h src/event.h src/window.h src/tabchain.h \
+ src/hotkey.h src/id.h src/rectlist.h src/hotkeyau.h src/ndresize.h \
+ src/refresh.h src/node.h
+obj/msvc/cgui_s/obbutton.obj: src/obbutton.c include/cgui.h include/cgui/cguicfg.h \
+ src/object.h src/node.h src/hotkey.h src/window.h src/tabchain.h \
+ src/obbutton.h src/mstates.h src/id.h
+obj/msvc/cgui_s/obcanvas.obj: src/obcanvas.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/node.h src/hotkey.h \
+ src/object.h src/window.h src/tabchain.h src/ndresize.h src/obcanvas.h \
+ src/mouse.h src/msm.h src/mstates.h
+obj/msvc/cgui_s/obcheck.obj: src/obcheck.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
+ src/tabchain.h src/hotkey.h src/node.h src/obbutton.h src/obedbox.h \
+ src/obflip.h src/obheader.h src/mstates.h src/obcheck.h src/menuitem.h
+obj/msvc/cgui_s/obdrag.obj: src/obdrag.c include/cgui.h include/cgui/cguicfg.h src/window.h \
+ src/object.h src/tabchain.h src/hotkey.h src/node.h src/cursor.h \
+ src/obdrag.h
+obj/msvc/cgui_s/obdrop.obj: src/obdrop.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
+ src/tabchain.h src/hotkey.h src/node.h src/obdrop.h src/obedbox.h \
+ src/obbutton.h src/gencm.h src/menu.h src/list.h src/mstates.h src/id.h
+obj/msvc/cgui_s/obedbox.obj: src/obedbox.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/obedbox.h src/edbmenu.h \
+ src/event.h src/cguiinit.h src/window.h src/object.h src/tabchain.h \
+ src/hotkey.h src/node.h src/obbutton.h src/mstates.h src/id.h \
+ include/cgui/halfform.h include/cgui/clipwin.h src/ndresize.h
+obj/msvc/cgui_s/obflip.obj: src/obflip.c include/cgui.h include/cgui/cguicfg.h src/object.h \
+ src/obdrop.h src/obflip.h src/id.h
+obj/msvc/cgui_s/obgroove.obj: src/obgroove.c include/cgui.h include/cgui/cguicfg.h \
+ src/window.h src/object.h src/tabchain.h src/hotkey.h src/node.h \
+ src/obgroove.h
+obj/msvc/cgui_s/obheader.obj: src/obheader.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
+ src/tabchain.h src/hotkey.h src/node.h src/id.h src/obheader.h
+obj/msvc/cgui_s/obicon.obj: src/obicon.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/node.h src/hotkey.h \
+ src/object.h src/obbutton.h src/mstates.h src/tabchain.h
+obj/msvc/cgui_s/object.obj: src/object.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
+ src/tabchain.h src/hotkey.h src/node.h src/msm.h src/mstates.h \
+ src/rectlist.h src/graphini.h src/obsizer.h src/obbutton.h src/setpos.h \
+ src/font.h src/id.h src/refresh.h src/event.h src/cursor.h src/filedat.h \
+ src/files.h
+obj/msvc/cgui_s/obmenchk.obj: src/obmenchk.c include/cgui.h include/cgui/cguicfg.h \
+ src/object.h src/menuitem.h src/menu.h src/obcheck.h src/obmenchk.h
+obj/msvc/cgui_s/obmenrad.obj: src/obmenrad.c include/cgui.h include/cgui/cguicfg.h \
+ src/node.h src/hotkey.h src/object.h src/menuitem.h src/menu.h \
+ src/obmenchk.h src/obmenrad.h
+obj/msvc/cgui_s/obmensel.obj: src/obmensel.c include/cgui.h include/cgui/cguicfg.h \
+ src/window.h src/object.h src/tabchain.h src/hotkey.h src/node.h \
+ src/menuitem.h src/menu.h src/msm.h src/mstates.h src/obbutton.h \
+ src/obmensel.h src/mouse.h
+obj/msvc/cgui_s/obprogr.obj: src/obprogr.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
+ src/tabchain.h src/hotkey.h src/node.h src/obheader.h src/id.h
+obj/msvc/cgui_s/obradio.obj: src/obradio.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
+ src/tabchain.h src/hotkey.h src/node.h src/id.h src/obbutton.h \
+ src/obradio.h src/mstates.h
+obj/msvc/cgui_s/obsizer.obj: src/obsizer.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
+ src/tabchain.h src/hotkey.h src/node.h src/id.h src/cursor.h src/mouse.h \
+ src/obsizer.h
+obj/msvc/cgui_s/obslider.obj: src/obslider.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/object.h src/node.h \
+ src/hotkey.h src/window.h src/tabchain.h src/ndresize.h src/id.h \
+ src/obslider.h
+obj/msvc/cgui_s/obstatus.obj: src/obstatus.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
+ src/tabchain.h src/hotkey.h src/node.h src/obheader.h src/obstatus.h
+obj/msvc/cgui_s/obtag.obj: src/obtag.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
+ src/tabchain.h src/hotkey.h src/node.h src/obbutton.h src/obedbox.h \
+ src/obtag.h
+obj/msvc/cgui_s/obtext.obj: src/obtext.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/obtext.h src/mouse.h \
+ src/mstates.h src/window.h src/object.h src/tabchain.h src/hotkey.h \
+ src/node.h src/event.h src/list.h src/font.h src/obtext.ht \
+ src/labldata.h src/id.h
+obj/msvc/cgui_s/rectlist.obj: src/rectlist.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/rectlist.h
+obj/msvc/cgui_s/refresh.obj: src/refresh.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/node.h src/hotkey.h \
+ src/object.h src/id.h src/refresh.h
+obj/msvc/cgui_s/sc2ascii.obj: src/sc2ascii.c
+obj/msvc/cgui_s/scroll.obj: src/scroll.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
+ src/tabchain.h src/hotkey.h src/node.h src/obbutton.h src/browsbar.h \
+ src/mstates.h src/scroll.h src/event.h src/id.h
+obj/msvc/cgui_s/setpos.obj: src/setpos.c include/cgui.h include/cgui/cguicfg.h src/node.h \
+ src/hotkey.h src/object.h src/setpos.h
+obj/msvc/cgui_s/sound.obj: src/sound.c
+obj/msvc/cgui_s/spin.obj: src/spin.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/object.h src/tabchain.h \
+ src/hotkey.h src/id.h src/scroll.h src/spin.h
+obj/msvc/cgui_s/statelog.obj: src/statelog.c src/statelog.h
+obj/msvc/cgui_s/tabchain.obj: src/tabchain.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
+ src/tabchain.h src/hotkey.h src/node.h src/id.h
+obj/msvc/cgui_s/tabruler.obj: src/tabruler.c include/cgui.h include/cgui/cguicfg.h \
+ src/window.h src/object.h src/tabchain.h src/hotkey.h src/node.h \
+ src/id.h include/cgui/mem.h include/cgui/cguicfg.h src/tabruler.h
+obj/msvc/cgui_s/tabs.obj: src/tabs.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
+ src/tabchain.h src/hotkey.h src/node.h src/tabwin.h src/obbutton.h \
+ src/id.h src/tabs.h
+obj/msvc/cgui_s/tabwin.obj: src/tabwin.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
+ src/tabchain.h src/hotkey.h src/node.h src/font.h src/tabs.h \
+ src/tabwin.h
+obj/msvc/cgui_s/timer.obj: src/timer.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/timer.h
+obj/msvc/cgui_s/treeview.obj: src/treeview.c include/cgui.h include/cgui/cguicfg.h \
+ src/event.h src/object.h src/window.h src/tabchain.h src/hotkey.h \
+ src/node.h include/cgui/mem.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/win2dos.obj: src/win2dos.c include/cgui/dw_conv.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/windial.obj: src/windial.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
+ src/tabchain.h src/hotkey.h src/node.h src/windial.h
+obj/msvc/cgui_s/window.obj: src/window.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/node.h src/hotkey.h \
+ src/object.h src/window.h src/tabchain.h src/mouse.h src/rectlist.h \
+ src/hotkeyau.h src/obdrag.h src/obheader.h src/memint.h src/graphini.h \
+ src/cursor.h src/msm.h src/mstates.h src/id.h
+obj/msvc/cgui_s/winreq.obj: src/winreq.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
+ src/tabchain.h src/hotkey.h src/id.h src/cguiinit.h src/memint.h \
+ src/winreq.h
+obj/msvc/cgui_s/winscr.obj: src/winscr.c src/winscr.h src/window.h src/object.h \
+ src/tabchain.h src/hotkey.h src/node.h src/graphini.h src/memint.h \
+ include/cgui.h include/cgui/cguicfg.h src/event.h include/cgui/mem.h \
+ include/cgui/cguicfg.h
+obj/msvc/cgui_s/00hello.obj: examples/00hello.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/01hellox.obj: examples/01hellox.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/02objtyp.obj: examples/02objtyp.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/03spinbu.obj: examples/03spinbu.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/04status.obj: examples/04status.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/05txtbox.obj: examples/05txtbox.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/06edit.obj: examples/06edit.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/07slider.obj: examples/07slider.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/08wintyp.obj: examples/08wintyp.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/09menus.obj: examples/09menus.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/10lists.obj: examples/10lists.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/11contai.obj: examples/11contai.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/12tabwin.obj: examples/12tabwin.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/13direct.obj: examples/13direct.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/14resize.obj: examples/14resize.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/15filebr.obj: examples/15filebr.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/16filere.obj: examples/16filere.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/17progr.obj: examples/17progr.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/18icons.obj: examples/18icons.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/19deskt.obj: examples/19deskt.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/20anim.obj: examples/20anim.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/21canvas.obj: examples/21canvas.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/22drag.obj: examples/22drag.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/23ttip.obj: examples/23ttip.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/24browse.obj: examples/24browse.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/25viewer.obj: examples/25viewer.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/26joytst.obj: examples/26joytst.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/27trees.obj: examples/27trees.c include/cgui.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/game1.obj: examples/game1.c include/cgui.h include/cgui/cguicfg.h \
+ examples/ball.inc include/cgui/mem.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/game2.obj: examples/game2.c include/cgui.h include/cgui/cguicfg.h \
+ examples/ball.inc include/cgui/mem.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/game3.obj: examples/game3.c include/cgui.h include/cgui/cguicfg.h \
+ examples/ball.inc include/cgui/mem.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/game4.obj: examples/game4.c include/cgui.h include/cgui/cguicfg.h \
+ examples/ball.inc include/cgui/mem.h include/cgui/cguicfg.h
+obj/msvc/cgui_s/game5.obj: examples/game5.c include/cgui.h include/cgui/cguicfg.h \
+ examples/ball.inc include/cgui/mem.h include/cgui/cguicfg.h

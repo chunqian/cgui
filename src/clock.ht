@@ -1,0 +1,10 @@
+/* Generated header-file <generator=mktext.1.1> */
+#ifndef CLOCK_HT
+#define CLOCK_HT
+#define ADJUST_CLOCK_SETTINGS 0
+#define APPLY 1
+#define SHOW_SECONDS 2
+#define CLOSE 3
+#define SIZE_clock 4
+
+#endif

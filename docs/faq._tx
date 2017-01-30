@@ -1,0 +1,140 @@
+@#
+@# This is the source for the FAQ document of CGUI.
+@# Allegro's custom format is used here. Read allegro/docs/makedoc.c for a
+@# description of what is going on...
+@#
+@# The point is that you read some of the documents faq.txt,
+@# faq.info, faq.html or faq.rtf rather than this file!
+@#
+@#ignore_css
+@#multiplefiles
+@multiwordheaders
+@#locale=latin1
+@document_title=CGUI FAQ
+@rtfh=CGUI FAQ
+@# Note: this version number is patched by fixver.sh
+@manh="version 0.9.0" "CGUI" "CGUI FAQ"
+@$\input texinfo
+@$@setfilename faq.inf
+@$@settitle CGUI FAQ
+@$@setchapternewpage odd
+@$@paragraphindent 0
+@$
+@$@ifinfo
+@$@direntry
+@$* FAQ. FAQ of CGUI.
+@$@end direntry
+@$This is the Info version of the CGUI FAQ.
+@$
+@$By Christer Sandberg
+@$@end ifinfo
+@$
+@$@node Top, , (dir), (dir)
+@<html>
+@<head>
+@<title>CGUI FAQ</title>
+@<body>
+<center><img src="cgui.png" alt="CGUI"></center>
+<center><b>A C Graphical User Interface [add on to Allegro] by Christer Sandberg</center></b>
+<center>Email: <email>rya.christer@gmail.com</a></center>
+<center>Homepage: <a href="http://cgui.sourceforge.net/">http://cgui.sourceforge.net/</a></center>
+Frequently Asked Questions
+@!text
+@heading
+Contents
+
+@shortcontents
+
+@text
+@heading
+Making programs using CGUI
+q - I don't understand how to make my own program using CGUI.<br>
+a - Look at the examples. Study the 01hellox.c example. Make a copy of it to
+where you plan to do your work. Insert the file into a new project. Also add
+libcgui and liballeg to the libs that your programming environment uses. How
+this can be done depends on what development environment you work with
+(MSVC, DevC++, K-develop, Rhide, some of Borland's different platforms etc).
+If you have used Allegro before:just do it the same way as you did when you
+added Allegro to your libs.
+
+@heading
+Garbage on the screen
+q - When I alt-tab to another program and than back again the screen
+contains garbage. The same sometimes happens if I change the screen mode.<br>
+a - Use the F5 key to update the contents of the screen. This just updates
+the screen using the current objects view - it doesn't redraw the objects.
+
+@heading
+What is Allegro
+q - What is Allegro?<br>
+a - It is a multimedia programming tool (graphics, sound etc.) suitable for
+e.g. games. CGUI is an addon to Allegro, i.e. it uses Allegro and therefore
+you also need to link with the Allegro lib when making your programs.
+However you don't need to first learn Allegro to use CGUI if you for the
+moment is only interested in making a program with a graphical user
+interface - CGUI "covers" Allegro completely, so if you don't need any
+graphics primitve routines (like drawing lines, rectangles etc.) you only
+need to learn CGUI.
+
+@heading
+How to call the CGUI-functions
+q - I don't understand how to write the C-code to call the CGUI-functions,
+the function declarations in the documentation looks so messy!<br>
+a - CGUI uses something called event driven processing. This requires the
+use of function pointers. Function pointers as parameters makes the
+function deklarations looking very messy. However, the code that you need to
+write to call them won't look that messy. Look at some approprite examples
+and you will soon get it. Also read the "pointer"-lesson at the home-page
+of CGUI.
+
+@heading
+What is `id'?
+q - What is the "id" required by lots of CGUI-functions?<br>
+a - Read the docs! Briefly: that is a "reference" to some object. Normally
+you don't need this "pointer", you just write code like
+AddButton(..); AddCheck(..); etc. If you for some reason want to do
+something with e.g. that check-box later on - say you want to activate or
+deactivate it. Then you need to save the id returned when the object was
+created, like: int chkid = AddCheck(..); and later on when you want to do
+the deaktivation like DeActivate(chkid);
+
+@heading
+Call-backs or not
+q - Why do some object-types need a call-back function and others do not?<br>
+a - The API is designed in a way to give you as little effort as possible
+when using it in a basic way (like creating some "standard" dialogue). <br>
+Your program shouldn't need to worry about handling the keypresses in an
+edit box, that's a standardised handling and will be done the same way
+every time (normal use). Therefore the edit-box doesn't need any call-back.
+The result of the editing can be taken care of by your program when the user
+has decided that he or she is finished and presses e.g. a OK-button.
+On the other hand, a push-button will have no meaning without a call-back.
+<br>Note that you can optionally add a callback to the objects that are
+"call-back-less", see `AddHandler' in docs.
+
+@heading
+CGUI takes over the control
+q - I get a feeling that CGUI takes over the control, it does everything!<br>
+a - The point with any GUI is to let you put focus on the real problem to
+solve, not toiling with details about how to make the different widgets work.
+You still get the possibility to vary the behaviour of objects in a wide
+range.
+
+@heading
+Personalized widgeets
+q - I want some widgets for my game that is more personal than CGUI's,
+they are so standardized.<br>
+a - Then you need to do some internal hacking for that. Read the
+internal.txt, look at appropriate ob*.c file in the src directory. If
+you need some more hints on how to start just mail <email>rya.christer@gmail.com</a>
+
+@!text
+@!html
+@!rtf
+@!man
+
+
+@# todo: is this still necessary?
+@# This is needed because of a bug in Allegro's makedoc: a @node can't be
+@# the last thing in the file.
+@headingnocontent

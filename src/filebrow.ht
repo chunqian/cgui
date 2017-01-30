@@ -1,0 +1,65 @@
+/* Generated header-file <generator=mktext.1.1> */
+#ifndef FILEBROW_HT
+#define FILEBROW_HT
+#define DEVICE 0
+#define SHOW 1
+#define LABEL_CANCEL 2
+#define FILE_ERROR 3
+#define SELECTED_FILE 4
+#define CREATE_DIRECTORY 5
+#define CREATE_DATAFILE 6
+#define SETTINGS 7
+#define SURE_YOU_WANT_TO_REMOVE_DIRECTORY_NN_OK_CANCEL 8
+#define SURE_YOU_WANT_TO_REMOVE_FILE_NN_OK_CANCEL 9
+#define YES_TO_ALL 10
+#define DELETE_FILE_ERROR_CONTINUE 11
+#define NN_IS_A_DIRECTORY 12
+#define NN_IS_NO_DIRECTORY 13
+#define NN_NOT_EXISTS_RETRY_CLOSE 14
+#define NN_ALREADY_EXISTS_OK_CANCEL 15
+#define NN_ALREADY_EXISTS_CLOSE 16
+#define OPEN_NEW_BROWSER 17
+#define DEFAULT_WINLABEL 18
+#define MANAGER_WINLABEL 19
+#define DEFAULT_BUTLABEL 20
+#define EDIT_FILE 21
+#define COPY_FILE 22
+#define CUT_FILE 23
+#define DELETE_FILE 24
+#define PASTE_FILE 25
+#define SELECT 26
+#define SHOW_IMAGE 27
+#define SHOW_PREVIEW_WINDOW 28
+#define SHOW_ORIGINAL 29
+#define SHOW_TIME 30
+#define SHOW_SIZE 31
+#define SHOW_ATTRIB 32
+#define SHOW_PERM 33
+#define SHOW_HS 34
+#define SHOW_BUFFER 35
+#define FORCE_CASE 36
+#define NO_NAME 37
+#define ERROR_MESSAGE 38
+#define INCOMPLETE_DIR_LIST_CLOSE 39
+#define FB_TXT_DIR 40
+#define FB_TXT_DIRS 41
+#define FB_TXT_FILE 42
+#define FB_TXT_FILES 43
+#define FB_TEXT_MB 44
+#define FB_TEXT_KB 45
+#define FB_TEXT_BYTE 46
+#define LOCATION 47
+#define FILE_ACTION 48
+#define ENTER_PASSWORD 49
+#define COLUMN_LABELS 50
+#define L_ICON 0
+#define L_NAME 1
+#define L_TIME 2
+#define L_SIZE 3
+#define L_ATTRIB 4
+#define NR_COLUMN_LABELS 5
+#define COLUMN_LABELS_U 55
+#define NR_COLUMN_LABELS_U 5
+#define SIZE_filebrow 60
+
+#endif

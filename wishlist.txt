@@ -1,0 +1,61 @@
+
+A C Graphical User Interface [add on to Allegro] by Christer Sandberg
+Email: rya.christer@gmail.com
+Homepage: http://cgui.sourceforge.net/
+                                   Wish List
+
+
+
+
+===================================
+============ Wish List ============
+===================================
+
+Below is listed features that would be useful to have in CGUI. Some of these
+includes quite a lot of work for a single person, so they will probably
+not be done by me. So if you want some of these features, it's better to
+write it yourself and send me a patch. Or maybe you just have an idea what
+would be yet one useful feature? -Just send a mail!
+
+
+   Adding skinnability (to some extent)
+
+   Support for mouse wheel.
+
+   Feature request, file browser: The data file objects could inherit the
+   viewed permission flags from the ones of the data file itself.
+
+   Feature request, file selector: The possibility to pass named file name suffixes (or e
+   groups of) to be used as fixed alternatives instead of the editable one. A complementary
+   function will be needed for that.
+
+   Feature request, file browser: An option to dock the preview window into the browser.
+
+   Performance: The mouse is very inresponsive running on some Linux boxes.
+
+   Feature request: Speed up the mouse by using harware mouse when such is detected.
+
+   Feature request: It would be great to have the usual window buttons for controling the
+   window size etc. at the top.
+
+   Remove the DOS-ish beep that sounds when an erroneous key is pressed
+   in an edit-box (or add support for Allegro sound )
+
+   Creating makefiles for the more of the platforms supported by Allegro, specially MAC.
+
+   Porting to Unicode.
+
+   Making an RPM for Linux.
+
+   A widget for help text viewing (HTML-based).
+
+   A widget for multi line input.
+
+   Internally prefixing.
+
+   Exporting a subset of the now external declared variables and functions in an "include/internal"
+   directory similar to Allegro, just to make it easier for people to make som fun things.
+
+   Externally prefixing (for a future version).
+
+

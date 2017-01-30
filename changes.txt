@@ -1,0 +1,845 @@
+
+A C Graphical User Interface [add on to Allegro] by Christer Sandberg
+Email: rya.christer@gmail.com
+Homepage: http://cgui.sourceforge.net/
+The CGUI Changes File
+==========================
+============  ============
+==========================
+Changes from 2.0.4 to 2.0.5:
+
+   
+      Fixed bug 108 (64 bit Linux issue): changed makefile to aviod compiler error and makehtml.c to aviod some warnings.
+   
+   
+      Fixed minor bug in listboxes probably not noticed.
+   
+   
+      Added return value check of allegro initialization.
+   
+   
+      Corrected email and web adresses in the docs.
+   
+
+
+Changes from 2.0.3 to 2.0.4:
+
+   
+      Fixed bug 3145026.
+   
+      Fixed bug 2909680.
+   
+      Fixed bug 2909679.
+
+
+Changes from 2.0.2 to 2.0.3:
+
+   
+      Fixed bug 2896173.
+   
+      Added feature 2895751
+   
+      Added feature 2895750
+   
+      Added feature 2895747
+
+
+Changes from 2.0.1 to 2.0.2:
+
+   
+      Fixed bug 2818191 "ConditionalRefresh problems" and cleaned up the
+      handling of registered "refresh callbacks".
+   
+      Fixed bug 2753489.
+   
+      Fixed bug 715462 "Columnwidths" (too high listboxes clipped at the
+      bottom, affecting listboxes with FILL|VERTICAL and resizeable columns)
+   
+      Modified example 20 to perform animation by swaping pointers using
+      RegisterImage(). This conforms to the docs for RegisterImage saying
+      "...see also the examples".
+   
+      Added feature 2830892
+
+
+Changes from 2.0.0 to 2.0.1:
+
+   
+      Fixed bug  2019334 "How to edit float values in editboxes?"
+   
+      Fixed bug  2019332 "CGUI 2.0.0 does not build on Windows"
+
+
+Changes from 1.6.26 to 2.0.0:
+
+   
+      This version is not compatible with the previous. The following functions and variables are no longer present i CGUI:
+      
+         
+            SetCguiColors() has been removed.
+         
+            The variables for colors cgui_* has been removed.
+         
+            The variables CGUI_list_row_delimiter_color and CGUI_list_column_delimiter_color has been removed.
+      
+      All handling of palettes has been removed from the lib.
+   
+      CguiSetColor() has been added in order to meet feature request #2015895. This also makes it possible to
+      to make minor modifications to the colors in general.
+
+
+Changes from 1.6.25 to 1.6.26:
+
+    
+      Fixed bug 2011195 "Progress bar update problem"
+    
+      Added feature 1993917 "Mouse wheel support in text box"
+    
+      Fixed bug 1991153 "Annoying error message in textbox."
+    
+      Fixed bug 1991139 "Restricted path does not restrict completely"
+    
+      Added feature 1991122 "A new flag to the file selector"
+    
+      Added feature 1990500 "Too small handle in the browse bar"
+    
+      Added feature 1990492 "Forced scrolling of a textbox"
+    
+      Added feature 1990491 "Highlighted row in textbox"
+    
+      Fixed bug 1952663 "Right click in listbox does not set focus"
+
+
+Changes from 1.6.24 to 1.6.25:
+
+    
+      Fixed bug 1951905 "Crash when focusing an edit box"
+
+
+Changes from 1.6.23 to 1.6.24:
+
+    
+      Removed comments from code that erroneously had been commented out in 1.6.23 (desktop images was not updated).
+    
+      Improvement: Minimized the size of the update area of the progress bar
+      to decrease the CPU load.
+    
+      Fixed bug 1822312 "Key press not handled in edit box"
+    
+      Fixed bug 1153214 "Spanish chars on filenames"
+    
+      Fixed bug 1809116 "Unicode in edit boxes"
+    
+      Fixed a couple of minor memory leaks.
+    
+      Added feature 723572 "Support for mouse wheel"
+    
+      Added feature 1804538 "Mouse emulation"
+    
+      Fixed bug 1789562 "Not all hot keys are recognized."
+   
+      Clarified docs concerning AddTab.
+
+
+Changes from 1.6.22 to 1.6.23:
+
+    
+      Fixed bug 1768806 "Crash when dropping a list box item"
+    
+      Fixed bug 1766360 "Warnings"
+    
+      Fixed bug 723556 "Mouse is sometimes clipped"
+    
+      Fixed bug 723560 "Displacement of permission flags in lists"
+    
+      Fixed bug 1766018 "Unexpectedly closed window"
+    
+      Added feature 1764826 "Adding optional tool tips in list boxes."
+    
+      Added feature 1764830 "Adding options for tool tips"
+    
+      Added feature 1764283 "Drop support for sound"
+    
+      Fixed bug 1764264 "Change in nr of listbox items not reflected in the browse bar"
+    
+      Fixed bug 1763198 "Combination of mouse event types does not work".
+    
+      Fixed bug 1763189 "Missing highlighting while dragging".
+    
+      Fixed bug 723569 "Removing items from a list box".
+    
+      Added feature 1762878 "Add option with non-persistent selection in editbox"
+    
+      Fixed bug 1761595 "Buffer size in editboxes is not handled correctly".
+    
+      Fixed bug 1761502 "Font baseline is ignored in editbox labels".
+    
+      Fixed bug 1761505 "Bad calculation of baseline".
+    
+      Added support for unicode (feature request 723580 "Porting cgui to Unicode"). A
+      new function CguiUseUTF8() was added in order to introduce this.
+    
+      Added a function CguiParseLabels() to make it possible to suppress CGUI's
+      interpreting of certain characters in labels (feature request 1762882 "Add option
+      to avoid parsing of labels")
+
+Changes from 1.6.21 to 1.6.22:
+
+    
+      Adapted the example "game1" to ball.inc so that it compiles and runs.
+
+Changes from 1.6.20 to 1.6.21:
+
+    
+      Changed from `file_size' to `file_size_ex' to make it compatible with
+      Allegro 4.2.1 (int obtext.c, loadtext.c, files.c and datedit.c).
+    
+      New feature: make it possible to optionally pass 3 different label icons
+      for the states normal, inactive and focus/over. object.h, object.c
+      obbutton.c and menbarcm.c.
+    
+      Added docs for the state icons feature.
+    
+      Fixed bug (+feature): When clicking fast in list-boxes more than one row
+      sometimes get marked although the shift key is not down. This can happen
+      even if "multiple rows selection" is turned off. This problem is
+      solved (msm.c) by letting widgets get focus immediately when they go to
+      the "in"-state (before they got the focus not until a successful click).
+      This new behaviour (slightly different from before) is likely to be
+      desired.
+    
+      Fixed bug: When creating new datafile objects these are initialized
+      with the properties "XPOS;YPOS;XSIZ;YSIZ". These have no special meaning
+      when used in cgui: filedat.c and datimage.c.
+    
+      Fixed warnings due to a more strict type analysis in newer versions of
+      gcc: dos2win.c, graphini.c, loadtext.c, obedbox.c, win2dos.c.
+    
+      Fixed bug: All examples that use hot keys use them the wrong
+      way, making them not respond to the hot keys (examples 09, 13, 15, 17
+      and 21).
+    
+      Fixed bug: The handling of hot keys contains a lot of strange code that
+      e.g. makes it impossible to assign a separat hot key using the ALT+key
+      combination. Any altering of keypresses except for changing to uniform
+      case (which is legal according the docs, and which should be kept as is)
+      are removed. Application programmers should use the Allegro encoding
+      only for scan/ascii. hotkey.c and object.c
+    
+      Modified the docs according to the above (SetHotKey()).
+    
+      Modified the docs about using images in labels in general (far more
+      object types were supported than listed).
+    
+      Added new feature: A function to iterate an application function using
+      the event queue, making it easier to use that technique.
+    
+      Added docs for the above
+    
+      Modified the examples to benefit the above feature.
+
+Changes from 1.6.19 to 1.6.20:
+
+    
+      Fixed bug 1382207 "Error in date translation"
+    
+      Made the DELETE key work in editboxes and as Hot-key.
+    
+      Made text on inactive objects more readable.
+    
+      Fixed bug that made back-tab not works in active edit-box.
+    
+      Exported existing function `CreateNewDataFile'.
+    
+      Fixed a minor bug in example 21canvas.
+    
+      Moved the initialization of text strings from creation to SetSize to make the box more dynamic.
+    
+      Fixed warnings "use of cast expressions as lvalues is deprecated" in list.c, from gcc 3.4
+    
+      Fixed bug 1351032 ""Leave tab" call back called at the wrong time."
+    
+      Added makefiles for Mac OSX
+
+
+Changes from 1.6.18 to 1.6.19:
+
+    
+      Fixed bug 1342741 "A couple of bugs related to the file selector"
+    
+      Fixed bug 1342743 "File selector crash when error in path"
+    
+      Cleaned up some build and packing issues.
+
+
+Changes from 1.6.17 to 1.6.18:
+
+   
+      Fixed bug 1335613 "Crash when clicking on empty row in a list"
+
+
+Changes from 1.6.17 to 1.6.18:
+
+   
+      Fixed bug 1326283 "Memory fault during startup"
+
+
+Changes from 1.6.16 to 1.6.17:
+
+   
+      Fixed bug 1326129 "Crash when opening file selector"
+
+
+Changes from 1.6.15 to 1.6.16:
+
+   
+      Fixed bug 1324139 "Flag to file selector is ignored"
+   
+      Fixed bug 1324134 "Browser colors are wrong"
+
+
+Changes from 1.6.14 to 1.6.15:
+
+   
+      Fixed bug 1323177 "Selected directory invisible"
+
+
+Changes from 1.6.13 to 1.6.14:
+
+   
+      Fixed bug  1317733 "Crash when filebrowser path is missing in config file"
+
+
+Changes from 1.6.12 to 1.6.13:
+
+   
+      Fixed bug 1312591 "CGUI doesn't build on MSVC"
+
+
+Changes from 1.6.11 to 1.6.12:
+
+   
+      Fixed bug 1311502 "Don't build on windows"
+
+
+Changes from 1.6.10 to 1.6.11:
+
+   
+      Fixed bug Some applications seg faults during exit. Fixe a possible cause to this (close button call back not locked).
+
+
+Changes from 1.6.9 to 1.6.10:
+
+   
+      Added feature #723590 "Directory cashing in file browser"
+   
+      Added feature #723587 "Tree view in the file browser"
+   
+      Fixed bug #1179445 "Double click does not work"
+   
+      Added feature #1060752 "FileSelect, allegro datafile create option"
+   
+      Added feature #1060750 "FileSelect double click"
+   
+      Fixed bug #1176181 "Cgui don't start with GFX_DIRECTX..." (I think it was fixed by the when making the 4.2 adaptions...)
+   
+      Fixed bug #1177981 "Memory access error in file browser"
+   
+      Fixed bug #1177986 "File browser window ownership error"
+   
+      Added feature #1177163 "Extended functionality of edit-box-callback"
+   
+      Added feature #1177050 "Add support for floats in sliders"
+   
+      Adapted to Allegro 4.2
+   
+      Added feature #1153533 "Let altered hot-keys pass trough edit-boxes".
+   
+      Fixed bug #1117198 "Undocumentetd feature" (list column attribute `COL_RIGHT_ALIGN').
+   
+      Added feature #1116934 "Make tool tips available in menus"
+   
+      Fixed bug #723570 "The 'IsHotKey' function is corrupt".
+   
+      Changed some obscure handling of key-presses: Keys are mapped directly to Allegros representation as far as possible.
+   
+      Improved docs.
+   
+      Fixed bug #1112276 "No multiple files in file selector".
+   
+      Replaced call-data to NULL in a call ConditonalRefresh (data is unused).
+   
+      Added a minor feature to edit-boxes: when the format is of some integer type the up- and down-keys can be used to
+      increment and decrement the value.
+   
+      Function `SetMeasure' was exported but not documented. Added docs and change the name to `SetSpacing'
+   
+      The distance between right edge of the container and the rightmost button is set by the `xdist' rather than `rightx'
+      values. The problem is not visible when using `SetDistance' instead of `SetMeasure' since these values will be the same.
+
+Changes from 1.6.8 to 1.6.9:
+
+   
+      Fixed bug #1065843 "Mouse not hidden when drawing"
+   
+      Fixed bug #1079309 "Mouse trapped when resize width of list column"
+   
+      Fixed bug #1052423 "Name conflict"
+   
+      Fixed bug #1079009 "Text cursor lost"
+   
+      Fixed bug #1065532 "Cursor are not where showed in editboxes"
+   
+      Fixed bug #1065832 "Browse bar in listbox not correct"
+   
+      Fixed bug #1076180 "Bug in list-row drop callback"
+   
+      Fixed bug #1060523 "Browse* don't update correct"
+
+Changes from 1.6.7 to 1.6.8:
+
+   
+      Added Portuguese translation of texts contributed by M�rcio A. Pacheco
+   
+      Added Cygwin build.
+   
+      Fixed bug #1035113 "Mouse clicks stop working"
+   
+      Added feature request #991417 "Add option to Request"
+   
+      Fixed bug #715464 "Wrong call-back order"
+   
+      Fixed bug #991048 "Folder not removed"
+   
+      Fixed bug #985756 "Wrong tab order in tab-windows"
+   
+      Fixed bug #985758 "Crash when using JoinTabChain"
+   
+      Fixed bug #985759 "Blinking cursor in unfocused edit-box"
+   
+      Fixed bug #985791 "Crashes sometimes when calling InsertPoint"
+
+Changes from 1.6.6 to 1.6.7:
+
+   
+      Fixed bug #975912 "There is no target for building dat2c"
+   
+      Fixed bug #975263 "Bug in textbox view"
+   
+      Fixed bug #975911 "Fonts not accessable prior to init"
+   
+      Fixed bug #975914 "Wrong colors on icons"
+
+Changes from 1.6.5 to 1.6.6:
+
+
+   Bug 958894 "Tab windows has an ugly stripe" is fixed (bug in setpos.c, so it might have affecte also other objects).
+
+   A build problem that might have shown on some Windows configurations.
+
+
+Changes from 1.6.4 to 1.6.5:
+
+
+   Feature request #957949 "Improved requester": Added an alternative requester function `Request' allowing for
+   a format string and a variable argument list.
+
+   Exporting function msprintf that returns the formatted text in a dynamic allocated buffer (got it for free
+   from the above).
+
+   Feature request #957952 "Add center option": ALIGNCENTRE added.
+
+   Bug # 957705 "Memory bugs" fixed
+
+   Bug #863853 "Incorrect date<;->;string conversions" fixed
+
+   Parameter 'n' (the number of items) to `AddList' is ignored in case of linked list, see docs for details.
+
+   Feature #916094 "List tree view" is added
+
+   Bug #915651 "Warning messages from mktext" is fixed
+
+   Bug #907676 "Array overflow" is fixed
+
+   Bug #903292 is fixed.
+
+
+Changes from 1.6.3 to 1.6.4:
+
+
+   More bugs concerning mouse: If a Requser was started before ProcessEvents were called the
+   mouse got lost (freezed)
+
+   Correction of the error handling in the date format functions.
+
+
+
+Changes from 1.6.2 to 1.6.3:
+
+
+   Bug (introduced in 1.6.2): The mouse is blocked if calling Req(),
+   FileSelect() Invite() or ProcessEvents() from a mouse call-back after the
+   initial ProcessEvents().
+
+
+Changes from 1.6.1 to 1.6.2:
+
+
+   Added Frensh translation of dialog texts.
+
+   Changed mouse event processing to totally polled in order to hope that
+   solves the problem with random lost (or "freezed") mouse cursor.
+
+   Changed o to $(OBJ_SUFFIX) in MKTEXT_OBJS in makefile.all
+
+   Exported parse in tools/t_parser.h (file was empty)
+
+   The border of the progress bar showed garbage colors. Changed
+   #define FRAMEW HEADERFRAME #define FRAMEW 1 in file obprogr.c
+
+
+Changes from 1.6 to 1.6.1:
+
+
+   Fixed a potential bug in mouse state machine.
+
+   Fixed bug that made example 25 crash
+
+   Added a missed line about an API change in previous version, see below
+
+   Fixed bug in makefile (dat2c linked with lib)
+
+   Fixed bug that made dat2c not compile when Allegro ver 
+
+   Fixed bug in example 25
+
+   Corrected contributors name (Oscar Giner)
+
+   Corrected version comment (was "unofficial")
+
+
+Changes from 1.5.1 to 1.6:
+
+
+   API change: 'LoadImage' is changed to 'CguiLoadImage' to avoid conflict
+   with some Windows header.
+
+   Oscar Giner added translations for Spanish langugage
+
+   Ferenc Havr�nek added translations for Hungarian langugage
+
+   More space added around the desription text of buttons.
+
+   Initialisation: Alternative functions to explictly initilise CGUI
+   with screenmode options (like loading settings from file, using current
+   settings, windowed mode etc.) has been added. This replaces the cryptical
+   0,0,0 codes to InitCgui. The latter can still used for fully
+   API compatibility with vesrion 1.5.
+
+   Rafal Szyja created an alternative set of icons for the icons in built-in dialogues
+
+   Using sound card when present (instead of the PC-speaker beep)
+
+   Rafal Szyja made a new example for joystick testing.
+
+   Rafal Szyja made a new example showing simple usage of a text viewer.
+
+   Docs bug fixed: CloseCgui removed (don't exist in the lib)
+
+   Docs bug fixed: Spelling of ALIGNRIGHT corrected.
+
+   Rafal Szyja corrected some miss spellings in the Polish translation.
+
+
+Changes from 1.5 to 1.5.1:
+
+  Bug: The docs are not built correctly (build of makedoc fails)
+  Bug: Example 07slider: Garbage in the edit-field.
+  Bug: to less colors in the palette display in the file previewer
+      or the file selector.
+  Bug: The "requester" in the game1 looks very angry... a bug in the
+      graphics initialisation.
+  `Palette' is not correctly spellt.
+  Rafal Szyja finished translation of Polish texts.
+  The current data file listing was not updated after "Use palette", in the file browser.
+  Docs: wrong home-page address.
+  Docs: Added link to logo.
+  Docs: Forgot to run the fixver script (version was marked as "beta").
+
+
+Changes from 1.4 to 1.5:
+
+   New feature: Build procedures for Linux, and MSVC has been added, as
+       well as dynamic and debug alternatives for the ports.
+   New feature: Several steps have been taken to simplify the make
+       procedure of CGUI.
+  
+     The path to Allegro is no longer necessary since the makedoc
+         utility is included in the distro of CGUI 1.5
+     The text file containing the label-texts and the headers refering
+         to that, is now included in the distribution as source files, so
+         the mktext utility does not need to be built when building libcgui.
+         (This shouldn't make any difference for normal users, but the
+         distro will thereby be more fault tolerant. For developers of
+         the CGUI lib these files needs to be built).
+     Applications using CGUI 1.4 needed to link with libaldat.a which is not
+         installed by the Allegro 'make install'. That needed to be handled
+         separately. In CGUI 1.5 datlib is a part of the CGUI lib itself.
+     Applications using CGUI 1.4 needed to link with datedit.o in
+         allegro/tools. This file is a part of the lib itself in CGUI version 1.5.
+     Applications using CGUI 1.4 needed to have the file cgui.dat present
+         in the directory of the executable. This file is a part of
+         lib itself in version 1.5.
+  
+   "Tool-tip" texts, has been added. See the docs for details.
+   Rafal Szyja made the CGUI logo.
+   Rafal Szyja added Polish translation of the the built in dialog texts.
+   The text in a textbox can now be updated using `UpdateTextBoxText'.
+   Improved dialogue for screen mode selection. A
+       button "Apply" has been added and the mode will not change until that
+       one has been pressed. Also a possibility to select graphics driver
+       has been added.
+   When an object is sensible for both clicks and
+       drag-and-drop (using the same mouse button), the mouse-handler
+       distinguished the two states using a delay.
+       Now the mouse movement is used instead of the delay, which is a
+       better solution.
+   `Home' and `End' keys has been added for browsing in lists.
+   Files imorted to a dat-file will be stored using its
+       relative path rather that absolute.
+   Bug in the filebrowser: Importing a wav-file didn't work (or rather:
+       importing an object which have an extension that can be imported to a
+       unique data file type has this problem)
+   Bug in the filebrowser: Importing a wav-file gave memeory error.
+   Bug in the browsing object: when a list-box is created with explicit
+       coordinates, the handle of the browsing object will be only 3 pixels
+       high.
+   Bug in DeInitCgui. It didn't really complete the de-initialization
+       until the program exited. This could look like the keyboard was
+       locked, since CGUI's keyboard handler was still there stealing all
+       presses, and doing nothing with them.
+   Bug in the event system. The bug showed up sometimes when a program
+       was about to terminate. More precise, if there were delayed events
+       and the program terminated by a call to 'StopProcessEvents' the
+       program hang in an infinite loop, just before final exit.
+   Bug in edit-box object fixed.
+   Bug that occasionally crashed the program (stack overflow due to
+       infinite recursion, may even crash the system) when trying to
+       refresh an empty list.
+   Bug in the canvas object. The games* examples crashed often when
+       exit, and also the 21canvas examples (and if a window containing a
+       canvas was moved, there would occure undefined contents of the
+       canvas' bitmap).
+   The example 10lists was not correctly built.
+   The example 20anim didn't show correct colours if running in 8bpp.
+   The re-try sequence when InitCgui fails to set the graphics mode has
+       been changed. Now not always assuming that a less bpp is more hopeful.
+       If 15 bpp mode does not work it tries 16 bpp and if 24 fails it
+       tries 32.
+   When a new object was created under the mouse cursor, then the mouse
+       had to be moved (or clicked) to notify the objet that there was a a
+       mouse over it. In some cases this might have looked like "dropped
+       events").
+
+
+Changes from 1.3.1 to 1.4
+Changes in the API:
+SetFocusOn(int id); has been added. It replaces `FocusOn',
+   `SetVisibleWindow', `SetSubFocus' and `SetTabFocus'
+   which all had the same semantic (to set focus on the specified object).
+   The replaced functions are still present for compatibility.
+JoinTabChain(int id); has been added. It replaces `SimpleJoinTabChain'
+   and `NodeJoinTabChain'.The replaced functions are still
+   present for compatibility.
+AddTextBox(int x, int y, const char *string, int width, int
+   nrows, int options); replaces `MkTextObject' (which
+   still exists for compatibility). The 5:th patameter has changed meaning.
+   For `MkTextObject' it meant "extra space between rows",
+   For `AddTextBox' it means the height of the box. There
+   are more option flags, and also the facilities of the box has been increased.
+`FileSelect()' has been added as well as `FileManager()',
+   see docs for details.
+`AddWatch()' has been added, see docs for details.
+`AddSlider()' has been added, see docs for details.
+`AddProgressBar()' has been added as well as `MkProgressWindow()',
+   see docs for details.
+`GetMarkedRows()' has been added. It replaces `GetQueuedSelections()',
+   See docs for details. The replaced function is still present for compatibility.
+
+   A number of features has been added (see the listing above, see the docs and see also the examples).
+   The text-generating function has got improved error handling:
+     
+      A new parameter of&nbsp; `LoadText' has been added.
+          It is a pointer to int. The memory location pointed to will be set to 0
+          if the named section was not found in which case the return value of `LoadTexts'
+          will be NULL and a warning message will be displayed for
+          the user. If the section was found the value will be set to the number
+          of texts that was contained in the section (which may of course also be
+          0 for meaningless empty sections).
+      The text-compiling program `mktext' generates an
+          additional macro (the identifier is the section name prefixed with `SIZE_')
+          that is defined to the number of texts in that section of the source.
+          This macro can be used to check if the number of texts found by
+          `LoadTexts' (see above) is correct.
+      (bugfix) The text-strings (concerning the `mktext' tool) may
+          now also contain the leading language and section markers (i.e. `<;' and `[')
+      (potential error) `mktext' changed to use cgui's
+          memory allocation functions (the allocations were not asserted).
+     
+   (bugfix) The `FocusOn' function for `EditBoxes'
+     forgot to move the focus from the object currently beeing in focus (the
+     edit-box example got crazy and generated an infinte number of windows)
+   The list in Drop-Down-boxes may now contain images.
+   A bug in "KillEvent" has been fixed. May have been harmful in edit-boxes
+       (related to cursor-blinking - a dircet selection from focused edit-box
+       to other object may possibly have generated memory error).
+   The "focusing"-system has been partially re-written, including setting
+       windows in focus.
+   Indication of focused push-buttons extended to make it possible to see that
+       an iconed object is in focus.
+   The "text-box" has been extended with a number of useful facilities, se
+       the docs for details.
+   Fixed bug: calling InitCgui a second time crashed if there were icons
+       in use.
+
+
+Changes from 1.3 to 1.3.1
+
+   Fixed docs: In version 1.3 the docs are broken (makeinfo fails, only
+       html-docs is available)
+   The docs is corrected (const-parameters and return values was documented
+       without the const-qualifier).
+   Two more functions has been "constified".
+
+
+Changes from 1.2 to 1.3
+New features:
+
+   The spinbuttons now adapt thier height to be half the default height
+       of other objects.
+   A function for "clipping" to avoid redundant areas to be blitted when
+       using canvas-objects for animations. The function SetBlitLimit has
+       now been added. Calling it before the canvas blits to screen will
+       use the specified limits, after the blit the limits will be reset.
+       The "game*" examples shows the usage.
+   Adding a parameter to Req() that specifies a window header.
+   A global variable to make it possible to turn off the usage of
+       vsync() in cgui. The name is `cgui_use_vsync'. It is initally set
+       to true.
+   All objects (not only edit-boxes) is now automatically "tabbed", in
+       version 1.2 they must be "tabbed" explicitly by a call to
+       SimpleJoinTabChain(). Customizing the tab-order by use of
+       SimpleJoinTabChain() is still possible.
+   When "tabbing" to an editbox it is no longer necessary to press
+       enter-key to focus it (i.e. make the cursor blinking and beeing
+       ready for input). In version 1.2 the tabbing just marked the box as
+       selected.
+   A flag `cgui_mouse_draw_in_interrupt' is introduced. Initially it is
+       set to 0. If you set it the mouse will be drawn in the callback
+       (interrupt). By default the drawing is done as in version 1.2, i.e.
+       the callback puts a message into the event queue, which when
+       processed will draw the cursor. The purpose with setting
+       cgui_mouse_draw_in_interrupt is to have a more alert cursor. Testing
+       the examples on a slow machine (P133) don't show any need for it.
+      Drawing the mouse-cursor in the interrupt doesn't work well
+          together with canvases for the moment.
+   The function InitFont is removed as well as the clobal variabel
+       CGUI_font.In their place there are the two functions void
+       SetCguiFont(FONT *f) and FONT *GetCguiFont(void). (It was quite
+       stupid with a global variable, which required a function call after
+       change).
+   InitCgui no longer changes the palette if the graphics is already
+       initialized. If the palette needs to be changed Allegros functions
+       must be used. A new function named SetCguiColors(int exact) can be
+       used to let cgui search in the current palette and select the colours
+       that is as close as possible to cgui's needings. If `exact' is
+       non-zero the colours of the pallette entries that was selected will
+       be adjusted to be exact those needed for cgui. If `exact' is 0 these
+       colours may not be affected.
+     If the graphics has not been initialized before InitCgui is called,
+         and InitCgui set the colour to 8 bits, then it will set the colours
+         for the palette indecies of the cgui colours (`cgui_*') to what it
+         need.
+   The makefile can now optionally link using a statically linked
+       Allegro lib. See readme.txt of CGUI 1.3 for details.
+
+Bug fixes:
+
+   Objects sometimes remained in the "pressed view" dispite that the
+       mouse-button is up and the cursor is not even over. This "hanging"
+       could be reset by a new click. The problem was that there was no
+       object-refresh for a state transition directly from
+       mouse-button-down-and-over to init (the normal transition is to
+       either mouse-button-down-off or mouse-button-up-and-over).
+   Sometimes (randomly) it seemed as events were dropped. Keypresses
+       and/or mouse-events sometimes seemd to be missed when running
+       applications on a slow P1-box, but the problem couldn't be surely
+       repeated on a 400MHz P2 computer. There were two errors: The
+       mouse-data buffer (a filtered single-buffer was used) that interfaced
+       the interrupt-handler and the state-machine was sometimes overrun.
+       The concept has been changed in 1.3 and a 1024 positions buffer has
+       been introduced. The second problem was that the event-processor's
+       transfering of pending events to the event queue occationally
+       interfered with the interrupt-handlers' marking of new pending
+       events.
+   The second time the ESC-key was pressed in the example "game1" it
+       was not recognized. Reason: Incompleate de-init.
+   The program crashes when moving the mouse over the menu that pops up
+       when right-clicking in an edit-box (this is probably a general
+       problem with "scratch-menus"). Reason: improper initialization.
+   When a huge number of digits is entered into an integer valued
+       edit-box it crashes. This is due to a limitation in gcc (djgpp): all
+       numeric strings with a number of digits more than 62 crashes when
+       scanning to integer type. The input limit for numbers is now set to
+       less than 62 characters (it was 100 before).
+
+
+Changes from 1.1 to 1.2
+
+   Corrected a bug (present also on the DJGPP platform) that crashed the
+       program when moving the cursor to the left or bottom edge of the
+       screen.
+   Corrected a bug that crashed the program when the cursor goes from
+       "ready to re-size" to "outside object". Analogue problem when
+       dragging. (No problem under DJGPP)
+   Corrected a bug that crashed the program when DeActivate or Activate
+       was called with a node-id as parameter.(No problem under DJGPP).
+   Corrected a bug that crashed the program when calling SetListColumns.
+       (No problem under DJGPP).
+   Corrected a bug that crashed the program when using drag-and-drop and
+       dragging something over areas illegal to drop on and then returning
+       to a "droppable" place. (No problem under DJGPP).
+   Corrected a bug that crashed the program when re-sizing the height of
+       a list to less than 0. (No problem under DJGPP).
+   Corrected a bug that crashed the program if the mouse was dragged
+       repeatedly over a number of menu-items when another window is in
+       focus and on top of the window with the menus. (No problem under
+       DJGPP).
+   Corrected an bug that randomly hanged the mouse cursor. (No problem
+       under DJGPP).
+   Corrected a bug that made it possible to re-size a simple object to
+       be of a height less than 0 (after that it was not possible to stretch
+       it again).
+   "constified" a number of parameters to various functions in CGUI.
+   Some changes in the examples (some memory voilations which led to
+       crash on the windows platform, and some changes to conform to the
+       changes in CGUI).
+
+
+Changes from 1.0 to 1.1
+
+   Adaption made to support allegro 3.9.37: Variables
+       _keyboard_installed and _color_depth become undefined since the
+       externals in allegro.h moved to alintern.h. Variables was used to
+       restore the inital state of Allegro if Allegro was initalized before
+       cgui. Solved by skipping the keyboard check and making a dirty look
+       in the vtable struct. No changes in functionality.
+   The allegro config-file in the examples directory changed language
+       from se to en, and some irrelvant test-stuff has been removed from it.
+
+
+1.0
+
+   Initial official version.
+
+
