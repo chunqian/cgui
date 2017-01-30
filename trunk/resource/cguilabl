@@ -1,0 +1,1666 @@
+<en>
+[clock
+"Adjust watch settings
+"Apply
+"Show seconds
+"#27;Close
+[file_import_query
+"Properties of imported object
+"Name:
+"Type:
+"Matching_types
+"All_types
+"Do import
+"Skip import
+"You must check at least one type.| OK 
+"Fonts can only use 8 bits colour depth.| OK 
+"Enter password:
+"#10; ~OK 
+"#27;~Cancel
+"The entered password is incorrect. Try again| OK 
+"Clean pwd list
+"Save local
+"Shall the existing object (%s) be updated or a new created?|Update|New
+"Prettify name
+"Use relative path
+[filebrow
+"Disk device:
+"Show:
+"#27;~Cancel
+"Illegal file|~OK
+"Selected:
+"Create sub directory
+"Create Allegro data file
+"#settings;Settings
+"Are you sure that you want to remove the directory "%s" (all that may be stored in it will be deleted)?|Yes| No 
+"Are you sure that you want to remove the file "%s".|Yes| No 
+"|Yes_to all
+"The removing of the disk object is not fulfilled|Continue
+"%s is a directory|Close
+"%s is no directory|Close
+"%s does not not exist. Try again.|Close
+"%s does already exist, are you really sure?|Yes|Cancel
+"%s does already exist, please try again|OK
+"Open new file-browser
+"CGUI file-selector
+"CGUI file-manager
+"OK
+"Edit properties
+"Copy file
+"Cut file
+"Delete
+"Paste
+"Select
+"Show image
+"Preview window
+"Show original place
+"Show update time
+"Show size
+"Show attributes
+"Show permissions
+"Show hidden/system files
+"Show copy buffer
+"Formatted names
+"No name present
+"Error message
+"The directory listing may be incomplete due to and unknown error|OK
+"dir
+"dirs
+"file
+"files
+"MB
+"kB
+"bytes
+"Location:
+"Action
+"Enter password
+"
+"Name
+"Changed
+"Size(k)
+"Attrib
+"
+"Name
+"Changed
+"Size(k)
+"Permissions
+[filebuff
+"Selection buffer
+"#27;Close
+"Clean
+"Add mode
+"The specified file does already exist, replace it?|Yes|No
+"Error when trying to read the file|Close
+"Error when trying to create the new file|Close
+"The directory %s could not be removed. Message from the system: %s|Close
+"The file %s could not be removed. Message from the system: %s|Close
+"The Allegro datafile object %s could not be removed. Message from the system: %s|Close
+[filedial
+"You are not allowed to change the permissions| OK 
+"Flags: 
+"Permissions 
+"Edit disk object
+"Location:
+"Name:
+"Action
+"Size:
+"Latest change at:
+"Unknown
+"Source-name:
+"Type of file:
+"Allegro datafile (directory)
+"Allegro sound sample
+"Allegro midi file
+"Allegro midi file
+"Allegro animation
+"Allegro image
+"Allegro sprite
+"Allegro compiled sprite
+"Allegro mode-x compiled sprite
+"Allegro palette
+"Allegro font
+"Allegro binary file
+"Allegro user-defined
+"Allegro datafile
+"Directory
+"File
+"Image
+"Attributes
+"~R (Write protected)
+"~H (Hidden)
+"~S (System file)
+"~A (Archive file)
+"The command to change attribute failed. The message from the system is:"%s"|Close
+"The command to change attribute failed for unknown reasons.|Close
+"Packing:
+"None
+"Individual
+"Global
+"The specified directory couldn't be created|#27;Close
+"Create directory
+"Create sub data file
+"Create new data file
+"Allegro datafile
+" OK 
+"#27;~Cancel
+"The data file has now been store with the new password._Shall the previous password be forgotten?|Yes| No 
+"The data file has now been store without password._Shall the previous password be forgotten?|Yes| No 
+"The data file has now been store with the new password._Shall the previous password be forgotten or shall both be kept in memory?|Keep_both|Foreget_it
+"Save password local
+"Data file properties
+"Password
+"Clean pwd list
+"Update objects
+"(scaled)
+"Viev full size
+"Data file object
+"Property list
+"New property
+"Header file generation
+"File name:
+"Browse...
+"Macro prefix (optional):
+"Do generate
+"The generation did fail.|Close
+"Use palette
+"Unimplemented viewer
+"Select header file name
+"Select
+"Owner:
+"Group:
+"Other:
+"Read
+"Write
+"Execute
+[formatletters
+"D
+"M
+"Y
+"h
+"m
+"s
+[graphini
+"Enter new screen setting
+"Settings
+"Info
+"Available modes
+"Current mode
+"Selected mode
+"Set mode
+"Previously failed with mo de
+"Graphics driver:
+"Allegro failed to detect available screen modes
+"more tries before
+"#27;Close
+[longdays
+"Sunday
+"Monday
+"Tuesday
+"Wednesday
+"Thursday
+"Friday
+"Saturday
+[longmonths
+"January
+"February
+"March
+"April
+"May
+"June
+"July
+"August
+"September
+"October
+"November
+"December
+[obtext
+"Error opening file %s.|#27;Continue
+[shortdays
+"Sun
+"Mon
+"Tue
+"Wed
+"Thu
+"Fri
+"Sat
+[shortmonths
+"Jan
+"Feb
+"Mar
+"Apr
+"May
+"Jun
+"Jul
+"Aug
+"Sep
+"Oct
+"Nov
+"Dec
+<se>
+[clock
+"Klockans inställningar
+"Verkställ
+"Visa sekunder
+"#27;Stäng
+[file_import_query
+"Egenskaper för importerat objekt
+"Namn:
+"Typ:
+"Matchande_typer
+"Alla_typer
+"Importera
+"Importera ej
+"Du måste välja någon typ.| OK 
+"Fonter kräver 8 bitars färgdjup.| OK 
+"Ange lösen:
+"#10; ~OK 
+"#27;~Avbryt
+"Det angivna lösenordet är felaktigt. Försök igen| OK 
+"Radera lösenordslistan
+"Spara lokalt
+"Ska det befintliga objektet (%s) uppdateras eller ska ett nytt skapas?|Uppdatera|Skapa nytt
+"Snygga till namn
+"Använd relativ sökväg
+[filebrow
+"Enhet:
+"Visa:
+"#27;~Avbryt
+"Ogiltig fil|~OK
+"Vald:
+"Skapa underkatalog
+"Skapa en Allegro datafil
+"#settings;Anpassa
+"Är du säker på att du vill ta bort katalogen "%s" (allt som eventuellt finns i den kommer också att tas bort)?|Ta bort|Avbryt
+"Är du säker på att du vill ta bort filen "%s"|Ta bort|Avbryt
+"|Ja till_alla
+"Borttagande av filobjektet har inte fullföljts|Fortsätt
+"%s är en katalog|Stäng
+"%s är inte en katalog|Stäng
+"%s finns inte. Försök igen|Stäng
+"%s finns redan, är du verkligen säker?|Japp|Avbryt
+"%s finns redan, försök igen.|OK
+"Öppna ny fil-bläddrare
+"CGUI:s filväljare
+"CGUI:s filövervakare
+"OK
+"Byt namn
+"Kopiera fil
+"Klipp ut fil
+"Ta bort
+"Klistra in
+"Välj
+"Visa bild
+"Förhandsgranskning
+"Visa originalplats
+"Visa ändringstid
+"Visa storlek
+"Visa attribut
+"Visa rättigheter
+"Visa gömda-/systemfiler
+"Visa kopieringsbuffert
+"Formatterade namn
+"Namn saknas
+"Felmeddelande
+"Den visade filkatalogen kan vara ofullständig pga okänt fel.|Stäng
+"katalog
+"kataloger
+"fil
+"filer
+"MB
+"kB
+"bytes
+"Plats:
+"Kör
+"Ange lösen
+"
+"Namn
+"Ändrad
+"Storlek(k)
+"Attrib
+"
+"Namn
+"Ändrad
+"Storlek(k)
+"Rättigheter
+[filebuff
+"Märkta filer
+"#27;Stäng
+"Töm
+"Lägg till
+"Den angivna filen finns redan, ska den ersättas|Ja|Nej
+"Det blev fel filen skulle läsas|Stäng
+"Det blev fel när den nya filen skulle skapas|Stäng
+"Det gick inte att ta bort katalogen %s. Meddelandet från systemet lyder:"%s"|Stäng
+"Det gick inte att ta bort filen %s. Meddelandet från systemet lyder:"%s"|Stäng
+"Det gick inte att ta bort datafilsobjektet %s. Meddelandet från systemet lyder:"%s"|Stäng
+[filedial
+"Det är inte tillåtet för dig att ändra rättigheterna| OK 
+"Flaggor: 
+"Rättigheter
+"Redigera diskobjekt
+"Plats:
+"Namn:
+"Kör
+"Storlek:
+"Senast ändrad:
+"Okänt
+"Ursprungsnamn:
+"Typ av fil:
+"Allegro datafil, underkatalog
+"Allegro ljudinspelning
+"Allegro midi fil
+"Allegro midi fil
+"Allegro animation
+"Allegro bild
+"Allegro sprite
+"Allegro kompilerad sprite
+"Allegro mode-x kompilerad sprite
+"Allegro palett
+"Allegro font
+"Allegro binärfil
+"Allegro tillämpningsspecifikt objekt
+"Allegro datafil
+"Filkatalog
+"Fil
+"Bild
+"Attribut
+"~R (Skrivskyddad)
+"~H (Dold)
+"~S (Systemfil)
+"~A (Arkivfil)
+"Kommandot att ändra på attribut misslyckades. Meddelandet från systemet lyder:"%s"|Stäng
+"Kommandot att ändra på attribut misslyckades av okänd anledning.|Stäng
+"Packning:
+"Ingen
+"Individuell
+"Global
+"Den angivna katalogen kan inte skapas|#27;Stäng
+"Skapa katalog
+"Skapa nästlad datafil
+"Skapa ny datafil
+"Allegro datafil
+" OK 
+"#27;~Avbryt
+"Datafilen har nu sparats med det nya lösenordet._Ska det gamla lösenordet glömmas?| Ja |Nej
+"Datafilen har nu sparats utan lösenordet._Ska det tidigare lösenordet glömmas?| Ja |Nej
+"Datafilen har nu sparats med det nya lösenordet._Ska det tidigare använda lösenordet glömmas eller ska båda behållas i minnet?|Behåll_båda|Glöm
+"Spara lösen lokalt
+"Datafilsegenskaper
+"Lösenord
+"Radera lösenordslistan
+"Uppdatera objekten
+"(skalad)
+"Visa full storlek
+"Datafilobjekt
+"Egenskapslista
+"Ny egenskap
+"H-fil generering
+"Fil namn:
+"Bläddra...
+"Makro prefix (valfri):
+"Generera filen!
+"Genereringen misslyckades|Stäng
+"Använd paletten
+"Denna objekttyp saknar visningsfunktion
+"Ange namn för h-filen
+"Välj
+"Ägare:
+"Grupp:
+"Andra:
+"Läsa
+"Skriva
+"Exekvera
+[formatletters
+"D
+"M
+"Å
+"h
+"m
+"s
+[graphini
+"Ställ in skärmläge
+"Inställning
+"Info
+"Existerande skärmlägen
+"Nuvarande inställning
+"Valt nytt läge
+"Verkställ
+"Tidigare misslyckats med:
+"Grafikdrivrutin:
+"Allegro kunde inte avgöra vilka skärmlägen som finns
+"fler försök innan dess
+"#27;Stäng
+[longdays
+"söndag
+"måndag
+"tisdat
+"onsdag
+"torsdag
+"fredag
+"lördag
+[longmonths
+"januari
+"februari
+"mars
+"april
+"maj
+"juni
+"juli
+"augusti
+"september
+"oktober
+"november
+"december
+[obtext
+"Det går inte att öppna filen %s.|#27;Fortsätt
+[shortdays
+"sön
+"mån
+"tis
+"ons
+"tor
+"fre
+"lör
+[shortmonths
+"jan
+"feb
+"mar
+"apr
+"maj
+"jun
+"jul
+"aug
+"sep
+"okt
+"nov
+"dec
+<pl>
+[clock
+"Zmien ustawienia zegara
+"Zastosuj
+"Pokaz sekundy
+"#27;Zamknij
+[file_import_query
+"Wlasciwosci zaimportowanych obiektow
+"Nazwa:
+"Typ:
+"zgodne_typy
+"wszystkie_typy
+"Importuj
+"Pomin import
+"Sprawdz przynajmniej jeden typ.| OK 
+"Fonty moga uzywac tylko 8 bitowej glebi koloru.| OK 
+"Wprowadz haslo:
+"#10; ~OK 
+"#27;~Anuluj
+"Nieprwaidlowe haslo. sprobuj jeszcze raz| OK 
+"Wyczysc liste hasel
+"Zapisz haslo
+"Obiekt (%s) ma zostac zaktualizowany czy zapisany jako inny?|Aktualizuj|Zapisz jako inny
+"lepsza nazwa
+"Relatywna sciezka
+[filebrow
+"Naped:
+"Pokaz:
+"#27;~Anuluj
+"Niepoprawny plik|~OK
+"Zaznaczone:
+"Stworz folder
+"Stworz Allegro data file
+"#settings;Ustawienia
+"Czy na pewno usunac folder "%s" ? |Tak| Nie 
+"Czy na pewno usunac plik "%s".|Tak| Nie 
+"|Tak na wszystkie
+"Blad usuwania pliku|Kontynuuj
+"%s jest folderem|Zamknij
+"%s NIE jest folderem|Zamknij
+"%s nie istnieje. sprobuj ponownie.|Zamknij
+"%s juz istnieje, czy kontynuowac?|Tak|Anuluj
+"%s juz istnieje. sprobuj ponownie.|OK
+"Otworz nowa przegladarke
+"CGUI - wybor pliku
+"CGUI - manager plikow
+"OK
+"Wlasciwosci
+"Kopiuj
+"Wytnij
+"Usun
+"Wklej
+"Wybierz
+"Pokaz obraz
+"Okno podgladu
+"Pokaz orignalna sciezke
+"Pokaz czas modyfikacji
+"Pokaz rozmiar
+"Pokaz atrybuty
+"Pokaz uprawnienia
+"Pokaz pliki ukryte/systemowe
+"Pokaz bufor kopiowania
+"przeformatowane nazwy
+"brak nazwy
+"Informacja o bledzie
+"Wypis zawartosci folderu moze byc niekompletny z powodu nieznanego bledu|OK
+"dir
+"dirs
+"Plik
+"Pliki
+"MB
+"kB
+"bajtow
+"Lokacja:
+"Akacja
+"Wprowadz haslo
+"
+"Nazwy
+"Zmieniony
+"Rozmiar(k)
+"Atryb.
+"
+"Nazwy
+"Zmieniony
+"Rozmiar(k)
+"Permissions
+[filebuff
+"Bufor zaznaczenia
+"#27;Zamknij
+"Wyczysc
+"Tryb dodawania
+"Plik juz istnieje, nadpisac go?|Tak|Nie
+"Wystapil blad podczas czytania pliku|Zamknij
+"Wystapil blad podczas tworzenia pliku|Zamknij
+"Katalog %s nie moze zostac usuniety. informacja od systemu: %s|Zamknij
+"Plik %s nie moze zostac usuniety. informacja od systemu: %s|Zamknij
+"Obiekt %s w datafile nie moze zostac usuniety. informacja od systemu %s|Zamknij
+[filedial
+"Nie mozesz zmienic uprawnien| OK 
+"Flagi: 
+"Uprawnienia
+"Edytuj obiekt
+"Lokacja:
+"Nazwa:
+"Akcja
+"Rozmiar:
+"Ostatnia modyfikacja:
+"Nieznane
+"Nazwa zrodla:
+"Typ pliku:
+"Allegro datafile (katalog)
+"Allegro sample dzwieku
+"Allegro midi
+"Allegro midi instrument
+"Allegro animacja
+"Allegro obraz
+"Allegro sprite
+"Allegro skompilowany sprite
+"Allegro skompilowany mode-x sprite
+"Allegro paleta
+"Allegro font
+"Allegro plik binarny
+"Allegro zdef. przez uzytkownika
+"Allegro datafile
+"Folder
+"Plik
+"Obraz
+"Atrybuty
+"~R (Tylko do odczytu)
+"~H (Ukryty)
+"~S (Systemowy)
+"~A (Archiwalny)
+"Blad zmiany atrybutu. informacja od systemu:"%s"|Zamknij
+"Blad zmiany atrybutu z nieznanego powodu.|Zamknij
+"Pakowanie:
+"Brak
+"Indywidualne
+"Globalne
+"KAtalog nie mozna zostac utworzony|#27;Zamknij
+"Stworz katalog
+"Stworz pod-datafile
+"Stworz nowy data file
+"Allegro datafile
+" OK 
+"#27;~Anuluj
+"Data file zostal zapisany z nowym haslem._Czy stare powinno zostac usuniete?|Tak| Nie 
+"Data file zostal zapisany bez hasla._Czy stare powinno zostac usuniete?|Tak| Nie 
+"Data file zostal zapisany z nowym haslem._Usunac stare czy zatrzymac obydwa? |Zatrzymaj_obywda|Usun_stare
+"Zapisz haslo
+"Wlasciwosci data file
+"Haslo
+"Usun liste hasel
+"Aktualizuj obiekty
+"(skalowane)
+"Pokaz pelny rozmiar
+"obiekt data file
+"Lista wlasciwosci
+"New property
+"tworzenie naglowka .h
+"nazwa pliku:
+"przegladaj...
+"prefiks (opcja):
+"Wykonaj
+"Blad genereacji naglowka.|Zamknij
+"Use this_palette
+"Niezaimplementowana przegladarka
+"Wybierz nazwe naglowka
+"Wybierz
+"Wlasciciel:
+"Grupa:
+"Inne:
+"Odczyt
+"Zapis
+"Wykonywanie
+[formatletters
+"D
+"M
+"Y
+"h
+"m
+"s
+[graphini
+"Nowe ust. ekranu
+"Ustawienia
+"Info
+"Dostepne tryby
+"Aktualny tryb
+"Wybrany tryb
+"Ustaw
+"Poprzednio wystapil blad z tym trybem
+"Sterownik:
+"Allegro nie moze wykryc dostepnyvh trybow
+"Wiecej prob
+"#27;Zamknij
+[longdays
+"Sunday
+"Monday
+"Tuesday
+"Wednesday
+"Thursday
+"Friday
+"Saturday
+[longmonths
+"January
+"February
+"March
+"April
+"May
+"June
+"July
+"August
+"September
+"October
+"November
+"December
+[obtext
+"Blad - nie mozna otworzyc pliku %s.|#27;Kontynuuj
+[shortdays
+"Sun
+"Mon
+"Tue
+"Wed
+"Thu
+"Fri
+"Sat
+[shortmonths
+"Jan
+"Feb
+"Mar
+"Apr
+"May
+"Jun
+"Jul
+"Aug
+"Sep
+"Oct
+"Nov
+"Dec
+<hu>
+[clock
+"Óra beállításai
+"Alkalmaz
+"Másodpercek mutatása
+"#27;Bezár
+[file_import_query
+"Importált objektum tulajdonságai
+"Név:
+"Típus:
+"Egyezõ típusok
+"Minden típus
+"Importál
+"Importálás kihagyása
+"Legalább egy típust ki kell jelölni.| OK 
+"betûk csak 8 bites színmélységûek lehetnek.| OK 
+"Jelszó:
+"#10; ~OK 
+"#27;~Mégsem
+"helytelen jelszó. Próbálja újra| OK 
+"Jelszólista törlése
+"Helyi mentés
+"A létezõ (%s) objektumot frissítsük, vagy újat készítsünk?|Frissít|Új
+"Név szépítése
+"Relatív útvonal használata
+[filebrow
+"Lemez eszköz:
+"Mutat:
+"#27;~Mégsem
+"Érvénytelen fájl|~OK
+"Kiválasztva:
+"Alkönyvtár készítése
+"Allegro data fájl készítése
+"#settings;Beállítások
+"Biztos benne,hogy el akarja távolítani a "%s" könyvtárat (minden tartalma törlésre kerül)?|Igen| Nem 
+"Biztos benne, hogy el akarja távolítani a "%s fájlt?".|Igen| Nem 
+"|Igen mindenre
+"A lemez objektum eltávolítása nem sikerült|Folytatás
+"%s egy könyvtár|Bezárás
+"%s nem könyvtár|Bezárás
+"%s nem létezik. Próbálja újra.|Bezárás
+"%s már létezik, biztos benne?|Igen|Mégsem
+"%s már létezik, próbálja újra|OK
+"Új fájl böngészõ megnyitása
+"CGUI fájl kiválasztó
+"CGUI fájlkezelõ
+"OK
+"Tulajdonságok szerkesztése
+"Fájl másolás
+"Fájl kivágás
+"Törlés
+"Beillesztés
+"Kiválaszt
+"Kép mutatása
+"Elõnézet
+"Eredeti hely mutatása
+"Módosítási idõ mutatása
+"Méret mutatása
+"Attributumok mutatása
+"Jogosultságok mutatása
+"Rejtett és rendszerfájlok mutatása
+"Másolási tár mutatása
+"Formázott nevek
+"Nincs név
+"Hibaüzenet
+"A könyvtárlista hiányos lehet ismeretlen hiba miatt|OK
+"könyvtár
+"könyvtárak
+"fájl
+"fájlok
+"MB
+"kB
+"bájt
+"Hely:
+"Mûvelet
+"Jelszó beírása
+"
+"Név
+"Változtatva
+"Méret(k)
+"Tulajd.
+"
+"Név
+"Változtatva
+"Méret(k)
+"Jogosultság
+[filebuff
+"Kijelölési tároló
+"#27;Bezár
+"Töröl
+"Mód hozzáadása
+"Az adott fájl már létezik, felülírjam?|Igen|Nem
+"Fájl olvasási hiba|Bezárás
+"Új fájl létrehozási hiba|Bezárás
+"A(z) %s könyvtár eltávolítása nem sikerült. Rendszerüzenet: %s|Bezár
+"A(z) %s fájlt nem sikerült eltávolítani. Rendszerüzenet: %s|Bezár
+"A(z) %s Allegro data fájl elem eltávolítása nem sikerült. Rendszerüzenet: %s|Bezár
+[filedial
+"Önnek nincs engedélye a jogosultságok változtatására| OK 
+"Jelzõk: 
+"Jogosultságok 
+"Lemez objektum szerkesztése
+"Hely:
+"Név:
+"Mûvelet
+"Méret:
+"Utoljára változtatva:
+"Ismeretlen
+"Forrás-név:
+"Fájltípus:
+"Allegro datafájl (könyvtár)
+"Allegro hangminta
+"Allegro midi fájl
+"Allegro midi fájl
+"Allegro animáció
+"Allegro kép
+"Allegro sprite
+"Allegro lefordított sprite
+"Allegro mode-x lefordított sprite
+"Allegro paletta
+"Allegro betûtípus
+"Allegro bináris fájl
+"Allegro felhasználói
+"Allegro datafájl
+"Könyvtár
+"Fájl
+"Kép
+"Tulajdonságok
+"~R (Írásvédett)
+"~H (Rejtett)
+"~S (Rendszer fájl)
+"~A (Archív fájl)
+"A tulajdonság megváltoztatása nem sikerült. Rendszerüzenet:"%s"|Bezár
+"A tulajdonság megváltoztatása ismeretlen okból nem sikerült.|Bezár
+"Tömörítés:
+"Semmi
+"Egyedi
+"Globális
+"A megadott könyvtárt nem sikerült léátrehozni|#27;Bezár
+"Könyvtár létrehozás
+"Al adat fájl létrehozás
+"Új adatfájl létrehozás
+"Allegro datafájl
+" OK 
+"#27;~Mégsem
+"Az adatfájl eltárolva az új jelszóval._Az elõzõ jelszót elfelejtsem?|Igen| Nem 
+"Az adatfájl eltárolva jelszó nélkül._Az elõzõ jelszót elfelejtsem?|Igen| Nem 
+"Az adatfájl eltárolva az új jelszóval._Az elõzõ jelszót elfelejtsem, vagy legyen mindkettõ a memóriában?|Mindkettõ|Elfelejt
+"Jelszó helyi mentése
+"Adat fájl tulajdonságok
+"Jelszó
+"Jelszó lista törlése
+"Objeltumok frissítése
+"(méretezett)
+"Teljes méret
+"Adatfájl objektum
+"Tulajdonság lista
+"Új tulajdonság
+"Fejléc fájl generálás
+"Fájl név:
+"Tallóz...
+"Macro prefix (esetleges):
+"Generál
+"A generálás nem sikerült.|Bezár
+"Paletta alkalmazása
+"Nincs megfelelõ nézõ
+"fejléc fájl kiválasztása
+"Kiválaszt
+"Tulajdonos:
+"Csoport:
+"Más:
+"Olvas
+"Ír
+"Futtet
+[formatletters
+"D
+"M
+"Y
+"h
+"m
+"s
+[graphini
+"Új képernyõ beállítások beírása
+"Beállítások
+"Infó
+"Elérhetõ módok
+"Jelenlegi mód
+"Kiválasztott mód
+"Mód beállítása
+"Elõzõ hibás mód
+"Grafikus meghajtó:
+"Allegro: nem sikerült az elérhetõ módokat felismerni 
+"további próbálkozások, mielõtt
+"#27;Bezár
+[longdays
+"Sunday
+"Monday
+"Tuesday
+"Wednesday
+"Thursday
+"Friday
+"Saturday
+[longmonths
+"January
+"February
+"March
+"April
+"May
+"June
+"July
+"August
+"September
+"October
+"November
+"December
+[obtext
+"Hiba a %s fájl megnyitásánál.|#27;Folytatás
+[shortdays
+"Sun
+"Mon
+"Tue
+"Wed
+"Thu
+"Fri
+"Sat
+[shortmonths
+"Jan
+"Feb
+"Mar
+"Apr
+"May
+"Jun
+"Jul
+"Aug
+"Sep
+"Oct
+"Nov
+"Dec
+<es>
+[clock
+"Ajustar configuración del reloj
+"Aplicar
+"Mostrar segundos
+"#27;Cerrar
+[file_import_query
+"Propiedades del objeto importado
+"Nombre:
+"Tipo:
+"Tipos_asociados
+"Todos_los tipos
+"Importar
+"Saltar importación
+"Debes seleccionar al menos un tipo.| Aceptar 
+"Las fuentes solo pueden usar una profundidad de color de 8 bits.| Aceptar 
+"Introduce el password:
+"#10; ~Aceptar 
+"#27;~Cancelar
+"El password introducido es incorrecto. Inténtalo de nuevo| Aceptar 
+"Limpiar lista de pwds
+"Salvar local
+"¿Se deben actualizar el objeto existente (%s), o se debe crear uno nuevo?|Actualizar|Nuevo
+"Mejorar apariencia del nombre
+"Usar ruta relativa
+[filebrow
+"Unidad:
+"Mostrar:
+"#27;~Cancelar
+"Archivoilegal|~Aceptar
+"Seleccionado:
+"Crear subdirectorio
+"Crear archivo de datos de Allegro
+"#settings;Configuración
+"¿Estás seguro de que quieres eliminar el directorio "%s" (todo lo que esté guardado en él será eliminado)?|Sí| No 
+"¿Estás seguro de que quieres eliminar el archivo "%s"?|Sí| No 
+"|Sí a todo
+"La eliminadióc del objeto no se ha completado|Continuar
+"%s es un directorio|Cerrar
+"%s no es un directorio|Cerrar
+"%s no existe. Inténtalo de nuevo.|Cerrar
+"%s ya existe, estás seguro?|Sí|Cancelar
+"%s ya existe, inténtalo de nuevo|Aceptar
+"Abrir nuevo navegador
+"Selector de archivos de CGUI
+"Gestor de archivos de CGUI
+"Aceptar
+"Editar propiedades
+"Copiar archivo
+"Cortar archivo
+"Eliminar
+"Pegar
+"Seleccionar
+"Mostrar imagen
+"Ventana de previsualización
+"Mostrar lugar original
+"Mostrar tiempo de modificación
+"Mostrar tamaño
+"Mostrar atributos
+"Mostrar permisos
+"Mostrar archivos ocultos/de sistema
+"Mostrar búffer de copia
+"Nombres formateados
+"Nombre no presente
+"Mensaje de error
+"El listado del directorio puede estar incompleto debido a un error desconocido|Aceptar
+"dir
+"dirs
+"arch
+"archs
+"MB
+"kB
+"bytes
+"Dirección:
+"Acción
+"Introduce el password
+"
+"Nombre
+"Modificado
+"Tamaño(k)
+"Atrib.
+"
+"Nombre
+"Modificado
+"Tamaño(k)
+"Permisos
+[filebuff
+"Búffer de selección
+"#27;Cerrar
+"Limpiar
+"Modo añadir
+"El archivo especificado ya existe, reemplazarlo?|Sí|No
+"Error al intentar leer el archivo|Cerrar
+"Error al intentar crear un nuevo archivo|Cerrar
+"El directorio %s no pudo ser eliminado. Mensaje del sistema: %s|Cerrar
+"El archivo %s . Mensaje del sistema: %s|Cerrar
+"El objeto del archivo de datos de Allegro %s no pudo ser eliminado. Mensaje del sistema: %s|Cerrar
+[filedial
+"No se te permite cambiar los permisos| Aceptar 
+"Flags: 
+"Permisos 
+"Editar objeto de disco
+"Dirección:
+"Nombre:
+"Acción
+"Tamaño:
+"Última modificación:
+"Desconocido
+"Nombre origen:
+"Tipo de archivo:
+"Archivo de datos de Allegro (directorio)
+"Muestra de sonido de Allegro
+"Archivo midi de Allegro
+"Archivo midi de Allegro
+"Animación de Allegro
+"Imagen de Allegro
+"Sprite de Allegro
+"Sprite compilado de Allegro
+"Sprite compilado modo-x de Allegro
+"Paleta de Allegro
+"Fuente de Allegro
+"Archivo binario de Allegro
+"Definido por el usuario de Allegro
+"Archivo de datos de Allegro
+"Directorio
+"Archivo
+"Imagen
+"Atributos
+"~R (Protegido contra escritura)
+"~H (Oculto)
+"~S (Sistema)
+"~A (Archivo)
+"El comando para cambiar los atrbutos falló. El mensaje del sistema es:"%s"|Cerrar
+"El comando para cambiar los atrbutos falló por razones desconocidas.|Cerrar
+"Empaquetado:
+"Nada
+"Individual
+"Global
+"El directorio especificado no se ha podido crear|#27;Cerrar
+"Crear directorio
+"Crear sub-archivo de datos
+"Crear nuevo archivo de datos
+"Archivo de datos de Allegro
+" Aceptar 
+"#27;~Cancelar
+"El archivo de datos se ha guardado con el nuevo password._¿Debe olvidarse el password anterior?|Sí| No 
+"El archivo de datos se ha guardado sin password._¿Debe olvidarse el password anterior?|Sí| No 
+"El archivo de datos se ha guardado con el nuevo password._Debe olvidarse el password anterior o deben dejarse en memoria ambos?|Mantener ambos|Olvidarlo
+"Salvar password local
+"Propiedades del archivo de datos
+"Password
+"Limpiar lista de pwds
+"Actializar objectos
+"(escalada)
+"Mostrar tamaño completo
+"Objeto de archivo de datos
+"Lista de propiedades
+"Nueva propiedad
+"Generación del archivo de cabecera
+"Nombre del archivo:
+"Examinar...
+"Prefijo de la macro (opcional):
+"Generar
+"La generación de la cabecera falló.|Cerrar
+"Usar paleta
+"Visor no implementado
+"Selecciona el nombre del archivo de cabecera
+"Seleccionar
+"Dueño:
+"Grupo:
+"Otro:
+"Lectura
+"Escritura
+"Ejecución
+[formatletters
+"D
+"M
+"Y
+"h
+"m
+"s
+[graphini
+"Introduce la nueva configuración de pantalla
+"Configuración
+"Información
+"Modos disponibles
+"Modo actual
+"Modo seleccionado
+"Aplicar modo
+"Falló previamente con modo
+"Driver gráfico:
+"Allegro falló en la detección de modos de vídeo
+"mas intentos antes
+"#27;Cerrar
+[longdays
+"Sunday
+"Monday
+"Tuesday
+"Wednesday
+"Thursday
+"Friday
+"Saturday
+[longmonths
+"January
+"February
+"March
+"April
+"May
+"June
+"July
+"August
+"September
+"October
+"November
+"December
+[obtext
+"Error al abrir el archivo %s.|#27;Continuar
+[shortdays
+"Sun
+"Mon
+"Tue
+"Wed
+"Thu
+"Fri
+"Sat
+[shortmonths
+"Jan
+"Feb
+"Mar
+"Apr
+"May
+"Jun
+"Jul
+"Aug
+"Sep
+"Oct
+"Nov
+"Dec
+<fr>
+[clock
+"Ajuster la configuration de la montre
+"Apliquer
+"Montrer segondes
+"#27;Fermer
+[file_import_query
+"Propiétés de l'objet importé
+"Nom:
+"Type:
+"Types_associés
+"Tous_les_types
+"Importer
+"Shunter importation
+"Vous devez choisir au moins un type.| Accepter 
+"Les polices ne peuvent utiliser qu'une profondeur de couleur de 8 bits.| Accepter 
+"Introduisez le mot de passe:
+"#10; ~Accepter 
+"#27; ~Annuler
+"Le mot de passe introduit est incorrect. Essayez à nouveau| Accepter 
+"Vider la liste de mots de passe
+"Sauvegarder local
+"L'objet existant (%s) doit être actualisé, ou doit-on en créer un nouveau?|Actualiser|Nouveau
+"Améliorer l'apparence du nom
+"Utiliser chemin relatif
+[filebrow
+"Disque:
+"Montrer:
+"#27;~Annuler
+"Fichier illegal|~Accepter
+"Selectionné:
+"Créer sous-répertoire
+"Créer fichier de données d'Allegro
+"#settings;Configuration
+"Etes vous sûr de voiloir éliminer le répertoire"%s" (tout son contenu sera perdu)?|Oui| Non 
+"Etes vous sûr de voiloir éliminer le fichier"%s" ?|Oui| Non 
+"|Oui à tout
+"L'élimination de l'objet n'a pas été complétée|Continuer
+"%s est un répertoire|Fermer
+"%s n'est pas un répertoire|Fermer
+"%s n'existe pas. Essayez à nouveau.|Fermer
+"%s existe, êtes vous sûr?|Oui|Annuler
+"%s existe, essayez à nouveau|Accepter
+"Ouvrir un nouveau navigateur
+"Selecteur de fichiers de CGUI
+"Manager de fichiers de CGUI
+"Accepter
+"Editer propriétés
+"Copier fichier
+"Couper fichier
+"Eliminer
+"Coller
+"Selectionner
+"Montrer image
+"Fenêtre de prévisualisation
+"Montrer emplacement originel
+"Montrer date de modification
+"Montrer taille
+"Montrer attributs
+"Montrer droits
+"Montrer fichiers cachés/de système
+"Montrer buffer de copie
+"Noms formattés
+"Nom non présent
+"Message d'erreur
+"Le listing du répertoire peut être incomplet à cause d'une erreur inconnue|Accepter
+"rep
+"reps
+"fich
+"fichs
+"Mo
+"ko
+"octets
+"Addresse:
+"Action
+"Introduisez le mot de passe
+"
+"Nom
+"Modifié
+"Taille(k)
+"Attrib.
+"
+"Nom
+"Modifié
+"Taille(k)
+"Droits
+[filebuff
+"Buffer de selection
+"#27;Fermer
+"Vider
+"Mode ajouter
+"Le fichier specifié existe déjà, le remplacer?|oui|Non
+"Erreur en essayant de lire le fichier|Fermer
+"Erreur en essayant de créer un nouveau fichier|Fermer
+"Le répertoire %s n'a pas pu être éliminé. Message du système: %s|Fermer
+"Le fichier %s n'a pas pu être éliminé. Message du système: %s|Fermer
+"L'objet du fichier de données d'Allegro %s n'a pas pu être éliminé. Message du système: %s|Fermer
+[filedial
+"Vous n'êtes pas autorisé à modifier les droits| Accepter 
+"Flags: 
+"Droits 
+"Editer objet de disque
+"Adresse:
+"Nom:
+"Action
+"Taille:
+"Dernière modification:
+"Inconnu
+"Nom de source:
+"Type d'archive:
+"Fichier de données d'Allegro (repértoire)
+"Extrait de son d'Allegro
+"Fichier midi d'Allegro
+"Fichier midi d'Allegro
+"Animation d'Allegro
+"Image d'Allegro
+"Sprite d'Allegro
+"Sprite compilé d'Allegro
+"Sprite compilé mode-x d'Allegro
+"Palette d'Allegro
+"Police d'Allegro
+"Fichier binaire d'Allegro
+"Défini par l'utilisateur d'Allegro
+"Fichier de données d'Allegro
+"Répertoire
+"Fichier
+"Image
+"Attributs
+"~R (Protegé contre écriture)
+"~H (Caché)
+"~S (Système)
+"~A (Archive)
+"La commande pour modifier les attributs a échoué. Le message du système est:"%s"|Fermer
+"La commande pour modifier les attributs a échoué pour des raisons inconnues.|Fermer
+"Packé:
+"Rien
+"Individuel
+"Global
+"Le répertoire spécifié n'a pas pu être creé|#27;Fermer
+"Creer répertoire
+"Creer sous-fichier de données
+"Creer nouveau fichier de données
+"Fichier de données d'Allegro
+" Accepter 
+"#27;~Annuler
+"Le fichier de données a été sauvegardé avec le nouveau mot de passe._Le mot de passe précedant doit-il être oublié?|Oui| Non 
+"Le fichier de données a été sauvegardé sans mot de passe._Le mot de passe précedant doit-il être oublié?|Oui| Non 
+"Le fichier de données a été sauvegardé avec le nouveau mot de passe._¿Le mot de passe précedant doit-il être oublié ou sauvegardé avec le nouveau?|Garder les deux|L'oublier
+"Sauvegarder le mot de passe local
+"Propiétés du fichier de données
+"Mot de passe
+"Vider liste de mots de passe
+"Actualiser objets
+"(à l'échelle)
+"Montrer taille réelle
+"Objet de fichier de données
+"Liste de propiétés
+"Nouvelle propiété
+"Generation du fichier d'entête
+"Nom du fichier:
+"Examiner...
+"Prefixe de la macro (optionnel):
+"Générer
+"La génération de l'entête a echoué.|Fermer
+"Utiliser palette
+"Viseur non implémenté
+"Selectionne le nom du fichier d'entête
+"Selectionner
+"Propriétaire:
+"Groupe:
+"Autre:
+"Lecture
+"Ecriture
+"Execution
+[formatletters
+"D
+"M
+"Y
+"h
+"m
+"s
+[graphini
+"Introduisez la nouvelle configuration d'écran
+"Configuration
+"Information
+"Modes disponibles
+"Mode actuel
+"Mode selectionné
+"Apliquer mode
+"A échoué précedemment avec le mode
+"Driver graphique:
+"Allegro a échoué dans la détection de modes de vidéo
+"d'autres essais précedemment
+"#27;Fermer
+[longdays
+"Sunday
+"Monday
+"Tuesday
+"Wednesday
+"Thursday
+"Friday
+"Saturday
+[longmonths
+"January
+"February
+"March
+"April
+"May
+"June
+"July
+"August
+"September
+"October
+"November
+"December
+[obtext
+"Erreur à l'ouverture du fichier %s.|#27;Continuer
+[shortdays
+"Sun
+"Mon
+"Tue
+"Wed
+"Thu
+"Fri
+"Sat
+[shortmonths
+"Jan
+"Feb
+"Mar
+"Apr
+"May
+"Jun
+"Jul
+"Aug
+"Sep
+"Oct
+"Nov
+"Dec
+<pt>
+[clock
+"Ajustar a configuração do relógio
+"Aplicar
+"Exibir os segundos
+"#27;Fechar
+[file_import_query
+"Propriedades do objeto importado
+"Nome:
+"Tipo:
+"Tipos_Associados
+"Todos_Tipos
+"Importar
+"Pular importação
+"Voce deve selecionar pelo menos um tipo.| Aceitar
+"As fontes podem usar somente 8 bits de profundidade.| Aceitar
+"Entre com a senha:
+"#10; ~Aceitar 
+"#27;~Cancelar
+"A senha informada esta incorreta. Tente novamente| Aceitar
+"Limpar a lista de Pwds
+"Salvar local
+"Deseja atualizar o objeto existente (%s) ou criar um novo?|Atualizar|Novo
+"Deseja melhorar a aparência do nome
+"Usar caminho parecido
+[filebrow
+"Unidade:
+"Mostrar:
+"#27;~Cancelar
+"Arquivo ilegal|~/Aceitar
+"Selecionado:
+"Criar sub-diretório
+"Criar arquivo de dados do Allegro
+"#configurações;Configurações
+"Você realmente quer remover o diretório "%s" (tudo que esta armazenado será deletado)?|Sim| Não 
+"Você realmente quer remover o arquivo"%s".|Sim| Não 
+"|Sim para todos
+"A remoção do objeto do disco não foi completada|Continuar
+"%s é um diretório|Fechar
+"%s não é um diretório|Fechar
+"%s não existe. Tente novamente.|Fechar
+"%s já existe, você realmente está certo dessa operação?|Sim|Cancelar
+"%s já existe, por favor tente novamente|Aceitar
+"Abrir novo navegador
+"Selecionador de arquivos CGUI
+"Gestor de arquivos CGUI
+"Aceitar
+"Editar propriedades
+"Copiar arquivo
+"Recortar arquivo
+"Deletar
+"Colar
+"Selecionar
+"Mostrar imagem
+"Janela de pré-visualização
+"Mostrar lugar original
+"Mostrar data de atualização
+"Mostrar tamanho
+"Mostrar atributos
+"Mostrar permissões
+"Mostrar arquivos ocultos/de sistema
+"Mostrar buffer de cópia
+"Nomes formatados
+"Nenhum nome presente
+"Mensagem de erro
+"A lista do diretório pode estar incompleta devido a um erro desconhecido|Aceitar
+"diretório
+"diretórios
+"arquivo
+"arquivos
+"MB
+"kB
+"bytes
+"Localização:
+"Ação
+"Entre com a senha
+"
+"Nome
+"Modificado
+"Tamanho(k)
+"Atributo
+"
+"Nome
+"Modificado
+"Tamanho(k)
+"Permissões
+[filebuff
+"Buffer de seleção
+"#27;Fechar
+"Limpar
+"Adicionar modo
+"O arquivo especificado já existe, sobrescrever o mesmo?|Sim|Não
+"Erro enquanto tenta ler o arquivo|Fechar
+"Erro enquanto tenta criar um novo arquivo|Fechar
+"O diretório %s não pode ser removido. Mensagem do sistema: %s|Fechar
+"O arquivo %s não pode ser removido. Mensagem do sistema: %s|Fechar
+"O objeto do arquivo de dados do Allegro %s não pode ser removido. Mensagem do sistema: %s|Fechar
+[filedial
+"Você não possui permissão para mudar as permissões| Aceitar
+"Flags: 
+"Permissões 
+"Editar objeto de disco
+"Localização:
+"Nome:
+"Ação
+"Tamanho:
+"Última mudança em:
+"Desconhecido
+"Nome de Origem:
+"Tipo de arquivo:
+"Arquivo de dados do Allegro (diretório)
+"Amostra de som do Allegro
+"Arquivo midi do Allegro
+"Arquivo midi do Allegro
+"Animação do Allegro
+"Imagem do Allegro
+"Sprite do Allegro
+"Aprite compilado do Allegro
+"Sprite compilado modo-x do Allegro
+"Paleta do Allegro
+"Fonte do Allegro
+"Arquivo binário do Allegro
+"Definido por um usuário do Allegro
+"Arquivo de dados do Allegro
+"Diretório
+"Arquivo
+"Imagem
+"Atributos
+"~R (Protegido contra escrita)
+"~H (Oculto)
+"~S (Arquivos de sistema)
+"~A (Arquivo)
+"O comando para mudar o atributo falhou. A mensagem do sistema é:"%s"|Fechar
+"O comando para mudar o atributo falhou por razões desconhecidas.|Fechar
+"Empacotado:
+"Nada
+"Individual
+"Global
+"Não se poude criar o diretório especificado|#27;Fechar
+"Criar diretório
+"Criar sub-arquivo de dados
+"Criar novo arquivo de dados
+"Arquivo de dados do Allegro
+" Aceitar 
+"#27;~Cancelar
+"O arquivo de dados foi armazenado com a nova senha. Deseja desfazer-se da senha anterior|Sim| Não
+"O arquivo de dados foi armazenado sem senha. Deseja desfazer-se da senha anterior|Sim| Não
+"O arquivo de dados foi armazenado com a nova senha. Deseja desfazer-se da senha anterior ou deseja manter ambos em memória?|Manter ambos|Desfazer-se dela
+"Salvar senha local
+"Propriedades do arquivo de dados
+"Senha
+"Limpar lista de Pwds
+"Atualizar objetos
+"(escalada)
+"Visualizar todo o tamanho
+"Objeto do arquivo de dados
+"Lista de propriedades
+"Nova propriedade
+"Geração do arquivo de cabeçalho
+"Nome do arquivo:
+"Navegador...
+"Prefixo da macro (opcional)
+"Gerar
+"A geração falhou.|Fechar
+"Usar paleta
+"Visualizador não implementado
+"Selecione o nome do arquivo de cabeçalho
+"Selecionar
+"Proprietário:
+"Grupo:
+"Outro:
+"Ler
+"Escrever
+"Executar
+[formatletters
+"D
+"M
+"A
+"h
+"m
+"s
+[graphini
+"Entre com a nova configuração de vídeo
+"Configurações
+"Informações
+"Modos disponíveis
+"Modo atual
+"Modo selecionado
+"Aplicar modo
+"Falhou previamente com modo
+"Driver gráfico:
+"Allegro falhou na detecção dos modos de vídeo disponíveis
+"mais tentativas antes
+"#27;Fechar
+[longdays
+"Domingo
+"Segunda
+"Terça
+"Quarta
+"Quinta
+"Sexta
+"Sábado
+[longmonths
+"Janeiro
+"Fevereiro
+"Março
+"Abril
+"Maio
+"Junho
+"Julho
+"Agosto
+"Setembro
+"Outubro
+"Novembro
+"Dezembro
+[obtext
+"Erro abrindo o arquivo %s.|#27;Continuar
+[shortdays
+"Dom
+"seg
+"Ter
+"Qua
+"Qui
+"Sex
+"Sáb
+[shortmonths
+"Jan
+"Fev
+"Mar
+"Abr
+"Mai
+"Jun
+"Jul
+"Ago
+"Set
+"Out
+"Nov
+"Dez

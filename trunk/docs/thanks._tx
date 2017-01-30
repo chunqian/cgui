@@ -1,0 +1,97 @@
+@#
+@# This is the source for the CGUI changes file, in Allegro's custom format.
+@# Read allegro/docs/makedoc.c for a description of what is going on...
+@#
+@# ...and don't read this file; read thanks.{txt|html|rtf|info|man} instead.
+@#
+@#ignore_css
+@multiwordheaders
+@#locale=latin1
+@document_title=CGUI Contributors
+@# Note: this version number is patched by fixver.sh
+@manh="version 2.0.5" "CGUI" "CGUI thanks"
+@rtfh=Adime Thanks List
+@$\input texinfo
+@$@setfilename thanks.inf
+@$@settitle CGUI Thanks List
+@$@setchapternewpage odd
+@$@paragraphindent 0
+@$
+@$@ifinfo
+@$@direntry
+@$* CGUI Thanks: (thanks). CGUI Thanks List
+@$@end direntry
+@$This is the Info version of the CGUI Thanks List
+@$
+@$By Christer Sandberg
+@$@end ifinfo
+@$
+@$@node Top, , (dir), (dir)
+@<html>
+@<head>
+@<title>CGUI Thanks List</title>
+@<body>
+@<pre>
+@!indent
+<CENTER><img src="cgui.png" alt="CGUI"></center>
+<center><b>A C Graphical User Interface [add on to Allegro] by Christer Sandberg</center></b>
+<center>Email: <email>rya.christer@gmail.com</a></center>
+<center>Homepage: <a href="http://cgui.sourceforge.net/">http://cgui.sourceforge.net/</a></center>
+<center><b></b></center>
+@indent
+@</pre>
+
+@heading
+Contributors
+<ul>
+<li>
+<li>
+   Laze Ristoski spotted some bugs and feature requests.
+<li>
+   Márcio A. Pacheco contributed Portuguese
+   translation of dialog texts.
+<li>
+   Jesse Brockmann contributed with bugfixes.
+<li>
+   Rafal Szyja (<email>rafalszyja@poczta.onet.pl</a>) contributed Polish
+   translation of dialog texts, made the CGUI logo, made the joystick and
+   textviewer examples, and made the alternative icon set.
+<li>
+   Oscar Giner contributed Spanish
+   translation of dialog texts.
+<li>
+   Ferenc Havránek contributed Hungarian
+   translation of dialog texts.
+<li>
+   Si-lam Choy (<email>sichoy@excite.com</a>) contributed with e.g. fixing
+   problems with atexit.
+<li>
+   Diego Cano contributed Frensh translation of dialog texts.
+<li>
+   Rasmus Myklebust bug fixer, source of inspiration, and is administrating CVS
+   in most respects.
+<li>
+   Christer Sandberg (<email>rya.christer@gmail.com</a>) made the original
+   CGUI.
+</ul>
+
+@heading
+Thanks
+
+<ul>
+<li>
+   Shawn Hargreaves (<email>shawn@talula.demon.co.uk</a>).
+   Is the author of the original Allegro, which is the base of CGUI.
+<li>
+   The Allegro community. All those people developing this powerful lib.
+   CGUI not only is an addon to Allegro it has also directly copied some of
+   the datafile sources.
+<li>
+   Sven Sandberg (<email>svsa1977@student.uu.se</a>).
+   The author of Adime. The makefiles and the documentation
+   structure of Adime has been used directly, for the CGUI package. Sven
+   has also came up with useful point of views concerning the design.
+<li>
+   All other that notified me about bugs or came up with good ideas for
+   future work.
+</ul>

@@ -1,0 +1,16 @@
+/* Generated header-file <generator=mktext.1.1> */
+#ifndef FILEBUFF_HT
+#define FILEBUFF_HT
+#define SELECTION_BUFFER 0
+#define CLOSE 1
+#define CLEAN 2
+#define ADDMODE 3
+#define SPECIFIED_FILE_ALREADY_EXISTS_OK_CANCEL 4
+#define FILE_READ_ERROR_CLOSE 5
+#define FILE_STORE_ERROR_CLOSE 6
+#define REMOVE_DIRECTORY_NN_FAILED_NN_CLOSE 7
+#define REMOVE_FILE_NN_FAILED_NN_CLOSE 8
+#define REMOVE_DATAFILE_NN_FAILED_NN_CLOSE 9
+#define SIZE_filebuff 10
+
+#endif

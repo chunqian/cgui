@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><head><title>
+CGUI readme
+</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+A.xref:link {
+	color:           blue;
+	text-decoration: none;
+	background:      transparent;
+}
+A.xref:visited {
+	color:           blue;
+	text-decoration: none;
+	background:      transparent;
+}
+A.xref:hover {
+	color:           blue;
+	text-decoration: underline;
+	background:      rgb(220, 220, 220);
+}
+A.xref:active {
+	color:           red;
+	text-decoration: none;
+	background:      rgb(255, 204, 50);
+}
+A.autotype:link {
+	color:           rgb(64, 64, 255);
+	text-decoration: none;
+	background:      transparent;
+}
+A.autotype:visited {
+	color:           rgb(64, 64, 255);
+	text-decoration: none;
+	background:      transparent;
+}
+A.autotype:hover {
+	color:           rgb(64, 64, 255);
+	text-decoration: underline;
+	background:      transparent;
+}
+A.autotype:active {
+	color:           red;
+	text-decoration: none;
+	background:      transparent;
+}
+blockquote.xref {
+	font-family:     helvetica, verdana, serif;
+	font-size:       smaller;
+	border:          thin solid rgb(220, 220, 220);
+	color:           black;
+	background:      rgb(240, 240, 240);
+}
+blockquote.code {
+	border:          thin solid rgb(255, 234, 190);
+	color:           black;
+	background:      rgb(255, 255, 205);
+}
+blockquote.text {
+	border:          thin solid rgb(190, 234, 255);
+	color:           black;
+	background:      rgb(225, 255, 255);
+}
+div.al-api {
+	padding-left:    0.5em;
+	color:           black;
+	background:      rgb(255, 234, 100);
+	font-weight:     bold;
+	border-bottom:   medium solid rgb(255, 204, 51);
+	border-left:     medium solid rgb(255, 204, 51);
+	margin-top:      2em;
+}
+div.al-api-cont {
+	padding-left:    0.5em;
+	color:           black;
+	background:      rgb(255, 234, 100);
+	font-weight:     bold;
+	border-bottom:   medium solid rgb(255, 204, 51);
+	border-left:     medium solid rgb(255, 204, 51);
+	margin-top:      -1em;
+}
+div.faq-shift-to-right {
+	margin-left: 2em;
+}
+
+
+--></style>
+</head><body bgcolor=white text=black link="#0000ee" alink="#ff0000" vlink="#551a8b">
+<html>
+<head>
+<title>Readme for CGUI</title>
+<body>
+<center><img src="cgui.png" alt="CGUI"></center>
+<p>
+<center><b>A C Graphical User Interface [add on to Allegro] by Christer Sandberg</center></b>
+<center>Email: <a href="mailto:rya.christer@gmail.com">rya.christer@gmail.com</a></center>
+<center>Homepage: <a href="http://cgui.sourceforge.net/">http://cgui.sourceforge.net/</a></center>
+<center><b>The CGUI Readme File</b></center>
+<center>
+<p>
+ 2.0.5
+</center>
+<p>
+<h1><a name="Contents">Contents</a></h1>
+
+<p>
+<ul>
+<li><a href="#Introduction">Introduction</a>
+<li><a href="#Requirements">Requirements</a>
+<li><a href="#Installation">Installation</a>
+<li><a href="#MSys">MSys</a>
+<li><a href="#Usage">Usage</a>
+<li><a href="#Contact Info">Contact Info</a>
+</ul>
+
+<p>
+<h1><a name="Introduction">Introduction</a></h1>
+
+<p>
+CGUI is a Graphical User Interface library. It contains functions that you
+can use to create windows with buttons, lists, edit boxes etc. Read the
+documentation (you find it in the docs directory of cgui) for details. The
+docs will be built in several formats when you build the library (see below)
+
+<p>
+CGUI compiles on the following platforms: DOS/DJGPP, Linux, Cygwin, Mac OS X
+Windows/Mingw32, and Windows/MSVC.
+
+<p>
+<h1><a name="Requirements">Requirements</a></h1>
+You need to have compiled and installed Allegro version 4.4.2 before building CGUI.
+Please note: compiled. Verify that Allegro is correctly build by running the program 
+exhello in Allegro's example directory.
+There are also other requirements like correctly installed compilers etc. but these are
+already fulfilled if you succeded in the above.
+<br>
+<p>
+You can find Allegro at:
+http://alleg.sourceforge.net/
+
+<p>
+<h1><a name="Installation">Installation</a></h1>
+Installation goes in the following simple steps, and should be familiar since it is
+exactly the same way as you used when installing Allegro:
+<ul>
+<li>
+   Start a konsole (a DOS-box in Windows)
+<li>
+   Make your cgui directory to the current (e.g. cd ~/cgui or cd c:\cgui etc)
+<li>
+   Tell the installation process what platform you use. This is done by
+   running one of the following at the command line:
+<pre>
+      To compile with Linux            ./fix.sh unix
+      To compile with Cygwin           fix.sh cygwin
+      To compile with DOS/DJGPP:       fix.bat djgpp
+      To compile with Mac OS X:        ./fix.sh mac
+      To compile with Windows/MinGW32: fix.bat mingw32
+      To compile with Windows/MSVC:    fix.bat msvc
+</pre>
+<li>
+   For MSVC users only:<br>
+   Set up your environment so that MSVC can be used from the commandline.
+   You probably have a vcvars32.bat file that will do this for you. (Under
+   Windows NT and Windows 2000, you will have to run this file every time
+   you open a DOS box, or configure the environment variables in Control
+   Panel/System/Environment.)
+<li>
+   Compile the library. This is done by running
+<pre>make
+</pre>
+   at the command line.
+<li>
+   Install the files to common directories. This is done by running
+<pre>
+   make install
+</pre>
+   at the command line. Under Linux and Mac OS X you must be root to do that.
+   <br>
+   Under Linux, you may want to instead run "make install SYSTEM_DIR=&lt;dir&gt;",
+   which will cause headers to be installed to &lt;dir&gt;/include and libraries to
+   &lt;dir&gt;/lib. (default for &lt;dir&gt; is /usr/local)
+</ul>
+That's it! You may also want to perform some of the optional steps:
+<ul><li>
+   You can compile a debugging library by typing "make DEBUGMODE=1". To
+   compile both the usual and the debug library in one step, type "make all".
+<li>
+   To use the debugging library with your program, replace cgui with cguid in the
+   library specification to the build procedure of your program.
+<li>
+   If you use Rhide and want to read the CGUI documentation with the Rhide online help
+   system, go to the "Help / Syntax help / Files to search" menu, and add
+   "cgui" after the existing "libc" entry (separated by a space).
+<li>
+   If you use the default build there will be built and installed a dynamic
+   library. If you want statically linked libraries under Unix or Windows as
+   well as the default dynamically linked libraries (dll under Windows, .so
+   under Unix), set the environment variable "STATICLINK=1", and repeat the
+   "make install" and if you want a debug build "make install DEBUGMODE=1".
+   These static libraries require the statically linked version of Allegro.<br>
+   If you use the static library your own program using it will contain
+   everything, but the executable file will be larger. If you use the
+   dynamic library your program will be quite small, but on the other hand
+   you also need to append both the dynamic CGUI library and the dynamic
+   library of Allegro when you distribute yur program to other people.
+</ul>
+
+
+<p><br>
+<h1><a name="MSys">MSys</a></h1>
+Users of the MSys environment should use the mingw32 port of CGUI and need to
+set the environment variable UNIX_TOOLS=1 before make install is run.
+
+<p>
+<h1><a name="Usage">Usage</a></h1>
+Read the documentation (e.g. cgui.html) section Usage about how to build
+your own program using CGUI.<br>
+Run some of the examples and look at the code to get hints how to use CGUI.
+Read the documentation to learn more and to see details how it works.
+
+
+<p><br>
+<h1><a name="Contact Info">Contact Info</a></h1>
+
+<p>
+   Email:<ul> <li>
+      <a href="mailto:rya.christer@gmail.com">rya.christer@gmail.com</a></li>
+</ul>
+   Homepage:<ul><li>
+      http://cgui.sourceforge.net/ </li>
+</ul>
+   Telephone:<ul><li>
+      +46.(0)34032266</li>
+</ul>
+
+
+</body>
+</html>

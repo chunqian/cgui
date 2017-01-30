@@ -1,0 +1,63 @@
+
+A C Graphical User Interface [add on to Allegro] by Christer Sandberg
+Email: rya.christer@gmail.com
+Homepage: http://cgui.sourceforge.net/
+
+
+======================================
+============ Contributors ============
+======================================
+
+
+
+   Laze Ristoski spotted some bugs and feature requests.
+
+   Márcio A. Pacheco contributed Portuguese
+   translation of dialog texts.
+
+   Jesse Brockmann contributed with bugfixes.
+
+   Rafal Szyja (rafalszyja@poczta.onet.pl) contributed Polish
+   translation of dialog texts, made the CGUI logo, made the joystick and
+   textviewer examples, and made the alternative icon set.
+
+   Oscar Giner contributed Spanish
+   translation of dialog texts.
+
+   Ferenc Havránek contributed Hungarian
+   translation of dialog texts.
+
+   Si-lam Choy (sichoy@excite.com) contributed with e.g. fixing
+   problems with atexit.
+
+   Diego Cano contributed Frensh translation of dialog texts.
+
+   Rasmus Myklebust bug fixer, source of inspiration, and is administrating CVS
+   in most respects.
+
+   Christer Sandberg (rya.christer@gmail.com) made the original
+   CGUI.
+
+
+================================
+============ Thanks ============
+================================
+
+
+
+   Shawn Hargreaves (shawn@talula.demon.co.uk).
+   Is the author of the original Allegro, which is the base of CGUI.
+
+   The Allegro community. All those people developing this powerful lib.
+   CGUI not only is an addon to Allegro it has also directly copied some of
+   the datafile sources.
+
+   Sven Sandberg (svsa1977@student.uu.se).
+   The author of Adime. The makefiles and the documentation
+   structure of Adime has been used directly, for the CGUI package. Sven
+   has also came up with useful point of views concerning the design.
+
+   All other that notified me about bugs or came up with good ideas for
+   future work.
+
+

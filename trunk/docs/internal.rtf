@@ -1,0 +1,146 @@
+{\rtf\ansi\deff0\widowctrl \f0\fs20 
+{\colortbl;\red0\green0\blue0;\red255\green0\blue0;\red0\green255\blue0;\red0\green0\blue255;}
+{\fonttbl{\f0\froman\fcharset0\fprq2 Times New Roman;}
+{\f1\fmodern\fcharset0\fprq1 Courier New;}
+{\f2\froman\fcharset2\fprq2 Symbol;}}
+{\stylesheet {\widctlpar \f0\fs20 \snext0 Normal;}
+{\s1\widctlpar \f1\fs18 \sbasedon0\snext1 Quotation;}
+{\s2\widctlpar \f0\fs48\sa600\pagebb\keepn\ul \sbasedon0\snext2 Heading 1;}
+{\s3\widctlpar \f0\fs24\sb200\keepn\sa200\b \sbasedon0\snext3 Heading 2;}
+{\s4\widctlpar \f0\fs20\tqc\tx4153\tqr\tx8306 \sbasedon0\snext4 Header;}
+{\s5\widctlpar \f0\fs24\tqr\tldot\tx8640 \sbasedon0\snext0 TOC 1;}
+{\s6\widctlpar \f0\fs20\tqr\tldot\tx8640 \sbasedon0\snext0 Index 1;}}
+{\header \pard\plain \s4 \f0\fs20\tqc\tx4153\tqr\tx8306 \pvpara\phmrg\posxr\posy0 page {\field{\*\fldinst PAGE}{\fldrslt 2}}
+\par \pard \s4\ri360 \f0\fs20\tqc\tx4153\tqr\tx8306 {\i CGUI Internal} \pard}
+{\info{\title CGUI Internal description}{\author Allegro makedoc utility}}
+\par {\s1 \f1\fs18 
+\par 
+\par 
+\par                           CGUI a GUI addon to Allegro
+\par 
+\par                              Internal description
+\par 
+\par                              by Christer Sandberg
+\par 
+\par 
+\par }\par {\s2 \f0\fs48\sa600\pagebb\keepn\ul {\xe\v Contents}Contents\par }
+\par 
+{\field{\*\fldinst TOC \\t "Heading 1" }{\fldrslt {\b\i\ul\fs24\cf2 Update this field to generate the table of contents.}}}
+\par {\s2 \f0\fs48\sa600\pagebb\keepn\ul {\xe\v Introduction to the internals of CGUI}Introduction to the internals of CGUI\par }
+\par {\s2 \f0\fs48\sa600\pagebb\keepn\ul {\xe\v Event processing}Event processing\par }
+The "event processing" is an important part of CGUI. Messages can be put 
+into the queue either explicitly or because of an external event. The 
+external events taken care of by CGUI is mouse, keyboard and timer events. 
+The external events are transfered from the external device (mouse etc.) to 
+the queue by an interrupt routine. This routine entirely uses Allegro's 
+hooks and therefore they will maybe not be called by true ISR:s on some 
+platforms, it will depend on the Allegro implementation. However, since 
+Allegro will emulate properly in such cases, you should think of them as 
+real ISR hooks. 
+\par \par \par The queue is made such a way that it will always be safe for the hooks to 
+insert messages. All provided that the queue size is big enough to contain 
+all messages that need to be queued. The size is enough for any "normal 
+desktop application" but can be tuned by the application to fit other other 
+requirements. Any application in any event driven system can be done in a 
+way that it overruns any size of the queue. If that happens the queue in 
+CGUI will not be crashed, and no attempt to allocate more memory will be 
+done in interrupt mode, instead the event will be dropped. See comments and 
+code in event.c to find out details about how it is all done. 
+\par \par \par A message consists of a pair: <function pointer, data pointer>. The function 
+pointer takes a single parameter that is of type void* and the data pointer 
+is of type void*. When a message is processed it will first be removed from 
+the queue and the function will be invoked passing it the data pointer as 
+argument. So the function inserting the <function pointer, data pointer>
+is responsible to do that in a way that they match. 
+\par \par \par How do an hook know which <function, data> to put into the queue? - Each 
+event type will have its own. 
+\par {\li400 \par {\pntext\f2\fs16 \'b7\tab}
+{\*\pn \pnlvlblt\pnf2\pnfs16\pnindent250{\pntxtb \'b7}}
+\fi-250\li400  The timer hook will scan the delayed event queue to decrement the 
+timer counters of all delayed messages, and if it thereby finds that 
+the counter of any message expired that message will be moved into 
+the current queue. 
+{\pntext\f2\fs16 \'b7\tab}
+{\*\pn \pnlvlblt\pnf2\pnfs16\pnindent250{\pntxtb \'b7}}
+\fi-250\li400  To minimize the processing in interrupt mode of the processor, as 
+much as possible of the algorithms has rather been put into the code 
+of <function,data> for the keyboard event handling. So the keyboard 
+hook will always put `KeyBoardHandlerWrapper' into the queue. See 
+cgkeybrd.c for details. 
+{\pntext\f2\fs16 \'b7\tab}
+{\*\pn \pnlvlblt\pnf2\pnfs16\pnindent250{\pntxtb \'b7}}
+\fi-250\li400  The mouse hook will for the same reason as the keyboard hook do it 
+similarly, it will put `ExecuteMouseEvent' into the queue. It is 
+however worth mentioning there is a second kind of (queue or buffer). 
+The mouse can easily produce lots of events (typically the user moves 
+the mouse irritatingly if the application seems "frozen" due to heavy 
+calculations). The queue is used to buffer repeated clicks. If the 
+mouse is moved between clicks the moves are filtered out (i.e. the 
+latest coordinate is the one beeing in the queue - the mouse hook 
+keeps a pointer to the data in the queue and updates if conditions are 
+fullfilled, and `ExecuteMouseEvent' will acknowledge when ready). 
+\par}\pard \li0 \pard \li0 \pard \li0 {\s2 \f0\fs48\sa600\pagebb\keepn\ul {\xe\v Mouse messages.}Mouse messages.\par }
+`ExecuteMouseEvent' will be applied to the data in the messages queue when 
+time has come. How does it know what to do? - Since the mouse events 
+concerns what is shown on the screen, it will search the object 
+tree for any object that want to receive the message. There is a number of 
+cases where this is not sufficient. I will mention two obvious 
+cases. 
+\par {\li400 \par {\pntext\f2\fs16 \'b7\tab}
+{\*\pn \pnlvlblt\pnf2\pnfs16\pnindent250{\pntxtb \'b7}}
+\fi-250\li400  Suppose the mouse presses a push button widget down (in). While the 
+mouse button is still down the mouse is dragged off. In that case the 
+button will still catch all mouse messages until the mouse button is 
+released. (the push button need to be drawn in the "out" view, and 
+wants the ability to draw in the "in" view in case the mouse is dragged 
+over again whlie the mouse button is still down). 
+{\pntext\f2\fs16 \'b7\tab}
+{\*\pn \pnlvlblt\pnf2\pnfs16\pnindent250{\pntxtb \'b7}}
+\fi-250\li400  A draggable object is gripped, and the mouse is moved to some other 
+object. 
+\par}\pard \li0 \pard \li0 \par In both these cases it is obvious that CGUI needs some more sophisticated 
+mechanism than just broadcasting "who wants this mouse message". Any object 
+that "takes" a message (returns true) can go into a state where it is 
+prepared to recive all subsequent messages. When it does this it signals 
+to the mouse handling system that it is "in mouse focus". So 
+`ExecuteMouseEvent' will always start with passing the event-message to 
+such a "mouse focus" if there is one. There may be also "second mouse focus" 
+(for now that is only used by the "drop-object" that a gripped object is 
+held over). If such "mouse focused" object(s) decide they should no longer 
+be in focus (because e.g. the mouse event was something like "button up" or 
+"no longer over" etc.) it will signal this by its return value. 
+\par There is also a similar mechansim for windows. 
+\par {\s2 \f0\fs48\sa600\pagebb\keepn\ul {\xe\v Object handling of mouse messages}Object handling of mouse messages\par }
+All objects have a state machine for mouse messages. This machine is 
+implemented as a function table and a few variables in the object struct. 
+Different categories of objects can have different tables (e.g. menu items 
+doesn't behave the same as push-buttons, and therefore needs another state 
+machine). However the default one covers a lot of possibilities. This is 
+to make it simple to combine e.g. click+drag-drop or maybe double-click+ 
+only-grip. The default machine allows to combine click, double-click, 
+grip, recive-drop and sliding in almost any combination for any combination 
+of mouse buttons.\par 
+For a modified behaviour for a subset of object types you will need to make 
+a copy of the default table and replace the desired states and finally 
+of course attach the new pointer table to instances of the object 
+type(s) concerned. 
+\par {\s2 \f0\fs48\sa600\pagebb\keepn\ul {\xe\v Keys to important things}Keys to important things\par }
+This document was actually a bit fun to write when I started, however after 
+a while I realized that probably no one will ever read it so I stopped. If I 
+happen to be wrong my e-mail is rya.christer@gmail.com
+\par {\s2 \f0\fs48\sa600\pagebb\keepn\ul {\xe\v Releasing}Releasing\par }
+How to release a new version of CGUI: 
+\par {\li400 \par {\pntext\f2\fs16 \'b7\tab}
+{\*\pn \pnlvlblt\pnf2\pnfs16\pnindent250{\pntxtb \'b7}}
+\fi-250\li400  Run "sh misc/fixver.sh [version]". 
+{\pntext\f2\fs16 \'b7\tab}
+{\*\pn \pnlvlblt\pnf2\pnfs16\pnindent250{\pntxtb \'b7}}
+\fi-250\li400  Run "sh misc/fixdll.sh". 
+{\pntext\f2\fs16 \'b7\tab}
+{\*\pn \pnlvlblt\pnf2\pnfs16\pnindent250{\pntxtb \'b7}}
+\fi-250\li400  Run "sh misc/zipup.sh". It works under dos/djgpp, haven't tested 
+elsewhere. 
+{\pntext\f2\fs16 \'b7\tab}
+{\*\pn \pnlvlblt\pnf2\pnfs16\pnindent250{\pntxtb \'b7}}
+\fi-250\li400  Notify [AL] and create a news item at allegro.cc. 
+\par}\pard \li0 \pard \li0 \pard \li0 \pard \li0 \par \par }

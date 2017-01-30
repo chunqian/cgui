@@ -1,0 +1,24 @@
+/* Generated header-file <generator=mktext.1.1> */
+#ifndef FILEIMPQ_HT
+#define FILEIMPQ_HT
+#define PROPERTIES_OF_IMPORTED_OBJECT 0
+#define IMPORT_NAME 1
+#define IMPORT_TYPE 2
+#define MATCHING_TYPES 3
+#define ALL_TYPES 4
+#define DO_IMPORT 5
+#define SKIP_IMPORT 6
+#define YOU_MUST_CHECK_A_TYPE 7
+#define FONT_REQUIRES_BPP_OK 8
+#define ENTER_PWD 9
+#define OK 10
+#define CANCEL 11
+#define ERROR_IN_PASSWORD_RETRY_CLOSE 12
+#define REMOVE_PREVIOUS_PWDS 13
+#define SAVE_PWD_LOCAL 14
+#define SHALL_THE_EXISTING_NN_BE_UPDATED_YES_NO 15
+#define PRETTIFY_NAME 16
+#define RELATIVE_PATH 17
+#define SIZE_file_import_query 18
+
+#endif

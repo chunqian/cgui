@@ -1,0 +1,332 @@
+#  makefile.dj:
+#  Makefile for the CGUI library with DJGPP. Should not be used directly!
+#
+#  By Christer Sandberg (ported from Adime made by Sven Sandberg).
+#
+#  See readme.txt for more information about CGUI.
+#
+#  See makefile.all for a list of the available targets.
+
+
+
+# -------- Define some variables that the primary makefile may use. --------
+
+PLATFORM = djgpp
+
+EXE_SUFFIX = .exe
+OBJ_SUFFIX = .o
+LIB_SUFFIX = .a
+
+HTML_SUFFIX = .html
+INFO_SUFFIX = .info
+TEXI_SUFFIX = .texi
+_TX_HTML_FLAG = -html
+_TX_TEXI_FLAG = -texi
+ifndef CROSSCOMPILE
+ifneq ($(LFN),y)
+HTML_SUFFIX = .htm
+INFO_SUFFIX = .inf
+TEXI_SUFFIX = .txi
+_TX_HTML_FLAG = -htm
+_TX_TEXI_FLAG = -txi
+endif
+endif
+
+HAVE_TEXINFO = 1
+
+ifndef OBJ_ROOT_DIR
+OBJ_ROOT_DIR = obj
+OBJ_ROOT_DIR_D = obj
+endif
+OBJ_PLATFORM_ROOT_DIR = $(OBJ_ROOT_DIR)/djgpp
+OBJ_PLATFORM_ROOT_DIR_D = $(OBJ_ROOT_DIR_D)\djgpp
+OBJ_DIR = $(OBJ_PLATFORM_ROOT_DIR)/$(PACKAGE5)
+OBJ_DIR_D = $(OBJ_PLATFORM_ROOT_DIR_D)\$(PACKAGE5)
+
+ifndef LIB_ROOT_DIR
+LIB_ROOT_DIR = lib
+LIB_ROOT_DIR_D = lib
+endif
+LIB_DIR = $(LIB_ROOT_DIR)/djgpp
+LIB_DIR_D = $(LIB_ROOT_DIR)\djgpp
+
+LIB_BASENAME = lib$(PACKAGE5).a
+LIB_NAME = $(LIB_DIR)/$(LIB_BASENAME)
+
+
+
+# -------- Find djgpp. --------
+
+.PHONY: baddjgpp
+
+ifndef DJDIR
+baddjgpp:
+	@echo DJDIR variable not set!
+	@echo You must set the environment variable DJDIR to point to your djgpp
+	@echo directory, e.g. "set DJDIR=c:\djgpp"
+endif
+DJGPPDIR_U = $(subst \,/,$(DJDIR))
+DJGPPDIR_D = $(subst /,\,$(DJDIR))
+
+SYSTEM_INCLUDE_DIR = $(DJGPPDIR_U)/include
+SYSTEM_INCLUDE_DIR_D = $(DJGPPDIR_D)\include
+SYSTEM_LIB_DIR = $(DJGPPDIR_U)/lib
+SYSTEM_LIB_DIR_D = $(DJGPPDIR_D)/lib
+SYSTEM_INFO_DIR = $(DJGPPDIR_U)/info
+SYSTEM_INFO_DIR = $(DJGPPDIR_D)\info
+
+ifneq (,$(findstring /sh.exe,$(SHELL)))
+  UNIX_TOOLS = 1
+endif
+
+ifdef UNIX_TOOLS
+  CP = cp
+  RM = rm
+  MKDIR = mkdir
+else
+  CP = copy
+  RM = del
+  MKDIR = md
+endif
+
+# -------- Set up mktext --------
+ALLEGRO_DAT = $(subst /,\,$(ALLEGRO_DAT_X))
+ALLEGRO_DAT2C = $(subst /,\,$(ALLEGRO_DAT2C_X))
+CGUI_DAT2C = $(subst /,\,$(CGUI_DAT2C_X))
+CGUI_FONTS = $(subst /,\,$(CGUI_FONTS_X))
+CGUI_FONTS_C = $(subst /,\,$(CGUI_FONTS_C_X))
+CGUI_FONTS_H = $(subst /,\,$(CGUI_FONTS_H_X))
+CGUI_ICONS = $(subst /,\,$(CGUI_ICONS_X))
+CGUI_ICONS_C = $(subst /,\,$(CGUI_ICONS_C_X))
+CGUI_ICONS_H = $(subst /,\,$(CGUI_ICONS_H_X))
+CGUI_CURSORS = $(subst /,\,$(CGUI_CURSORS_X))
+CGUI_CURSORS_C = $(subst /,\,$(CGUI_CURSORS_C_X))
+CGUI_CURSORS_H = $(subst /,\,$(CGUI_CURSORS_H_X))
+CGUI_DAT = $(subst /,\,$(CGUI_DAT_X))
+CGUI_DAT_C = $(subst /,\,$(CGUI_DAT_C_X))
+CGUI_DAT_H = $(subst /,\,$(CGUI_DAT_H_X))
+CGUI_LABELS = $(subst /,\,$(CGUI_LABELS_X))
+TEXT_SOURCES  = $(subst /,\,$(TEXT_SOURCES_X))
+TEXT_HEADERS = $(subst /,\,$(TEXT_HEADERS_X))
+MKTEXT = $(subst /,\,$(MKTEXT_X))
+
+
+# -------- Give a sensible default target for make without any args. --------
+# This must be done right after the tests, which can generate error targets.
+
+.PHONY: _default
+
+_default: default
+
+
+
+# -------- Decide what compiler options and libraries to use. --------
+
+ifdef WARNMODE
+WFLAGS = -Wall -W -Werror
+# -Wno-unused
+else
+WFLAGS = -Wall -Wno-unused
+endif
+
+ifdef PGCC
+OFLAGS = -march=pentium -O6 -ffast-math
+else
+ifdef PENTIUMONLY
+OFLAGS = -march=pentium -O2 -funroll-loops -ffast-math
+else
+OFLAGS = -O2 -funroll-loops -ffast-math
+endif
+endif
+
+ifdef DEBUGMODE
+# debugging build
+CFLAGS = -DDEBUGMODE=$(DEBUGMODE) $(WFLAGS) -g
+SFLAGS = -DDEBUGMODE=$(DEBUGMODE) $(WFLAGS)
+LFLAGS = -g3
+LIB_FLAGS = -lalld
+else
+ifdef PROFILEMODE
+# profiling build
+CFLAGS = $(WFLAGS) $(OFLAGS) -pg
+SFLAGS = $(WFLAGS)
+LFLAGS = -pg
+LIB_FLAGS = -lallp
+else
+# optimised build
+CFLAGS = $(WFLAGS) $(OFLAGS) -fomit-frame-pointer -fno-strength-reduce
+SFLAGS = $(WFLAGS)
+ifndef SYMBOLMODE
+LFLAGS = -s
+LIB_FLAGS = -lalleg
+endif
+endif
+endif
+
+ifdef CGUI_DEVELOPING
+CFLAGS += -D_CGUI_DEVELOPING=1
+endif
+ifdef CGUI_FORTIFY
+CFLAGS += -D_CGUI_FORTIFY=1 -DFORTIFY
+endif
+
+# This is just so that we can test that CGUI doesn't relies on Allegro
+# including some standard header.
+ifdef CGUI_NO_ALLEGRO_STD_HEADERS
+CFLAGS += -DALLEGRO_NO_STD_HEADERS -DEDOM=1 -DERANGE=1
+endif
+
+CFLAGS_NO_OPTIMIZE = $(WFLAGS)
+
+COMPILE_FLAGS = $(subst src/,-DCGUI_SRC ,$(findstring src/, $<))$(CFLAGS)
+COMPILE_FLAGS_NO_OPTIMIZE = $(subst src/,-DCGUI_SRC ,$(findstring src/, $<))$(CFLAGS_NO_OPTIMIZE)
+
+
+
+# -------- List platform specific objects and programs. --------
+
+VPATH +=
+
+OBJ_LIST = $(COMMON_OBJS)
+
+# Insert names of targets to build platform specific programs here.
+PROGRAMS =
+# Insert targets to build platform specific programs here.
+# myprogram: path/myprogram$(EXE_SUFFIX)
+
+
+
+# -------- Define how to compile. --------
+
+GCC2DJGPP = -DDJGPP=2 -U__unix__
+
+COMPILE_C_TO_OBJ_DEPS =
+define COMPILE_C_TO_OBJ
+gcc $(COMPILE_FLAGS) -I./include -o $@ -c $<
+endef
+define COMPILE_C_TO_OBJ_NO_OPTIMIZE
+gcc $(COMPILE_FLAGS_NO_OPTIMIZE) -I./include -o $@ -c $<
+endef
+
+COMPILE_S_TO_OBJ_DEPS =
+define COMPILE_S_TO_OBJ
+gcc $(SFLAGS) -I./include -x assembler-with-cpp -o $@ -c $<
+endef
+
+LINK_OBJ_TO_LIB_DEPS =
+define LINK_OBJ_TO_LIB
+ar rs $(LIB_NAME) $(LIB_OBJS)
+endef
+
+LINK_OBJ_TO_EXE_DEPS =
+define LINK_OBJ_TO_EXE
+gcc $(LFLAGS) -o $@ $< $(LIB_NAME) $(LIB_FLAGS)
+endef
+
+LINK_OBJ_TO_EXE_NOLIB_DEPS =
+define LINK_OBJ_TO_EXE_NOLIB
+gcc $(LFLAGS) -o $@ $<
+endef
+
+LINK_OBJ_TO_EXE_NOCGUILIB_DEPS =
+define LINK_OBJ_TO_EXE_NOCGUILIB
+gcc $(LFLAGS) -o $@ $< $(LIB_FLAGS)
+endef
+
+LINK_ALL_OBJ_TO_EXE_DEPS =
+define LINK_ALL_OBJ_TO_EXE
+gcc $(LFLAGS) -o $@ $^ $(LIB_NAME) $(LIB_FLAGS)
+endef
+
+LINK_ALL_OBJ_TO_EXE_NOLIB_DEPS =
+define LINK_ALL_OBJ_TO_EXE_NOLIB
+gcc $(LFLAGS) -o $@ $^ 
+endef
+
+LINK_ALL_OBJ_TO_EXE_NOCGUILIB_DEPS =
+define LINK_ALL_OBJ_TO_EXE_NOCGUILIB
+gcc $(LFLAGS) -o $@ $^ $(LIB_FLAGS)
+endef
+
+
+# -------- Rules for installing and removing the library files. --------
+
+ifdef CROSSCOMPILE
+
+$(SYSTEM_LIB_DIR)/$(LIB_BASENAME): $(LIB_NAME)
+	cp $(subst \,/,$< $@)
+
+$(SYSTEM_INCLUDE_DIR)/cgui.h: include/cgui.h
+	cp $(subst \,/,$< $@)
+
+$(SYSTEM_INCLUDE_DIR)/cgui:
+	mkdir $(subst \,/,$< $@)
+
+$(SYSTEM_INCLUDE_DIR)/cgui/%.h: include/cgui/%.h include/cgui
+	cp $(subst \,/,$< $@)
+
+$(SYSTEM_INFO_DIR)/%$(INFO_SUFFIX): docs/%$(INFO_SUFFIX)
+	cp $(subst \,/,$< $@)
+	install-info $(subst \,/,$@) $(SYSTEM_INFO_DIR)/dir
+
+else # ifdef CROSSCOMPILE
+
+$(SYSTEM_INCLUDE_DIR)/cgui.h: include/cgui.h
+	$(CP) $(subst /,\,$< $@)
+
+$(SYSTEM_INCLUDE_DIR)/cgui:
+	$(MKDIR) $(subst /,\,$@)
+
+$(SYSTEM_INCLUDE_DIR)/cgui/%.h: include/cgui/%.h include/cgui
+	$(CP) $(subst /,\,$< $@)
+
+$(SYSTEM_INFO_DIR)/%$(INFO_SUFFIX): docs/%$(INFO_SUFFIX)
+	$(CP) $(subst /,\,$< $@)
+
+$(SYSTEM_LIB_DIR)/$(LIB_BASENAME): $(LIB_NAME)
+	$(CP) $(subst /,\,$< $@)
+
+endif # ifdef CROSSCOMPILE else
+
+
+INSTALL_HEADERS = $(addprefix $(DJGPPDIR_U)/,$(wildcard include/cgui/*.h))
+
+INSTALL_FILES = $(SYSTEM_LIB_DIR)/$(LIB_BASENAME) \
+					 $(SYSTEM_INCLUDE_DIR)/cgui.h \
+					 $(SYSTEM_INCLUDE_DIR)/cgui \
+					 $(SYSTEM_INFO_DIR)/cgui$(INFO_SUFFIX) \
+					 $(INSTALL_HEADERS)
+
+install: $(INSTALL_FILES)
+	@echo The $(DESCRIPTION) djgpp library has been installed.
+
+UNINSTALL_FILES = $(SYSTEM_LIB_DIR)/libcgui.a $(SYSTEM_LIB_DIR)/libcguid.a \
+						$(SYSTEM_INCLUDE_DIR)/cgui.h \
+						$(SYSTEM_INCLUDE_DIR)/cgui/*.h \
+						$(SYSTEM_INFO_DIR)/cgui$(INFO_SUFFIX)
+
+uninstall:
+	-rm -fv $(UNINSTALL_FILES)
+ifdef CROSSCOMPILE
+	-rmdir $(SYSTEM_INCLUDE_DIR_U)/cgui
+else
+	-rd $(SYSTEM_INCLUDE_DIR_D)\cgui
+endif
+	@echo All gone!
+
+
+
+# -------- Compile anything that can't be done in makefile.all. --------
+
+# this section is empty
+
+
+# -------- Generate automatic dependencies. --------
+
+DEPEND_PARAMS = $(GCC2DJGPP) -MM -MG -I. -I./include -DCGUI_SCAN_DEPEND
+
+depend:
+	sed -e 's/^[a-zA-Z0-9_\/]*\///' -e 's/[^ ]*version\.h//' -e 's/[^ ]*djgpp\.ver//' -e 's/[^ ]*allegro[^ ]*//g' -e '/^ *\\/d'  _depend.tmp > _depend.tmp
+	sed -e 's/^\([a-zA-Z0-9_]*\.o:\)/obj\/djgpp\/cgui\/\1/' _depend.tmp > obj/djgpp/cgui/makefile.dep
+	sed -e 's/^\([a-zA-Z0-9_]*\.o:\)/obj\/djgpp\/cguid\/\1/' _depend.tmp > obj/djgpp/cguid/makefile.dep
+	rm _depend.tmp

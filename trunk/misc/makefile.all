@@ -1,0 +1,484 @@
+#  makefile.all:
+#  Makefile for the CGUI library. Requires GNU make.
+#
+#  By Christer Sandberg (ported from Adime made by Sven Sandberg)
+#
+#  See readme.txt or readme.html for more information about CGUI.
+#
+#  Available options:
+#
+#    Targets:
+#
+#       default:       Build library, docs and example.
+#       install:       Install library into system directories.
+#       all:           Build both optimized and debug version.
+#       installall:    Install both library versions into system directories.
+#       lib:           Build only the library.
+#       docs:          Build only the documentation.
+#       clean:         Remove rebuildable files.
+#       compress:      Compress the example executables using the executable compressing program pointed to by UPX_PROGRAM.
+#       help:          Display this help.
+#
+#    Developer Targets:
+#
+#       dat2c:         Builds the program that is used for the dat target
+#       mktext:        Builds the program mktext used by the dat target
+#       dat:           Builds the cgui_dat.c file containing all data needed
+#                      by the lib. This includes the textfile containing
+#                      labels etc and connected to that the includefile(s)
+#                      *.ht, origination from the *.t files.
+#                      This should actually be part of the default build but
+#                      for the user conveniance it is pre-built.
+#                      So this has to be built if the labels in the *.ht
+#                      files has been changed, some icons or fonts has
+#                      changed in the resource/* files
+#                      This requires an environment variabel ALLEGRO
+#                      pointing to your Allegro directory.
+#       depend:        Regenerate dependencies.
+#       veryclean:     Remove rebuildable files, including dependencies.
+#       rewhisp:       Reformat all text files to unix format using whisped. This requires the whisped program to in your path.
+#       rewhisp-dos:   Reformat all text files to dos format using whisped. This requires the whisped program to in your path.
+#
+#    Variables:
+#
+#       ALLEGRO=<directoy-of-allegro-source> See target `dat' above.
+#       UPX_PROGRAM=<program-to-compress-with> See target `compress' above.
+#       DEBUGMODE=1    Include debug info in the library.
+#       CGUI_FORTIFY=1 Include memory debugger. Sources are not included in
+#                      the distribution c-files are assumed to be located in
+#                      src and h-files in include.
+##
+
+include misc/makefile.ver
+
+LIB_SOURCE = \
+			  cursdata.c   \
+			  fontdata.c   \
+			  icondata.c   \
+			  labldata.c   \
+			  browsbar.c   \
+			  browser.c    \
+			  cgkeybrd.c   \
+			  cguiinit.c   \
+			  clipwin.c    \
+			  clock.c      \
+			  cursor.c     \
+			  datalpha.c   \
+			  datedit.c    \
+			  datfli.c     \
+			  datfont.c    \
+			  datgrab.c    \
+			  datgrid.c    \
+			  datimage.c   \
+			  datitype.c   \
+			  datmidi.c    \
+			  datpal.c     \
+			  datsamp.c    \
+			  dos2win.c    \
+			  edbmenu.c    \
+			  event.c      \
+			  filebrow.c   \
+			  filebuff.c   \
+			  filedat.c    \
+			  filedial.c   \
+			  fileimpq.c   \
+			  filereg.c    \
+			  files.c      \
+			  font.c       \
+			  formdate.c   \
+			  gencm.c      \
+			  graphini.c   \
+			  halfform.c   \
+			  hotkey.c     \
+			  hotkeyau.c   \
+			  id.c         \
+			  list.c       \
+			  loadtext.c   \
+			  memory.c     \
+			  menbarcm.c   \
+			  menu.c       \
+			  menubar.c    \
+			  menuitem.c   \
+			  mouse.c      \
+			  msm.c        \
+			  ndcont.c     \
+			  ndresize.c   \
+			  node.c       \
+			  obbutton.c   \
+			  obcanvas.c   \
+			  obcheck.c    \
+			  obdrag.c     \
+			  obdrop.c     \
+			  obedbox.c    \
+			  obflip.c     \
+			  obgroove.c   \
+			  obheader.c   \
+			  obicon.c     \
+			  object.c     \
+			  obmenchk.c   \
+			  obmenrad.c   \
+			  obmensel.c   \
+			  obprogr.c    \
+			  obradio.c    \
+			  obsizer.c    \
+			  obslider.c   \
+			  obstatus.c   \
+			  obtag.c      \
+			  obtext.c     \
+                          obuser.c     \
+			  rectlist.c   \
+			  refresh.c    \
+			  sc2ascii.c   \
+			  scroll.c     \
+			  setpos.c     \
+			  sound.c      \
+			  spin.c       \
+			  tabruler.c   \
+			  tabchain.c   \
+			  tabs.c       \
+			  tabwin.c     \
+			  timer.c      \
+			  win2dos.c    \
+			  windial.c    \
+			  window.c     \
+			  winreq.c     \
+			  winscr.c     \
+			  statelog.c   \
+			  treeview.c
+
+# For development only: this turns on the use of Fortify, the memory
+# debugger.
+ifdef CGUI_FORTIFY
+LIB_SOURCE += \
+ fortify.c \
+ fortify2.c
+endif
+
+EXAMPLES_SOURCE = \
+		00hello.c   \
+		01hellox.c  \
+		02objtyp.c  \
+		03spinbu.c  \
+		04status.c  \
+		05txtbox.c  \
+		06edit.c    \
+		07slider.c  \
+		08wintyp.c  \
+		09menus.c   \
+		10lists.c   \
+		11contai.c  \
+		12tabwin.c  \
+		13direct.c  \
+		14resize.c  \
+		15filebr.c  \
+		16filere.c  \
+		17progr.c   \
+		18icons.c   \
+		19deskt.c   \
+		20anim.c    \
+		21canvas.c  \
+		22drag.c    \
+		23ttip.c    \
+		24browse.c  \
+		25viewer.c  \
+		26joytst.c  \
+		27trees.c   \
+		28colors.c  \
+                29usrdef.c  \
+		game1.c     \
+		game2.c     \
+		game3.c     \
+		game4.c     \
+		game5.c
+
+MKTEXT_SOURCE = \
+		t_arr.c \
+		t_mktext.c \
+		t_block.c \
+		t_header.c \
+		t_ilang.c \
+		t_imed.c \
+		t_isec.c \
+		t_istr.c \
+		t_itree.c \
+		t_label.c \
+		t_lang.c \
+		t_parser.c \
+		t_scan.c \
+		t_sec.c \
+		t_tree.c
+
+MAKEDOC_FILES = chm devh doc html man misc rtf texi txt
+MAKEDOC_FILES := $(addprefix misc/makedoc/make,$(MAKEDOC_FILES))
+MAKEDOC_SOURCE := $(addsuffix .c,$(MAKEDOC_FILES))
+MAKEDOC_FILES := $(addsuffix .h,$(MAKEDOC_FILES)) $(MAKEDOC_SOURCE)
+RUNNER_SOURCE = misc/runner.c
+
+# -------- Building the textfiles (i.e. the lables etc. used in dialogues) --------
+ALLEGRO_DAT_X = $(ALLEGRO)/tools/dat
+CGUI_DAT2C_X = tools/dat2c$(EXE_SUFFIX)
+CGUI_DAT2C_OBJ_X = $(OBJ_DIR)/dat2c$(OBJ_SUFFIX)
+CGUI_DAT2C_SRC_X = tools/dat2c.c
+CGUI_FONTS_X = resource/fonts.dat
+CGUI_FONTS_C_X = src/fontdata.c
+CGUI_FONTS_H_X = src/fontdata.h
+CGUI_ICONS_X = resource/icons.dat
+CGUI_ICONS_C_X = src/icondata.c
+CGUI_ICONS_H_X = src/icondata.h
+CGUI_CURSORS_X = resource/cursors.dat
+CGUI_CURSORS_C_X = src/cursdata.c
+CGUI_CURSORS_H_X = src/cursdata.h
+CGUI_DAT_X = resource/cgui.dat
+CGUI_DAT_C_X = src/labldata.c
+CGUI_DAT_H_X = src/labldata.h
+CGUI_LABELS_X = resource/cguilabl
+TEXT_SOURCES_X  = $(wildcard src/*.t)
+TEXT_HEADERS_X = $(addsuffix .ht,$(basename $(TEXT_SOURCES_X)))
+MKTEXT_X = tools/mktext$(EXE_SUFFIX)
+
+CLEAN_FILES = \
+ obj/*/*.o obj/*/*/*.o obj/*/*/*/*.o \
+ obj/*/*.obj obj/*/*/*.obj obj/*/*/*/*.obj \
+ lib/*/*.a lib/*/*/*.a lib/*/*/*/*.a \
+ lib/*.so* lib/*/*.so* lib/*/*/*.so* lib/*/*/*/*.so* \
+ lib/*.lib lib/*/*.lib lib/*/*/*.lib lib/*/*/*/*.lib \
+ lib/*.exp lib/*/*.exp lib/*/*/*.exp lib/*/*/*/*.exp \
+ lib/*/*.pdb lib/*/*.ilk lib/*/*.map *.pdb */*.pdb \
+ */*.ilk */*.map */*.sym gmon.out */gmon.out */*.prf \
+ lib/*.dll lib/*/*.dll lib/*/*/*.dll \
+ *.exe */*.exe \
+ $(addsuffix $(EXE_SUFFIX),$(basename $(EXAMPLES_SOURCE) */$(EXAMPLES_SOURCE))) \
+ docs/*.htm docs/*.html docs/*.rtf docs/*.inf docs/*.info \
+ docs/*.txi docs/*.texi docs/*.chm docs/*.hhc docs/*.hhk docs/*.hhp \
+ core */core */*/core
+
+VERY_CLEAN_FILES = \
+ */makefile.dep */*/makefile.dep */*/*/makefile.dep */*/*/*/makefile.dep \
+ lib/*.def lib/*/*.def lib/*/*/*.def \
+ *.html *.htm readme.txt \
+ src/*.ht $(CGUI_LABELS_X)
+
+VPATH = src examples docs
+
+PACKAGE5_OPTIMIZED = cgui
+PACKAGE4_OPTIMIZED = cgui
+DESCRIPTION_OPTIMIZED = optimized
+
+ifdef DEBUGMODE
+PACKAGE5 = cguid
+PACKAGE4 = cguid
+DESCRIPTION = debugging
+else
+PACKAGE5 = $(PACKAGE5_OPTIMIZED)
+PACKAGE4 = $(PACKAGE4_OPTIMIZED)
+DESCRIPTION = $(DESCRIPTION_OPTIMIZED)
+endif
+
+# By default, Allegro is linked the same way as cgui, but this can be
+# overridden.
+# Note that it is not a good idea to do anything particular with the
+# STATICLINK_ALLEGRO or NO_STATICLINK_ALLEGRO variables, since it would be
+# bad to have two dlls around with the same name that link differently to
+# Allegro.
+ifdef STATICLINK
+ifndef NO_STATICLINK_ALLEGRO
+STATICLINK_ALLEGRO=1
+endif
+endif
+
+# -------- Include platform specific makefile. --------
+
+include misc/$(MAKEFILE_INC)
+
+
+
+# -------- Set variables --------
+
+DOCS = \
+ cgui.txt cgui$(HTML_SUFFIX) docs/cgui$(INFO_SUFFIX) docs/cgui.rtf \
+ docs/internal.txt internal$(HTML_SUFFIX) docs/internal$(HTML_SUFFIX) docs/internal$(INFO_SUFFIX) docs/internal.rtf \
+ readme.txt readme$(HTML_SUFFIX) docs/readme$(INFO_SUFFIX) \
+ changes.txt changes$(HTML_SUFFIX) \
+ thanks.txt thanks$(HTML_SUFFIX) \
+ faq.txt faq$(HTML_SUFFIX) \
+ wishlist.txt wishlist$(HTML_SUFFIX)
+
+ifndef HAVE_TEXINFO
+DOCS :=  $(filter-out %$(INFO_SUFFIX),$(DOCS))
+endif
+
+ifndef LIB_OBJS
+LIB_OBJS = $(addprefix $(OBJ_DIR)/,$(addsuffix $(OBJ_SUFFIX),$(basename $(LIB_SOURCE))))
+endif
+MAKEDOC_PROGRAM := misc/makedoc/makedoc$(EXE_SUFFIX)
+MAKEDOC_OBJS = $(addprefix $(OBJ_DIR)/,$(addsuffix $(OBJ_SUFFIX),$(basename $(notdir $(MAKEDOC_SOURCE)))))
+EXAMPLES_OBJS = $(addprefix $(OBJ_DIR)/,$(addsuffix $(OBJ_SUFFIX),$(basename $(EXAMPLES_SOURCE))))
+EXAMPLES_NAME = $(addprefix examples/,$(addsuffix $(EXE_SUFFIX),$(basename $(EXAMPLES_SOURCE))))
+
+MKTEXT_OBJS = $(addprefix $(OBJ_DIR)/,$(addsuffix $(OBJ_SUFFIX),$(basename $(MKTEXT_SOURCE))))
+MKTEXT_OBJS += $(OBJ_DIR)/memory$(OBJ_SUFFIX)
+
+# -------- Compile --------
+
+.PHONY: default all lib examples docs mktext dat clean veryclean compress donemsg dat2c
+
+.PRECIOUS: docs/%$(TEXI_SUFFIX) $(OBJ_DIR)/%$(OBJ_SUFFIX)
+
+default: startmsg lib examples test docs donemsg
+
+ifndef TEST_MODE
+test:
+endif
+
+startmsg:
+	@echo Compiling CGUI for $(PLATFORM), $(DESCRIPTION). Please wait.
+
+all:
+	$(MAKE) startmsg lib DEBUGMODE=1
+	$(MAKE) startmsg lib examples mktext docs
+	@echo CGUI for $(PLATFORM) has been compiled.
+	@echo Run make installall to complete the installation.
+
+installall:
+	$(MAKE) install
+	$(MAKE) install DEBUGMODE=1
+	@echo Both CGUI library versions have been installed!
+
+lib: $(LIB_NAME)
+
+examples: $(EXAMPLES_NAME)
+
+docs: $(DOCS)
+
+mktext: $(MKTEXT_X)
+
+donemsg:
+	@echo The $(DESCRIPTION) library for $(PLATFORM) has been compiled.
+	@echo Run make install to complete the installation.
+
+clean:
+	-rm -fv $(CLEAN_FILES)
+
+veryclean:
+	-rm -fv $(VERY_CLEAN_FILES) $(CLEAN_FILES)
+
+compress:
+ifdef UPX_PROGRAM
+	$(UPX_PROGRAM) $(EXAMPLES_NAME) $(wildcard lib/*/$(PACKAGE4_OPTIMIZED)$(LIB_VERSION).dll)
+else
+	@echo No executable compressor specified! You must set the environment variable
+	@echo UPX_PROGRAM to point to upx.exe.
+endif
+
+dat2c: $(CGUI_DAT2C_X)
+
+$(OBJ_DIR)/%$(OBJ_SUFFIX): %.c $(COMPILE_C_TO_OBJ_DEPS)
+	$(COMPILE_C_TO_OBJ)
+
+$(LIB_NAME): $(LIB_OBJS) $(LINK_OBJ_TO_LIB_DEPS)
+	$(LINK_OBJ_TO_LIB)
+
+examples/%$(EXE_SUFFIX): $(OBJ_DIR)/%$(OBJ_SUFFIX) $(LIB_NAME) $(LINK_OBJ_TO_EXE_DEPS)
+	$(LINK_OBJ_TO_EXE)
+
+$(MAKEDOC_PROGRAM): $(MAKEDOC_OBJS) $(LINK_ALL_OBJ_TO_EXE_NOLIB_DEPS)
+	$(LINK_ALL_OBJ_TO_EXE_NOLIB)
+
+$(OBJ_DIR)/make%$(OBJ_SUFFIX): misc/makedoc/make%.c $(COMPILE_C_TO_OBJ_DEPS)
+	$(COMPILE_C_TO_OBJ)
+
+$(MKTEXT_X): $(MKTEXT_OBJS) $(LINK_ALL_OBJ_TO_EXE_NOCGUILIB_DEPS)
+	$(LINK_ALL_OBJ_TO_EXE_NOCGUILIB)
+
+$(OBJ_DIR)/t_%$(OBJ_SUFFIX): tools/t_%.c $(COMPILE_C_TO_OBJ_DEPS)
+	$(COMPILE_C_TO_OBJ)
+
+ifneq ($(RUNNER_DEP),)
+$(RUNNER): $(RUNNER_SOURCE)
+	$(COMPILE_RUNNER)
+endif
+
+chm-docs: docs/cgui.chm
+
+%.txt: docs/%._tx $(MAKEDOC_PROGRAM)
+	-$(MAKEDOC_PROGRAM) -ascii $@ $<
+
+docs/%.txt: docs/%._tx $(MAKEDOC_PROGRAM)
+	-$(MAKEDOC_PROGRAM) -ascii $@ $<
+
+%$(HTML_SUFFIX): docs/%._tx $(MAKEDOC_PROGRAM)
+	-$(MAKEDOC_PROGRAM) $(_TX_HTML_FLAG) $@ $<
+
+docs/%$(HTML_SUFFIX): docs/%._tx $(MAKEDOC_PROGRAM)
+	-$(MAKEDOC_PROGRAM) $(_TX_HTML_FLAG) $@ $<
+
+docs/%.rtf: docs/%._tx $(MAKEDOC_PROGRAM)
+	-$(MAKEDOC_PROGRAM) -rtf $@ $<
+
+docs/cgui.chm: $(filter %$(HTML_SUFFIX),$(DOCS)) docs/cgui._tx $(MAKEDOC_PROGRAM)
+	$(MAKEDOC_PROGRAM) -chm docs/cgui.html docs/cgui._tx
+	-hhc docs/cgui.hhp
+
+ifdef HAVE_TEXINFO
+docs/%$(INFO_SUFFIX): docs/%$(TEXI_SUFFIX)
+	-makeinfo --no-split -o $@ $<
+
+docs/%$(TEXI_SUFFIX): docs/%._tx $(MAKEDOC_PROGRAM)
+	-$(MAKEDOC_PROGRAM) $(_TX_TEXI_FLAG) $@ $<
+endif
+
+dat: $(CGUI_DAT_C_X) $(CGUI_FONTS_C_X) $(CGUI_ICONS_C_X) $(CGUI_CURSORS_C_X)
+
+$(CGUI_DAT_C_X) $(CGUI_DAT_H_X): $(CGUI_DAT_X)
+	-$(CGUI_DAT2C) $(CGUI_DAT) -o $(CGUI_DAT_C) -h $(CGUI_DAT_H) -p cgui -g -n labels
+
+$(CGUI_DAT_X): $(CGUI_LABELS_X)
+ifdef ALLEGRO
+	-$(ALLEGRO_DAT) $(CGUI_DAT) -a $(CGUI_LABELS)
+else
+	@echo "Error: You need to set the ALLEGRO environment variable to point to your allegro build directory"
+endif
+
+$(CGUI_LABELS_X) $(TEXT_HEADERS_X): $(TEXT_SOURCES_X)
+	-$(MKTEXT) -o$(CGUI_LABELS) $(TEXT_SOURCES)
+
+$(CGUI_FONTS_C_X) $(CGUI_FONTS_H_X): $(CGUI_FONTS_X)
+	-$(CGUI_DAT2C) $(CGUI_FONTS) -o $(CGUI_FONTS_C) -h $(CGUI_FONTS_H) -p _cgui -n fonts_datafile
+
+$(CGUI_ICONS_C_X) $(CGUI_ICONS_H_X): $(CGUI_ICONS_X)
+	-$(CGUI_DAT2C) $(CGUI_ICONS) -o $(CGUI_ICONS_C) -h $(CGUI_ICONS_H) -p __cgui -g -n icons
+
+$(CGUI_CURSORS_C_X) $(CGUI_CURSORS_H_X): $(CGUI_CURSORS_X)
+	-$(CGUI_DAT2C) $(CGUI_CURSORS) -o $(CGUI_CURSORS_C) -h $(CGUI_CURSORS_H) -p curs -g -n cursors
+
+$(CGUI_DAT2C_X): $(CGUI_DAT2C_OBJ_X) $(LINK_OBJ_TO_EXE_NOCGUILIB_DEPS)
+	-$(LINK_OBJ_TO_EXE_NOCGUILIB)
+
+$(CGUI_DAT2C_OBJ_X): $(CGUI_DAT2C_SRC_X) $(COMPILE_C_TO_OBJ_DEPS)
+	-$(COMPILE_C_TO_OBJ)
+
+# -------- Misc stuff --------
+
+help:
+	@sed -n -e "/##/q" -e "s/#\(.*\)/\1/p" < misc/makefile.all
+
+# -------- Some targets to help make the distribution. --------
+
+rewhisp:
+	whisped -f3t0olke1u +*._tx +*.txt
+	whisped -f3t0olke1u +*.sh
+	whisped -f3t0olke1d *.bat
+	whisped -f3t0olke1u +*.c +*.h
+	whisped -f3t3olke1u misc/makefile.* misc/emptymak
+
+rewhisp-dos:
+	whisped -f3t0olke1d +*._tx +*.txt
+	whisped -f3t0olke1u +*.sh
+	whisped -f3t0olke1d *.bat
+	whisped -f3t0olke1d +*.c +*.h
+	whisped -f3t3olke1d misc/makefile.* misc/emptymak
+
+
+# -------- Dependencies. --------
+
+-include $(OBJ_DIR)/makefile.dep

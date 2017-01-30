@@ -1,0 +1,172 @@
+\input texinfo
+@setfilename readme.inf
+@settitle Readme for CGUI
+@paragraphindent 0
+@setchapternewpage off
+
+@ifinfo
+@direntry
+* CGUI: (CGUI). Readme file for CGUI
+@end direntry
+This is the Info version of the CGUI readme file.
+
+By Christer Sandberg
+@end ifinfo
+
+@node Top, , (dir), (dir)
+
+A C Graphical User Interface [add on to Allegro] by Christer Sandberg
+Email: rya.christer@@gmail.com
+Homepage: http://cgui.sourceforge.net/
+The CGUI Readme File
+
+ 2.0.5
+
+
+@menu
+* Introduction::            Introduction
+* Requirements::            Requirements
+* Installation::            Installation
+* MSys::                    MSys
+* Usage::                   Usage
+* Contact Info::            Contact Info
+@end menu
+
+@node Introduction, Requirements, , Top
+@chapter Introduction
+
+CGUI is a Graphical User Interface library. It contains functions that you
+can use to create windows with buttons, lists, edit boxes etc. Read the
+documentation (you find it in the docs directory of cgui) for details. The
+docs will be built in several formats when you build the library (see below)
+
+CGUI compiles on the following platforms: DOS/DJGPP, Linux, Cygwin, Mac OS X
+Windows/Mingw32, and Windows/MSVC.
+
+@node Requirements, Installation, Introduction, Top
+@chapter Requirements
+You need to have compiled and installed Allegro version 4.4.2 before building CGUI.
+Please note: compiled. Verify that Allegro is correctly build by running the program 
+exhello in Allegro's example directory.
+There are also other requirements like correctly installed compilers etc. but these are
+already fulfilled if you succeded in the above.
+@*
+You can find Allegro at:
+http://alleg.sourceforge.net/
+
+@node Installation, MSys, Requirements, Top
+@chapter Installation
+Installation goes in the following simple steps, and should be familiar since it is
+exactly the same way as you used when installing Allegro:
+
+@itemize @bullet
+
+@item 
+Start a konsole (a DOS-box in Windows)
+@item 
+Make your cgui directory to the current (e.g. cd ~/cgui or cd c:\cgui etc)
+@item 
+Tell the installation process what platform you use. This is done by
+running one of the following at the command line:
+@example
+
+To compile with Linux            ./fix.sh unix
+To compile with Cygwin           fix.sh cygwin
+To compile with DOS/DJGPP:       fix.bat djgpp
+To compile with Mac OS X:        ./fix.sh mac
+To compile with Windows/MinGW32: fix.bat mingw32
+To compile with Windows/MSVC:    fix.bat msvc
+@end example
+
+@item 
+For MSVC users only:@*
+Set up your environment so that MSVC can be used from the commandline.
+You probably have a vcvars32.bat file that will do this for you. (Under
+Windows NT and Windows 2000, you will have to run this file every time
+you open a DOS box, or configure the environment variables in Control
+Panel/System/Environment.)
+@item 
+Compile the library. This is done by running
+@example
+make
+@end example
+
+at the command line.
+@item 
+Install the files to common directories. This is done by running
+@example
+
+make install
+@end example
+
+at the command line. Under Linux and Mac OS X you must be root to do that.
+@*
+Under Linux, you may want to instead run "make install SYSTEM_DIR=<dir>",
+which will cause headers to be installed to <dir>/include and libraries to
+<dir>/lib. (default for <dir> is /usr/local)
+@end itemize
+
+That's it! You may also want to perform some of the optional steps:
+
+@itemize @bullet
+@item 
+You can compile a debugging library by typing "make DEBUGMODE=1". To
+compile both the usual and the debug library in one step, type "make all".
+@item 
+To use the debugging library with your program, replace cgui with cguid in the
+library specification to the build procedure of your program.
+@item 
+If you use Rhide and want to read the CGUI documentation with the Rhide online help
+system, go to the "Help / Syntax help / Files to search" menu, and add
+"cgui" after the existing "libc" entry (separated by a space).
+@item 
+If you use the default build there will be built and installed a dynamic
+library. If you want statically linked libraries under Unix or Windows as
+well as the default dynamically linked libraries (dll under Windows, .so
+under Unix), set the environment variable "STATICLINK=1", and repeat the
+"make install" and if you want a debug build "make install DEBUGMODE=1".
+These static libraries require the statically linked version of Allegro.@*
+If you use the static library your own program using it will contain
+everything, but the executable file will be larger. If you use the
+dynamic library your program will be quite small, but on the other hand
+you also need to append both the dynamic CGUI library and the dynamic
+library of Allegro when you distribute yur program to other people.
+@end itemize
+
+
+
+@node MSys, Usage, Installation, Top
+@chapter MSys
+Users of the MSys environment should use the mingw32 port of CGUI and need to
+set the environment variable UNIX_TOOLS=1 before make install is run.
+
+@node Usage, Contact Info, MSys, Top
+@chapter Usage
+Read the documentation (e.g. cgui.html) section Usage about how to build
+your own program using CGUI.@*
+Run some of the examples and look at the code to get hints how to use CGUI.
+Read the documentation to learn more and to see details how it works.
+
+
+@node Contact Info, , Usage, Top
+@chapter Contact Info
+
+Email:
+@itemize @bullet
+ @item 
+rya.christer@@gmail.com
+@end itemize
+
+Homepage:
+@itemize @bullet
+@item 
+http://cgui.sourceforge.net/ 
+@end itemize
+
+Telephone:
+@itemize @bullet
+@item 
++46.(0)34032266
+@end itemize
+
+

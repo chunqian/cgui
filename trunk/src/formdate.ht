@@ -1,0 +1,58 @@
+/* Generated header-file <generator=mktext.1.1> */
+#ifndef FORMDATE_HT
+#define FORMDATE_HT
+#define LETTER_DAY 0
+#define LETTER_MONTH 1
+#define LETTER_YEAR 2
+#define LETTER_HOUR 3
+#define LETTER_MINUTE 4
+#define LETTER_SECOND 5
+#define SIZE_formatletters 6
+
+#define JAN 0
+#define FEB 1
+#define MAR 2
+#define APR 3
+#define MAY 4
+#define JUN 5
+#define JUL 6
+#define AUG 7
+#define SEP 8
+#define OCT 9
+#define NOV 10
+#define DEC 11
+#define SIZE_shortmonths 12
+
+#define JANUARY 0
+#define FEBRUARY 1
+#define MARCH 2
+#define APRIL 3
+#define MAY 4
+#define JUNE 5
+#define JULY 6
+#define AUGUST 7
+#define SEPTEMBER 8
+#define OCTOBER 9
+#define NOVEMBER 10
+#define DECEMBER 11
+#define SIZE_longmonths 12
+
+#define SUN 0
+#define MON 1
+#define TUE 2
+#define WED 3
+#define THU 4
+#define FRI 5
+#define SAT 6
+#define SIZE_shortdays 7
+
+#define SUNDAY 0
+#define MONDAY 1
+#define TUESDAY 2
+#define WEDNESDAY 3
+#define THURSDAY 4
+#define FRIDAY 5
+#define SATURDAY 6
+#define SIZE_longdays 7
+
+#endif
