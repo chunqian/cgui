@@ -3994,7 +3994,7 @@ Events
 Misc
 Various functions that may be of interest.
 
-@@char const*const*@LoadTexts(const char *fn, const char *section);
+@@char const*const*@LoadTexts(const char *fn, const char *section, int *size);
 @xref DestroyTexts
 @xref PrintFloatingConversion
 @xref RegisterConversionHandler
@@ -4028,6 +4028,7 @@ Various functions that may be of interest.
    <ul>
    <li> fn: filename to load
    <li> section: the name of the section
+   <li> size: the value pointed to will be updated with the number of texts in the section
    </ul>
 
 

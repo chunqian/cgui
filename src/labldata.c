@@ -10,10 +10,10 @@
 
 
 static DATAFILE_PROPERTY cgui_cguilabl_prop[] = {
-    { "12-14-2015, 21:47", DAT_ID('D', 'A', 'T', 'E') },
+    { "1-30-2017, 20:17", DAT_ID('D', 'A', 'T', 'E') },
     { "CGUILABL", DAT_ID('N', 'A', 'M', 'E') },
-    { "/home/christer/prog/cgui-branch167/resource/cguila"
-      "bl", DAT_ID('O', 'R', 'I', 'G') },
+    { "/home/christer/prog/base_cgui/cgui-base/resource/c"
+      "guilabl", DAT_ID('O', 'R', 'I', 'G') },
     { 0, DAT_END }
 };
 

@@ -215,7 +215,7 @@ MAKEDOC_FILES := $(addsuffix .h,$(MAKEDOC_FILES)) $(MAKEDOC_SOURCE)
 RUNNER_SOURCE = misc/runner.c
 
 # -------- Building the textfiles (i.e. the lables etc. used in dialogues) --------
-ALLEGRO_DAT_X = $(ALLEGRO)/tools/dat
+ALLEGRO_DAT_X = $(ALLEGRO)/Bulid/tools/dat
 CGUI_DAT2C_X = tools/dat2c$(EXE_SUFFIX)
 CGUI_DAT2C_OBJ_X = $(OBJ_DIR)/dat2c$(OBJ_SUFFIX)
 CGUI_DAT2C_SRC_X = tools/dat2c.c
