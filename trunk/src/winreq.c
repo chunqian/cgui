@@ -18,7 +18,10 @@
 
 #include "window.h"
 #include "object.h"
+#include "obbutton.h"
+#include "node.h"
 #include "id.h"
+#include "setpos.h"
 #include "cguiinit.h"
 #include "memint.h"
 #include "winreq.h"
@@ -42,10 +45,10 @@ static void CancelReply(void *msg)
 }
 
 /* Not to be read... */
-static void OutButtons(char *text)
+static void OutButtons(char *text, int window_width)
 {
    char *p, *s, *ss;
-   int n, i, x, id, bars;
+   int n, i, available_width, init_width, button_width, id, bars;
    t_requester *r;
    t_object *b;
    ss = GetMem(char, strlen(text) + 1);
@@ -59,7 +62,9 @@ static void OutButtons(char *text)
    }
    StartContainer(DOWNLEFT|ALIGNCENTRE, ADAPTIVE, "", 0);
    r = GetMem(t_requester, n);
-   for (i = x = 0, p = text + 1; *p; i++) {
+   init_width = window_width - DEFAULT_WINFRAME - 2 - opwin->win->opnode->leftx - opwin->win->opnode->rightx;
+   available_width = init_width;
+   for (i = 0, p = text + 1; *p; i++) {
       s = ss;
       while (*p) {
          if (*p == '|') {
@@ -78,16 +83,26 @@ static void OutButtons(char *text)
          r[i].no = i;
          r[i].r = r;
 
+         /* Put first button at top left corner in the buttons container, and
+         subsequent ones to the right (in a row). If the with of all buttons
+         in that row exceeds the specified width, then start a new row. */
          if (i == 0) {
             id = AddButton(TOPLEFT | EQUALHEIGHT, ss, CancelReply, r + i);
          } else {
             id = AddButton(RIGHT | EQUALHEIGHT, ss, CancelReply, r + i);
          }
          b = GetObject(id);
-         x += b->x2;
-         if (x >= REQ_WIDTH - DEFAULT_WINFRAME - 2) {
-            b->dire = DOWNLEFT;
-            x = b->x2;
+         SetPushButtonSize(b);
+         button_width = b->x2;
+         available_width -= button_width;
+         if (i > 0) {
+            available_width -= opwin->win->opnode->xdist;
+         }
+         if (available_width < 0) {
+            /* There was no horizontal space left for this button, start with
+            a new row of buttons. */
+            SetPosition(b, DOWNLEFT);
+            available_width = init_width - button_width;
          }
       } else {
          i--;                   /* skip empty button */
@@ -123,7 +138,7 @@ static int CreateRequster(const char *win_title, int options, int width, const c
       }
       AddTextBox(TOPLEFT | FILLSPACE, cp, width, 0, TB_LINEFEED_);
       *p = '|';
-      OutButtons(p);
+      OutButtons(p, width);
       DisplayWin();
       Release(cp);
       return 1;
