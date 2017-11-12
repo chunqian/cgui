@@ -812,12 +812,24 @@ Objects
 @@int @GetObjectPosition(int id, int *x, int *y, int *wx, int *wy);
 @xref AddIcon
 @xref GetWinInfo
+@xref GetObjectSize
    Gives the current position (top left corner) of an object.<br>
    Parameters:
    <ul>
    <li> id: The object asked for
    <li> x, y: The coordinates (relative to the container it exists in).
    <li> wx, wy: The coordinates related to window it exists in.
+   </ul>
+   Return value: 1 if ok 0 if error (i.e. invalid id).
+
+
+@@int @GetObjectSize(int id, int *w, int *h);
+@xref GetObjectPosition
+   Gives the current size (in pizels) of an object.<br>
+   Parameters:
+   <ul>
+   <li> id: The object asked for
+   <li> w, h: Pointers to variables in your application where to store the size.
    </ul>
    Return value: 1 if ok 0 if error (i.e. invalid id).
 
