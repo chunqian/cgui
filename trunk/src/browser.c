@@ -26,19 +26,36 @@
 #define BR_HORIZONTAL 0
 #define BR_VERTICAL   1
 
+/* Data defining a specific container encapsulating a browse bar and two scroll buttons. */
 typedef struct t_browser {
+   /* A pointer to the browse bar. */
    struct t_browsebar *bb;
+   /* A pointer to the decrementing scroll button (located to the top or left). */
    struct t_scroll *decr;
+   /* A pointer to the incrementing scroll button (located to the bottom or right). */
    struct t_scroll *incr;
+   /* A pointer to the location of the current scroll position (vertical or horizontal).
+   Initially this may be non-0 (i.e. not top/left). */
    int *pos;
+   /* The number of pixels to move for each click on a scroll button. */
    int step;
+   /* The length (vertical or horizontal) of the object (or area) to scroll. */
    int scrolled_length;
+   /* The id of the browsebar object. */
    int bbid;
+   /* A flag indicating if this is a vertical or horizontal browser. */
    int vertical;
+   /* A pointer back to the general container data structure. */
    t_node *nd;
+   /* A call-back function invoked when the user has interacted with the
+   browser elements to give the opportunity to update the browsed object. */
    void (*CallBack) (void *data);
+   /* A pointer to a data object associated with CallBack. */
    void *data;
+   /* The length (vertical or horizontal) of this browser object. */
    int len;
+   /* A flag telling if this browser is active. It is inactive when the browsed
+   object is less than or equal to the view port. */
    int active;
 } t_browser;
 
