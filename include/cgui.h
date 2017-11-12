@@ -278,6 +278,7 @@ CGUI_FUNC(void, ModifyHeader, (int id, char *newtag));
 CGUI_FUNC(int, AddHandler, (int id, CGUI_METHOD(void, Handler, (void *data)), void *data));
 CGUI_FUNC(void, Click, (int id));
 CGUI_FUNC(int, GetObjectPosition, (int id, int *x, int *y, int *wx, int *wy));
+CGUI_FUNC(int, GetObjectSize, (int id, int *w, int *h));
 CGUI_FUNC(void, SetBlitLimit, (int x1, int y1, int x2, int y2));
 CGUI_VAR(int , cgui_use_vsync);
 
