@@ -1535,6 +1535,18 @@ extern int GetObjectPosition(int id, int *x, int *y, int *wx, int *wy)
    return 0;
 }
 
+extern int GetObjectSize(int id, int *w, int *h)
+{
+   t_object *b = GetObject(id);
+
+   if (b) {
+      *w = b->x2 - b->x1 + 1;
+      *h = b->y2 - b->y1 + 1;
+      return 1;
+   }
+   return 0;
+}
+
 extern int ToolTipText(int id, const char *text)
 {
    t_object *b;

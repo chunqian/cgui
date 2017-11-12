@@ -10,31 +10,53 @@
 #include "browser.h"
 #include "browsbar.h"
 
+/* Data defining a specific object that is a browse bar. A browse bar can either
+be vertiacl or horizontal. It consists of (visually) a handle that can slide
+within an area outlined by a frame.*/
 typedef struct t_browsebar {
+   /* A pointer back to the generic object. */
    struct t_object *b;
+   /* A call-back function invoked when the user has interacted with the
+   browse bar to give the opportunity to update the browsed object. */
    void (*CallBack) (void *data);
+   /* A pointer to a data object associated with CallBack. */
    void *data;
-   int handle_pos;              /* Current top/left position along the
-                                   sliding direction of the browser
-                                   handle (relative to the object pos) */
-   int moffs;                   /* The mouse location counted from the
-                                   beginning of the handle (top or left
-                                   edge). */
-   int *pos;                    /* The position within the scrolled area
-                                   which location is at the top of the view
-                                   port. */
-   int scrolled_area_length;    /* The length of the scrolled area. */
-   int view_port_length;        /* The length of the view port */
-   int sliding_area_length;     /* The length of the sliding area (within
-                                   which the handle can slide, so the total
-                                   number of sliding pixels is
-                                   sliding_area_length - handle_length) */
-   int handle_length;           /* The length of the browser handle */
-   int *pstart, *pend, *pwidth; /* Pointers to locations in the object
-                                   struct, depending on the direction of
-                                   the browser */
+   /* The current top/left position along the sliding direction of the browser
+   handle (relative to the object pos) */
+   int handle_pos;
+   /* The relative mouse position on the handle in the sliding direction. */
+   int moffs;
+   /* A pointer to the current position in pixels within the browsed area. This
+   correspnds to position 0 within the view port. */
+   int *pos;
+   /* The length of the scrolled area. */
+   int scrolled_area_length;
+   /* The length of the view port */
+   int view_port_length;
+   /* The length of the sliding area (within which the handle can slide, so the
+   total number of sliding pixels is sliding_area_length - handle_length) */
+   int sliding_area_length;
+   /* The length of the browser handle */
+   int handle_length;
+   /* A pointer to the start position of the browse bar within its container. This
+   position is either an x or y value depending on if this is a verical or
+   horizontal browse bar. The value is located in the generic object. */
+   int *pstart;
+   /* A pointer to the end position of the browse bar within its container. This
+   position is either an x or y value depending on if this is a verical or
+   horizontal browse bar. The value is located in the generic object. */
+   int *pend;
+   /* A pointer to the width size of the browse bar. This is either a vertical
+   or horizontal value depending on the direction of the browse bar. The value
+   is located in the generic object. */
+   int *pwidth;
+   /* Pointers to offset values of the width and length in the generic object
+   structure. The pointers refers to a vertical or horizontal value depending
+   on the direction of the browse bar. These values has only meaning if the
+   object is resizeable. */
    int *prel, *prew;
-   int width;                   /* The width of the browsing object */
+   /* The width of this browse bar object (or browser??). */
+   int width;
 } t_browsebar;
 
 #define DRAW_BB_FRAME(bmp, x1, y1, x2, y2) hline(bmp, x1, y1, x2, cgui_colors[CGUI_COLOR_SHADOWED_BORDER]); \
@@ -134,23 +156,35 @@ static int MoveHandle(t_browsebar *bb, int newpos)
    return 0;
 }
 
+/* This function is called by the mouse event system when there occurs sliding
+events concerning this browse bar. */
 static int BrowserGrip(int newpos, t_browsebar *bb, int reason)
 {
    switch (reason) {
    case SL_STARTED:
-      /* if cursor is on handle, preserve relative position on it */
+      /* This state occurs when the cursor is on the handle and the mouse button
+      is pressed. We want the browse bar handle to follow the mouse movement
+      so we need to preserve the relative position on the handle. */
       if (newpos >= bb->handle_pos && newpos <= bb->handle_pos + bb->handle_length - 1) {
+         /* The handle is gripped. */
          bb->moffs = newpos - bb->handle_pos;
          break;
-      } else                    /* set middle of handle */
+      } else {
+         /* Mouse is down on the sliding area outside of the handle. Use the middle of the handle. */
          bb->moffs = bb->handle_length / 2;
+      }
+      /* Fall through in the else case. This will move the handle. */
    case SL_PROGRESS:
+      /* This state is kept as long as the the mouse button is down. We update
+      the handles' position, re-draw ourselve and give the opportunity to the
+      creator to update the browsed object. */
       if (MoveHandle(bb, newpos)) {
          bb->b->tf->Refresh(bb->b);
          bb->CallBack(bb->data);
       }
       break;
-   case SL_STOPPED:             /* button up */
+   case SL_STOPPED:
+      /* Now the mouse button is up. */
       break;
    case SL_OVER:
       return 0;
