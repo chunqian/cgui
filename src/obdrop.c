@@ -82,7 +82,7 @@ static int GetMaxwidth(t_dropbox *dd)
 
    width = 0;
    if (dd->RowCallBack) {
-      for (i = 0; i < dd->n; i++) {
+      for (i = 0; i < *dd->np; i++) {
          ddrow = IndexWrapper(dd, i);
          width = MAX(text_length(dd->b->font, ddrow->text), width);
       }
@@ -95,6 +95,14 @@ static int GetMaxwidth(t_dropbox *dd)
    return width;
 }
 
+static void Close2Win(void *data)
+{
+   (void)data;
+   _CguiCancel();
+   _CguiCancel();
+   StopProcessEvents();
+}
+
 static void ListItemSelected(int id, void *obj)
 {
    t_ddrow *di = obj;
@@ -102,8 +110,7 @@ static void ListItemSelected(int id, void *obj)
 
    dd = di->dd;
    *dd->sel = GetListIndex(id);
-   _CguiCancel();
-   _CguiCancel();
+   Close2Win(NULL);
    dd->b->tf->Refresh(dd->b);
    if (dd->Action)
       DelayedCallBack(dd->Action, dd->actdata);
@@ -144,10 +151,10 @@ static void DrawDropBox(t_object *b)
 
    s = "";
    if (dd->RowCallBack) {
-      if (dd->n > 0) {
+      if (*dd->np > 0) {
          u = *dd->sel;
-         if (u >= (unsigned) dd->n)
-            u = dd->n - 1;
+         if (u >= (unsigned) *dd->np)
+            u = *dd->np - 1;
          ddrow = IndexWrapper(dd, u);
          s = ddrow->text;
       }
@@ -188,12 +195,6 @@ static int DrawRow(void *rowdata, char *s)
    return 0;
 }
 
-static void Close2Win(void *data nouse)
-{
-   _CguiCancel();
-   _CguiCancel();
-}
-
 static void DoDropDown(void *data)
 {
    t_dropbox *dd = data;
@@ -212,7 +213,7 @@ static void DoDropDown(void *data)
       rh = 10;
    if (width < 48)
       width = 48;
-   n = dd->n;
+   n = *dd->np;
    required_y = n * rh + 12;
    center_y = b->y1 + nd->wy + winy + ((b->y2 - b->y1) >> 1);
    /* if object is above screen-mid, put the drop-win below, else above */
@@ -241,7 +242,7 @@ static void DoDropDown(void *data)
    multirow = cgui_list_no_multiple_row_selection;
    cgui_list_no_multiple_row_selection = 1;
    SetDistance(0, 0);
-   id = AddList(TOPLEFT, dd, &dd->n, width, LEFT_MOUSE, DrawRow, ListItemSelected, n);
+   id = AddList(TOPLEFT, dd, dd->np, width, LEFT_MOUSE, DrawRow, ListItemSelected, n);
    if (dd->RowCallBack) {
       SetIndexedList(id, IndexWrapper);
    } else {
@@ -255,6 +256,7 @@ static void DoDropDown(void *data)
    WindowIsFinished();
    fwin->ob->tf->Refresh(fwin->ob);
    BrowseTo(id, *dd->sel, 0);
+   ProcessEvents();
 }
 
 static int AddDDHandler(t_object * b, void (*cb) (void *), void *data)
@@ -293,6 +295,23 @@ static void DefaultCallBack(const void *data, int i, char *s)
    strcpy(s, strs[i]);
 }
 
+extern void DropDown(t_dropbox *dd)
+{
+   DoDropDown(dd);
+}
+
+extern t_dropbox *CreateDropDownData(t_object *editbox, int *sel, const char * const *strings, const int *n)
+{
+   t_dropbox *dd;
+   dd = GetMem0(t_dropbox, 1);
+   dd->np = n;
+   dd->RowCallBack = DefaultCallBack;
+   dd->listdata = strings;
+   dd->sel = sel;
+   dd->b = editbox;
+   return dd;
+}
+
 static void AddDropDown2(int x, int y, const char *label, t_dropbox *dd, int *sel, const void *listdata, int width)
 {
    t_object *b;
@@ -315,6 +334,7 @@ static void AddDropDown2(int x, int y, const char *label, t_dropbox *dd, int *se
    if (b->tablink == NULL)
       b->tf->DoJoinTabChain(b);
    dd->sel = sel;
+   dd->np = &dd->n;
    dd->listdata = listdata;
    dd->width = width;
    dd->b = b;

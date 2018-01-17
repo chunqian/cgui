@@ -186,6 +186,7 @@ CGUI_FUNC(int, UpdateTextBoxText, (int id, const char *s));
 CGUI_FUNC(int, AddEditBox, (int x, int y, int width, const char *label, int format, int string_buffer_size, void *data));
 /* Edit-box optional stuff */
 #define TERMINATE_EDIT 999
+CGUI_FUNC(int, AttachComboProperty, (int id, int *sel, const char * const *strings, const int *n));
 CGUI_FUNC(void, CguiEditBoxSetSelectionMode, (int mode));
 CGUI_FUNC(void, GetEditData, (int *scan, int *ascii, int *offset));
 CGUI_FUNC(void, SetEditData, (int scan, int ascii, int offset));
@@ -305,7 +306,7 @@ CGUI_FUNC(void, EmptyContainer, (int id));
 #define COL_RIGHT_ALIGN       (1<<27)
 #define ROW_COLUMN_UNDERLINE  (1<<26)
 
-CGUI_FUNC(int, AddList, (int x, int y, void *listdata, int *n, int width, int events, CGUI_METHOD(int, TextFormatter, (void *, char *)), CGUI_METHOD(void, Action, (int id, void *)), int norows));
+CGUI_FUNC(int, AddList, (int x, int y, void *listdata, const int *n, int width, int events, CGUI_METHOD(int, TextFormatter, (void *, char *)), CGUI_METHOD(void, Action, (int id, void *)), int norows));
 CGUI_FUNC(int, SetLinkedList, (int id, CGUI_METHOD(void *, NextCreater, (void *list, void *prev))));
 CGUI_FUNC(int, SetIndexedList, (int id, CGUI_METHOD(void *, IndexCreater, (void *list, int i))));
 CGUI_FUNC(int, RefreshListRow, (int id, int i));

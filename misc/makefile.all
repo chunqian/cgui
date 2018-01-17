@@ -62,6 +62,7 @@ LIB_SOURCE = \
 			  cguiinit.c   \
 			  clipwin.c    \
 			  clock.c      \
+                          combo.c      \
 			  cursor.c     \
 			  datalpha.c   \
 			  datedit.c    \
@@ -185,6 +186,7 @@ EXAMPLES_SOURCE = \
 		27trees.c   \
 		28colors.c  \
                 29usrdef.c  \
+                30combo.c   \
 		game1.c     \
 		game2.c     \
 		game3.c     \
