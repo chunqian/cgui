@@ -917,11 +917,19 @@ Objects
 @@                int *sel, const char * const *strs, int n);
 @xref AddDropDown
 @xref Direction commands for object positioning
-   This is a simplified version of AddDropDown. I can be used only if your
+   This is a simplified version of AddDropDown. It can be used only if your
    text-alternatives happens to be an array of pointers to strings.
    In other respects it is equivalent to AddDropDown.<br>
    Return value: an identification key to the object.
 
+@\int @AddDropDownD(int x, int y, int width, const char *label,
+@@                int *sel, const void *listdata, const void (*Iterate)(const void *listdata, const void *it, char *text));
+@xref AddDropDown
+   This is similar to AddDropDown, but instead of a list of strings you provide 
+   a pointer to some data (preferably some kind of linked list) a pointer to an 
+   iterator function that will be called by the drop down when it need a
+   dropped down list to be displayed.<br>
+   Return value: an identification key to the object.
 
 @\int @MkCanvas(int x, int y, int width, int height,
 @\              void (*CallBack)(BITMAP *bmp, int x, int y, void *data),
@@ -993,6 +1001,54 @@ Objects
    <li> tag: the text to display
    </ul>
    Return value: an identification key to the object.
+
+@\int @AddUserDefinedWidget(int x, int y, int w, int h, 
+@@    void (*Draw)(void *data, struct BITMAP *bmp, enum cgui_widget_sates state), void single_click(void *data), void *data);
+   Creates a user define object. By defualt it is activated with single click.<br>
+   Parameters:
+   <ul>
+   <li> x, y: The position of the object (or you can use "direction commands").
+   <li> w, h: The width and height of the widget.
+   <li> Draw: A pointer to a function that you have written. This function will
+        be called whenever CGUI decides that it is appropriate. Parameters to 
+        that function must be:
+        <ul>
+        <li> data: This is the same 
+             pointer as you pass to AddUserDefinedWidget (the last parameter).
+        <li> bmp: A pointer to a bitmap of your widget. This is where you shall
+             draw the appearance of your widget.
+        <li> state: Tells which mouse state your widget is in. The alternatives
+             are listed below.
+             <ul>
+             <li> CGUI_WIDGET_STATE_NORMAL: The normal state when there is no mouse 
+                  interaction with your widget. This case must always be handled, this
+                  will occur e.g. to display your widget for the first time in your
+                  application.
+             <li> CGUI_WIDGET_STATE_OVER: The mouse pointer is held over your widget and the
+                  buttons are not pressed.
+             <li> CGUI_WIDGET_STATE_DOWN: The button is pressed when the mouse pointer is over
+                  your widget.
+             <li> CGUI_WIDGET_STATE_DOWN_BESIDE: The button has previously been 
+                  correctly pressed when the mouse pointer was over your widget, and it is
+                  still held down but the mouse pointer is beside the widget.
+             <li> CGUI_WIDGET_STATE_GRIPPED: The button is pressed when the mouse pointer is over
+                  your widget and your widget has previously been assigned the grippable property 
+                  using SetObjectGrippable.
+             <li> CGUI_WIDGET_STATE_DRAGGING_OVER: A grippable widget has previously been gripped
+                  and the mouse pointer is now held over your widget and the mouse button is still
+                  held down and your widget has previously been assigned the droppable property 
+                  using SetObjectDroppable.
+             </ul>
+        <li> single_click: A pointer to a function that you have written. This function will be
+             called by CGUI when the user clicked on your widget. Parameters to 
+             that function must be:
+             <ul>
+             <li> data: This is the same pointer as you pass to AddUserDefinedWidget (the last parameter).
+             </ul>
+        <li> data: A pointer to any data of your application. 
+       </ul>
+   </ul>
+   Return value: The id number of the widget.<br>
 
 @\int @AddEditBox(int x, int y, int width, const char *label, int conversion_code,
 @@                       int string_buffer_size, void *data);
@@ -1078,62 +1134,6 @@ Objects
    </ul>
    Return value: an identification code to the object.
 
-@\int @AddUserDefinedWidget(int x, int y, int w, int h, 
-@@    void (*Draw)(void *data, struct BITMAP *bmp, enum cgui_widget_sates state), void single_click(void *data), void *data);
-   Creates a user define object. By defualt it is activated with single click.<br>
-   Parameters:
-   <ul>
-   <li> x, y: The position of the object (or you can use "direction commands").
-   <li> w, h: The width and height of the widget.
-   <li> Draw: A pointer to a function that you have written. This function will
-        be called whenever CGUI decides that it is appropriate. Parameters to 
-        that function must be:
-        <ul>
-        <li> data: This is the same 
-             pointer as you pass to AddUserDefinedWidget (the last parameter).
-        <li> bmp: A pointer to a bitmap of your widget. This is where you shall
-             draw the appearance of your widget.
-        <li> state: Tells which mouse state your widget is in. The alternatives
-             are listed below.
-             <ul>
-             <li> CGUI_WIDGET_STATE_NORMAL: The normal state when there is no mouse 
-                  interaction with your widget. This case must always be handled, this
-                  will occur e.g. to display your widget for the first time in your
-                  application.
-             <li> CGUI_WIDGET_STATE_OVER: The mouse pointer is held over your widget and the
-                  buttons are not pressed.
-             <li> CGUI_WIDGET_STATE_DOWN: The button is pressed when the mouse pointer is over
-                  your widget.
-             <li> CGUI_WIDGET_STATE_DOWN_BESIDE: The button has previously been 
-                  correctly pressed when the mouse pointer was over your widget, and it is
-                  still held down but the mouse pointer is beside the widget.
-             <li> CGUI_WIDGET_STATE_GRIPPED: The button is pressed when the mouse pointer is over
-                  your widget and your widget has previously been assigned the grippable property 
-                  using SetObjectGrippable.
-             <li> CGUI_WIDGET_STATE_DRAGGING_OVER: A grippable widget has previously been gripped
-                  and the mouse pointer is now held over your widget and the mouse button is still
-                  held down and your widget has previously been assigned the droppable property 
-                  using SetObjectDroppable.
-             </ul>
-        <li> single_click: A pointer to a function that you have written. This function will be
-             called by CGUI when the user clicked on your widget. Parameters to 
-             that function must be:
-             <ul>
-             <li> data: This is the same pointer as you pass to AddUserDefinedWidget (the last parameter).
-             </ul>
-        <li> data: A pointer to any data of your application. 
-       </ul>
-   </ul>
-   Return value: The id number of the widget.<br>
-
-@@int @TabOnCR(int id);
-@xref AddEditBox
-   Makes the carriage returns work like tabs in an edit-box, i.e. focus
-   moves to next object in the tab-chain. Useful if you have a number of
-   edit-boxes in a dialogue window, and the user are supposed to enter a
-   large amout of data.
-   Returns 0 if it fails (i.e. id is invalid) else non-0.
-
 @@void @GetEditData(int *scan, int *ascii, int *offset);
 @xref AddEditBox
 @xref SetEditData
@@ -1177,6 +1177,34 @@ Objects
    the letter corresponding to the pressed key or with the clipboard text in
    an paste operation. If `mode' is 0 the current selection will remain
    unchanged. The default is 0. The setting is global.
+
+@@int @TabOnCR(int id);
+@xref AddEditBox
+   Makes the carriage returns work like tabs in an edit-box, i.e. focus
+   moves to next object in the tab-chain. Useful if you have a number of
+   edit-boxes in a dialogue window, and the user are supposed to enter a
+   large amout of data.
+   Returns 0 if it fails (i.e. id is invalid) else non-0.
+
+@@int @AttachComboProperty(int id, int *sel, const char * const *strings, const int *n);
+@xref AddEditBox
+   Extends an edit box to be a combo box. The list with alternative predefined
+   texts will drop down when the user presses arrow down or arrow up. The drop 
+   down list will be closed without action when the user presses the ESC key.
+   It will be closed and the selected string will be copied into the edit field
+   when the user preses enter och klicks on an alternative in the list. The 
+   list can be navigated by use of the arrow keys.<br>
+   Parameters:
+   <ul>
+   <li> id: the id-key of the edit box to be a combo
+   <li> sel: a pointer to a variable that will hold the index in the string 
+        array that was last selected by the user.
+   <li> strings: An array of pointers to strings to be shown in the drop down
+        list of the combo.
+   <li> n: A pointer to a varible holding the number of strings in the array
+        `strings'.
+   </ul>
+   Returns 0 if it fails (i.e. id does not refer to an edit box) else non-0.
 
 @\int @AddStatusField(int x, int y, int width,
 @\                           void (*FormatFunc)(void *data, char *string),
@@ -2731,7 +2759,7 @@ Listboxes
    CGUI_list_rowdelimitercolor will be reset next time calling InitCgui.
 
 
-@\int @AddList(int x, int y, void *listdata, int *n, int width, int mousebt,
+@\int @AddList(int x, int y, void *listdata, const int *n, int width, int mousebt,
 @\       int (*RowTextCreater)(void *rowdata, char *s),
 @\       void (*Action)(int id, void *rowdata),
 @@       int norows);

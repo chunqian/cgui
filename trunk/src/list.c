@@ -149,7 +149,7 @@ struct t_list {
    void *applist;
 
    /* Pointer to a location (of the application) where  number of list elements are stored. */
-   int *n;
+   const int *n;
 
    /* Pointer to font used in this list box */
    FONT *font;
@@ -605,9 +605,10 @@ static void GenerateTree(t_list *l)
    }
    if (l->tree_view_options&TR_HIDE_ROOT)
       l->root->expanded = 1;
-   *l->n = CountItems(l->root);
+   /* When tree list l->n points to private memory, so this implies *l->n = ... */
+   l->memofn = CountItems(l->root);
    if (l->tree_view_options&TR_HIDE_ROOT) {
-      (*l->n)--;
+      l->memofn--;
    }
    NotifyBrowser(l->lc->br, l->lc->rh, *l->n*l->lc->rh);
    nr_of_rows_to_bypass = l->lc->sti;
@@ -690,7 +691,8 @@ static void RefreshLinkedUserData(t_list *l)
       data = l->item.IterateUsersLinkedList(l->applist, data);
       j++;
    }
-   *l->n = j;
+   /* When linked list l->n points to private memory, so this implies *l->n = ... */
+   l->memofn = j;
    CalcMaxN(l->lc);
 }
 
@@ -2397,7 +2399,7 @@ static int MakeListStretchable(t_object *b, void (*Notify) (void *), void *data,
    return id;
 }
 
-static t_list *MkList(void *applist, int *n, int width, int events, int (*CreateRowText) (void *, char *), void (*Action) (int, void *), t_listchain *lc)
+static t_list *MkList(void *applist, const int *n, int width, int events, int (*CreateRowText) (void *, char *), void (*Action) (int, void *), t_listchain *lc)
 {
    t_list *l;
    t_node *framenode, *rowsnode;
@@ -2519,7 +2521,7 @@ static void ListTypeConfigure(t_typefun *tf)
 /* Application interface: */
 
 static void DrawListColHdr(t_object *b);
-extern int AddList(int x, int y, void *data, int *n, int w, int events, int (*CreateRowText) (void *, char *), void (*Action) (int, void *), int norows)
+extern int AddList(int x, int y, void *data, const int *n, int w, int events, int (*CreateRowText) (void *, char *), void (*Action) (int, void *), int norows)
 {
    t_listchain *lc;
    int addcom;
@@ -2809,9 +2811,7 @@ extern int BrowseTo(int id, int i, int uncond)
          sf = GetRowObject(l, rn);
          w = l->rowsnode->win;
          GetTabChainFocus(w, &prevnf, &prevsf);
-         if (prevsf != sf) {
-            sf->tcfun->MoveFocusTo(sf);
-         }
+         sf->tcfun->MoveFocusTo(sf);
          if (uncond) {
             DrawNewStart(lc);
          }

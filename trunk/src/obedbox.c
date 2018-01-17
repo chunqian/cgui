@@ -21,6 +21,7 @@
 
 #include "obedbox.h"
 #include "edbmenu.h"
+#include "combo.h"
 #include "event.h"
 #include "cguiinit.h"
 #include "window.h"
@@ -39,8 +40,11 @@
 #define set_clip_rect set_clip
 #endif
 
-typedef struct t_editbox {
+struct t_editbox {
    void (*Action) (void *);
+   void *data;
+   void (*ComboAction) (t_combo_box *);
+   t_combo_box *combo_box;
    int scan, ascii;
    char *curpos;
    long copy;
@@ -111,11 +115,10 @@ typedef struct t_editbox {
 
    /* Flag indicating if editing is in progress, i.e. the edit-box is "in focus", and cursor is blinking */
    int edit_in_progress;
-   void *data;
 
    /* Must be there to to know if the screen resolution has changed in which case it is necessary to re-make the bitmap */
    int curh, curw;
-} t_editbox;
+};
 
 static char *clipboard;
 static int blinktime = 250;
@@ -926,7 +929,7 @@ static int ProcessKeyPress(t_editbox *edb)
    input_position_at_beginning = input_position <= text;
    numlock = key_shifts & KB_NUMLOCK_FLAG;
    shift = key[KEY_LSHIFT] || key[KEY_RSHIFT];
-   ctrl = key[KEY_LCONTROL] || key[KEY_LCONTROL];
+   ctrl = key[KEY_LCONTROL] || key[KEY_RCONTROL];
    unhandled_modifiers = key[KEY_LWIN] || key[KEY_RWIN] || key[KEY_MENU];
 
    if (!unhandled_modifiers) {
@@ -1230,6 +1233,11 @@ extern int EditBoxKeyboardCallback(void *data, int scan, int ascii)
 
    edb->scan = scan;
    edb->ascii = ascii;
+   if (edb->ComboAction && (scan == KEY_DOWN || scan == KEY_UP)) {
+      TerminateEditing(edb);
+      edb->ComboAction(edb->combo_box);
+      edb->b->Action(edb);
+   }
    if (edb->Action && ed_callback_progr == NULL) {
       ed_callback_progr = edb;
       edb->Action(edb->data);
@@ -1786,6 +1794,30 @@ extern int TabOnCR(int id)
    return 0;
 }
 
+extern void EditBoxUpdateString(t_editbox *edb, const char *string)
+{
+   if (edb->format == FPTRSTR) {
+      *edb->ptr = edb->text = ResizeMem(char, edb->text, strlen(string) + 1);
+   }
+   strncpy(edb->text, string, edb->string_buffer_size);
+}
+
+extern t_editbox *EditBoxAttachComboProperty(int id, void (*ComboAction)(t_combo_box *), t_combo_box *combo_box)
+{
+   t_editbox *edb;
+   t_object *b;
+
+   b = GetObject(id);
+   if (b && b->Action == Action) {
+      edb = b->appdata;
+      edb->ComboAction = ComboAction;
+      edb->combo_box = combo_box;
+   } else {
+      edb = NULL;
+   }
+   return edb;
+}
+
 static void EditBoxRefresh(struct t_object *b)
 {
    t_editbox *edb;
@@ -1833,3 +1865,4 @@ extern int AddEditBox(int x, int y, int width, const char *label, int format,
    b->tf = &tf;
    return b->id;
 }
+
