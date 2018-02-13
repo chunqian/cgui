@@ -1336,6 +1336,27 @@ Objects
    Use `UpdateTextBoxText' if you need to change the displayed text.<br>
    Return value: an identification key to the object.
 
+@@int @TextboxHighlightSection(int id, int bgcolor, int startrow, int startcolumn, int endrow, int endcolumn);
+   High light the background of an arbitrary section of a text box. The position
+   of the start and end point of the section is specified as number of rows and 
+   columns. The text between the start and end points will be high lighted.<br>
+   Parameters:
+   <ul>
+   <li> id: An id to a textbox.
+   <li> bgcolor: The background color to be used to highlight the section.
+   <li> startrow: The row index where the section starts. The index of the 
+        first row of text is 0.
+   <li> startcolumn: The character index in the text of the startrow where the 
+        section starts. The first character in a row has index 0.
+   <li> endrow: The index of the row where the section ends (inclusive).
+   <li> endcolumn: The character position in endrow where the section 
+        ends (exclusive).
+   </ul>
+   Examples:<br>
+   TextboxHighlightSection(id, makecol(0, 255, 0), rownr, colnr, rownr, colnr+2);<br>
+   This will highlight the two characters colnr and colnr+1 in the row rownr.<br>
+   Return value: 0 if the id is invalid, else 1.
+
 @@void @TextboxHighlighting(int id, int bgcolor, int textcolor, int row_index);
    Makes a certain row in a textbox highlighted. This row does not follow the
    text if scrolled. It is a fixed row w.r.t. the textbox widget.<br>
@@ -1347,6 +1368,12 @@ Objects
         drawn with it.
    <li> row_index: The index to the row that will stay highlighted.
    </ul>
+
+@@int @TextboxGetTopRow(int id);
+   Returns the row index that currently is shown at the top of the text box
+   (which may be other than 0 in case the text box is scrolled).<br>
+   Return value: The row numer (the first row of the text is 0) or -1 in case 
+   of error (i.e. an invalid id).
 
 @@const char *@TextboxGetHighlightedText(int id);
    Returns a pointer to a string with the text of the row that is highlighted.

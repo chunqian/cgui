@@ -71,6 +71,17 @@ typedef struct t_textob {
    /* For scrolling with the mouse wheel. */
    int over_event_id;
    int prevz;
+
+   void (*app_call_back) (void *data);
+   void *appdata;
+
+   /* Variables used for section high lighting. */
+   int bgsection;
+   int bgrowstart;
+   int bgcolumnstart;
+   int bgrowend;
+   int bgcolumnend;
+   int bgcolor;
 } t_textob;
 
 static void TbPrepareNewScreenMode(t_object *b)
@@ -249,8 +260,13 @@ static void DrawPage(t_object *b)
 {
    t_textob *to;
    char **p;
-   int y, clip_x2, clip_y2, fixw = 0, highlightcolor = -1, hilite_text_color, row_index;
+   int y, clip_x2, clip_y2, fixw = 0, highlightcolor = -1, text_color, row_index;
    BITMAP *bmp;
+   int x1, y1, x2, y2;
+   int bgrowstart, bgrowend, bgcolumnstart, bgcolumnend;
+   char *prow;
+   int nchars;
+   int saved_char;
 
    bmp = b->parent->bmp;
    if (bmp == NULL)
@@ -268,22 +284,76 @@ static void DrawPage(t_object *b)
       fixw = text_length(b->font, "W");
    /* 3 pixels for  the frame */
    set_clip_rect(bmp, bmp->cl, bmp->ct, b->x2 - 3, b->y2 - 3);
-   hilite_text_color = cgui_colors[CGUI_COLOR_TEXTBOX_TEXT];
    if (to->hilite) {
+      /* Mark the background of a certain row (old feature kept for compability). */
       rectfill(bmp, b->x1+1, b->y1+(to->hrow*to->rh)+3, b->x2, b->y1+(to->hrow*to->rh+to->rh)+2, to->hilite_background_color);
-      highlightcolor = to->hilite_text_color;
    }
+   if (to->bgsection) {
+      /* Mark one arbitrary section of the text. Start and end points are
+         expressed in number of characters, so we need to compute the 
+         coordinates from that, which is dependent on the current font. */
+      bgrowstart = to->bgrowstart;
+      bgrowend = to->bgrowend;
+      bgcolumnstart = to->bgcolumnstart;
+      bgcolumnend = to->bgcolumnend;
+      if (bgrowstart < to->n) {
+         prow = to->page[bgrowstart];
+         nchars = strlen(prow);
+         if (bgcolumnstart > nchars) {
+            bgcolumnstart = nchars;
+         }
+         /* Compute the length of the text before the start position in the 
+            string to get the start x-coordinate. */
+         saved_char = prow[bgcolumnstart];
+         prow[bgcolumnstart] = 0;
+         x1 = b->x1 + text_length(b->font, prow) + 1;
+         prow[bgcolumnstart] = saved_char;
+         /* Draw the rows of the section to mark one by one.
+            The end point may be either on the start row or any later row. 
+            We need to preset the start y-coordinate to the row before the
+            start row in order to include the frame offset. */
+         y1 = b->y1 + (bgrowstart - 1 - to->sti) * to->rh + 3;
+         while (bgrowstart < to->n) {
+            /* Compute the start and end y-coordinate using that we know the 
+               height of rows. */
+            y1 += to->rh;
+            y2 = y1 + to->rh - 1;
+            if (bgrowstart == bgrowend) {
+               /* The current row is where the end point exists. */
+               prow = to->page[bgrowend];
+               nchars = strlen(prow);
+               if (bgcolumnend > nchars) {
+                  bgcolumnend = nchars;
+               }
+              /* Compute the length of the text before the end position in the
+                 string to get the end x-coordinate. */
+               saved_char = prow[bgcolumnend];
+               prow[bgcolumnend] = 0;
+               x2 = b->x1 + text_length(b->font, prow) + 1;
+               prow[bgcolumnend] = saved_char;
+               /* Break the iteration after the last portion of the section is marked. */
+               bgrowstart = to->n;
+            } else {
+               x2 = b->x2;
+            }
+            rectfill(bmp, x1, y1, x2, y2, to->bgcolor);
+            x1 = b->x1 + 1;
+            ++bgrowstart;
+         }
+      }
+   }
+
    row_index = 0;
    for (y = b->y1 + 3, p = to->page + to->sti; *p && y < b->y2; p++, y += to->rh) {
-      if (row_index == to->hrow && highlightcolor != -1) {
-         hilite_text_color = highlightcolor;
+      if (row_index == to->hrow && to->hilite) {
+         text_color = to->hilite_text_color;
       } else {
-         hilite_text_color = cgui_colors[CGUI_COLOR_TEXTBOX_TEXT];
+         text_color = cgui_colors[CGUI_COLOR_TEXTBOX_TEXT];
       }
       if (to->fixfont) {
-         FixTextOut(bmp, b->font, *p, b->x1 + 2, y, hilite_text_color, to->background_color, fixw);
+         FixTextOut(bmp, b->font, *p, b->x1 + 2, y, text_color, to->background_color, fixw);
       } else {
-         textout_ex(bmp, b->font, *p, b->x1 + 2, y, hilite_text_color, -1);
+         textout_ex(bmp, b->font, *p, b->x1 + 2, y, text_color, -1);
       }
       row_index++;
    }
@@ -590,6 +660,22 @@ static void OverTextBox(t_object *b)
    }
 }
 
+static void HandlerWapper(void *data)
+{
+   t_textob *to = data;
+   to->app_call_back(to->appdata);
+}
+
+static int TBAddHandler(t_object *b, void (*Handler) (void *data), void *data)
+{
+   t_textob *to;
+   b->Action = HandlerWapper;
+   to = b->appdata;
+   to->app_call_back = Handler;
+   to->appdata = data;
+   return 1;
+}
+
 /* Application interface: */
 
 extern int AddTextBox(int x, int y, const char *s, int w, int n, int option)
@@ -607,6 +693,7 @@ extern int AddTextBox(int x, int y, const char *s, int w, int n, int option)
       tf.Free = FreeTO;
       tf.Draw = DrawPage;
       tf.SetSize = SetSize;
+      tf.AddHandler = TBAddHandler;
       tf.Stretch = Stretch;
       tf.FetchData = FetchTextBoxText;
       tf.NewScreenMode = TbNewScreenMode;
@@ -660,18 +747,22 @@ extern int AddTextBox(int x, int y, const char *s, int w, int n, int option)
 extern int UpdateTextBoxText(int id, const char *s)
 {
    t_object *b;
+   int ok = 0;
 
    b = GetObject(id);
-   if (b == NULL)
-      return 0;
-   fetching_in_progress = 1;
-   new_string = s;
-   b->tf->FetchData(b);
-   if (fetching_in_progress) {
-      fetching_in_progress = 0;
-      return 0;
+   if (b) {
+      if (b->tf->Draw == DrawPage) {
+         fetching_in_progress = 1;
+         new_string = s;
+         b->tf->FetchData(b);
+         if (fetching_in_progress) {
+            fetching_in_progress = 0;
+         } else {
+            ok = 1;
+         }
+      }
    }
-   return 1;
+   return ok;
 }
 
 extern void TextboxHighlighting(int id, int hilite_background_color, int hilite_text_color, int line_nr)
@@ -679,14 +770,53 @@ extern void TextboxHighlighting(int id, int hilite_background_color, int hilite_
    t_object *b;
    t_textob *to;
 
-   b=GetObject(id);
+   b = GetObject(id);
    if (b) {
-      to = b->appdata;
-      to->hilite = 1;
-      to->hrow = line_nr;
-      to->hilite_text_color = hilite_text_color;
-      to->hilite_background_color = hilite_background_color;
+      if (b->tf->Draw == DrawPage) {
+         to = b->appdata;
+         to->hilite = 1;
+         to->hrow = line_nr;
+         to->hilite_text_color = hilite_text_color;
+         to->hilite_background_color = hilite_background_color;
+      }
    }
+}
+
+extern int TextboxHighlightSection(int id, int bgcolor, int startrow, int startcolumn, int endrow, int endcolumn)
+{
+   t_object *b;
+   t_textob *to;
+   int ok = 0;
+
+   b = GetObject(id);
+   if (b) {
+      if (b->tf->Draw == DrawPage) {
+         ok = 1;
+         to = b->appdata;
+         to->bgsection = 1;
+         to->bgrowstart = startrow;
+         to->bgcolumnstart = startcolumn;
+         to->bgrowend = endrow;
+         to->bgcolumnend = endcolumn;
+         to->bgcolor = bgcolor;
+      }
+   }
+   return ok;
+}
+
+extern int TextboxGetTopRow(int id)
+{
+   t_object *b;
+   t_textob *to;
+
+   b = GetObject(id);
+   if (b) {
+      if (b->tf->Draw == DrawPage) {
+         to = b->appdata;
+         return to->sti;
+      }
+   }
+   return -1;
 }
 
 extern const char *TextboxGetHighlightedText(int id)
@@ -696,10 +826,13 @@ extern const char *TextboxGetHighlightedText(int id)
    int i;
    b = GetObject(id);
    if (b) {
-      to = b->appdata;
-      i = to->sti + to->hrow;
-      if (i<to->n)
-         return to->page[i];
+      if (b->tf->Draw == DrawPage) {
+         to = b->appdata;
+         i = to->sti + to->hrow;
+         if (i<to->n) {
+            return to->page[i];
+         }
+      }
    }
    return NULL;
 }
@@ -711,13 +844,15 @@ extern void TextboxScrollDownOneLine(int id)
 
    b = GetObject(id);
    if (b) {
-      to = b->appdata;
-      if (to->sti < to->n - 1) {
-         to->sti++;
-         to->b->tf->Refresh(to->b);
-         to->pos = to->sti*to->rh;
-         NotifyBrowser(to->br, to->rh, to->n*to->rh);
-         Refresh(to->br);
+      if (b->tf->Draw == DrawPage) {
+         to = b->appdata;
+         if (to->sti < to->n - 1) {
+            to->sti++;
+            to->b->tf->Refresh(to->b);
+            to->pos = to->sti*to->rh;
+            NotifyBrowser(to->br, to->rh, to->n*to->rh);
+            Refresh(to->br);
+         }
       }
    }
 }
