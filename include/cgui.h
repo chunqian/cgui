@@ -170,6 +170,8 @@ CGUI_FUNC(int, HookSpinButtons, (int id, int *var, int delta1, int delta2, int m
 CGUI_FUNC(int, AddTag, (int x, int y, const char *tag));
 CGUI_FUNC(int, AddStatusField, (int x, int y, int width, CGUI_METHOD(void, FormatFunc, (void *data, char *string)), void *data));
 CGUI_FUNC(int, AddTextBox, (int x, int y, const char *text, int width, int nrows, int option));
+CGUI_FUNC(int, TextboxHighlightSection, (int id, int bgcolor, int startrow, int startcolumn, int endrow, int endcolumn));
+CGUI_FUNC(int, TextboxGetTopRow, (int id));
 CGUI_FUNC(void, TextboxHighlighting, (int id, int bgcolor, int textcolor, int line_nr));
 CGUI_FUNC(void, TextboxScrollDownOneLine, (int id));
 CGUI_FUNC(const char*, TextboxGetHighlightedText, (int id));
