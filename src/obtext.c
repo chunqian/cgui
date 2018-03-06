@@ -38,6 +38,14 @@
 static int fetching_in_progress = 0;
 static const char *new_string;
 
+typedef struct t_hilightsection {
+   int bgrowstart;
+   int bgcolumnstart;
+   int bgrowend;
+   int bgcolumnend;
+   int bgcolor;
+} t_hilightsection;
+
 typedef struct t_textob {
    struct t_typefun *tf;
    int width;
@@ -72,16 +80,13 @@ typedef struct t_textob {
    int over_event_id;
    int prevz;
 
+   /* Section highlightings. */
+   int nr_hilights;
+   t_hilightsection *hilights;
+
    void (*app_call_back) (void *data);
    void *appdata;
 
-   /* Variables used for section high lighting. */
-   int bgsection;
-   int bgrowstart;
-   int bgcolumnstart;
-   int bgrowend;
-   int bgcolumnend;
-   int bgcolor;
 } t_textob;
 
 static void TbPrepareNewScreenMode(t_object *b)
@@ -205,6 +210,9 @@ static void FreeTO(t_object * b)
    Free = to->tf->Free;
    DestroyPage(to->page);
    Release(to->s);
+   if (to->hilights) {
+      Release(to->hilights);
+   }
    Release(to);
    Free(b);
 }
@@ -267,6 +275,8 @@ static void DrawPage(t_object *b)
    char *prow;
    int nchars;
    int saved_char;
+   int i;
+   t_hilightsection *hilightsection;
 
    bmp = b->parent->bmp;
    if (bmp == NULL)
@@ -288,14 +298,16 @@ static void DrawPage(t_object *b)
       /* Mark the background of a certain row (old feature kept for compability). */
       rectfill(bmp, b->x1+1, b->y1+(to->hrow*to->rh)+3, b->x2, b->y1+(to->hrow*to->rh+to->rh)+2, to->hilite_background_color);
    }
-   if (to->bgsection) {
-      /* Mark one arbitrary section of the text. Start and end points are
+
+   for (i = 0; i < to->nr_hilights; ++i) {
+      /* Mark one section of the text. Start and end points are
          expressed in number of characters, so we need to compute the 
          coordinates from that, which is dependent on the current font. */
-      bgrowstart = to->bgrowstart;
-      bgrowend = to->bgrowend;
-      bgcolumnstart = to->bgcolumnstart;
-      bgcolumnend = to->bgcolumnend;
+      hilightsection = to->hilights + i;
+      bgrowstart = hilightsection->bgrowstart;
+      bgrowend = hilightsection->bgrowend;
+      bgcolumnstart = hilightsection->bgcolumnstart;
+      bgcolumnend = hilightsection->bgcolumnend;
       if (bgrowstart < to->n) {
          prow = to->page[bgrowstart];
          nchars = strlen(prow);
@@ -320,11 +332,14 @@ static void DrawPage(t_object *b)
             y2 = y1 + to->rh - 1;
             if (bgrowstart == bgrowend) {
                /* The current row is where the end point exists. */
+
+               /* Limit the end of the high light to the end of the text. */
                prow = to->page[bgrowend];
                nchars = strlen(prow);
                if (bgcolumnend > nchars) {
                   bgcolumnend = nchars;
                }
+
               /* Compute the length of the text before the end position in the
                  string to get the end x-coordinate. */
                saved_char = prow[bgcolumnend];
@@ -336,7 +351,7 @@ static void DrawPage(t_object *b)
             } else {
                x2 = b->x2;
             }
-            rectfill(bmp, x1, y1, x2, y2, to->bgcolor);
+            rectfill(bmp, x1, y1, x2, y2, hilightsection->bgcolor);
             x1 = b->x1 + 1;
             ++bgrowstart;
          }
@@ -782,7 +797,32 @@ extern void TextboxHighlighting(int id, int hilite_background_color, int hilite_
    }
 }
 
-extern int TextboxHighlightSection(int id, int bgcolor, int startrow, int startcolumn, int endrow, int endcolumn)
+extern int AddTextboxHighlightSection(int id, int bgcolor, int startrow, int startcolumn, int endrow, int endcolumn)
+{
+   t_object *b;
+   t_textob *to;
+   t_hilightsection *hilightsection;
+   int ok = 0;
+
+   b = GetObject(id);
+   if (b) {
+      if (b->tf->Draw == DrawPage) {
+         ok = 1;
+         to = b->appdata;
+         ++to->nr_hilights;
+         to->hilights = ResizeMem(t_hilightsection, to->hilights, to->nr_hilights);
+         hilightsection = to->hilights + to->nr_hilights -1;
+         hilightsection->bgrowstart = startrow;
+         hilightsection->bgcolumnstart = startcolumn;
+         hilightsection->bgrowend = endrow;
+         hilightsection->bgcolumnend = endcolumn;
+         hilightsection->bgcolor = bgcolor;
+      }
+   }
+   return ok;
+}
+
+extern int ClearTextboxHighlightSections(int id)
 {
    t_object *b;
    t_textob *to;
@@ -793,12 +833,30 @@ extern int TextboxHighlightSection(int id, int bgcolor, int startrow, int startc
       if (b->tf->Draw == DrawPage) {
          ok = 1;
          to = b->appdata;
-         to->bgsection = 1;
-         to->bgrowstart = startrow;
-         to->bgcolumnstart = startcolumn;
-         to->bgrowend = endrow;
-         to->bgcolumnend = endcolumn;
-         to->bgcolor = bgcolor;
+         if (to->nr_hilights > 0) {
+            Release(to->hilights);
+            to->nr_hilights = 0;
+            to->hilights = NULL;
+         }
+      }
+   }
+   return ok;
+}
+
+extern int ClearLastTextboxHighlightSection(int id)
+{
+   t_object *b;
+   t_textob *to;
+   int ok = 0;
+
+   b = GetObject(id);
+   if (b) {
+      if (b->tf->Draw == DrawPage) {
+         ok = 1;
+         to = b->appdata;
+         if (to->nr_hilights > 0) {
+            --to->nr_hilights;
+         }
       }
    }
    return ok;
