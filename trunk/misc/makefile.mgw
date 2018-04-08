@@ -7,8 +7,6 @@
 #
 #  See makefile.all for a list of the available targets.
 
-
-
 # -------- Define some variables that the primary makefile may use. --------
 
 PLATFORM = MINGW32
@@ -166,17 +164,17 @@ else
 ifdef PENTIUMONLY
 OFLAGS = -march=pentium -O2 -funroll-loops -ffast-math
 else
-OFLAGS = -O2 -funroll-loops -ffast-math
+OFLAGS = -O3 -funroll-loops -ffast-math
 endif
 endif
 
 ifdef DEBUGMODE
 # -------- debugging build --------
-CFLAGS = -DDEBUGMODE=$(DEBUGMODE) $(WFLAGS) -g
+CFLAGS = -DDEBUGMODE=$(DEBUGMODE) $(WFLAGS) -g -DALLEGRO_STATICLINK -Wl,--subsystem,windows
 SFLAGS = -DDEBUGMODE=$(DEBUGMODE) $(WFLAGS)
 LFLAGS += -g
 ifdef STATICLINK_ALLEGRO
-LIB_FLAGS = -lalld_s
+LIB_FLAGS = -Wl,--subsystem,windows -g -lalleg -lgdi32 -static -lalleggl -ljpgalleg -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lole32 -ldinput -lddraw -ldxguid -lwinmm -ldsound -static-libgcc
 else
 LIB_FLAGS = -lalld
 endif
@@ -193,13 +191,13 @@ LIB_FLAGS = -lallp
 endif
 else
 # -------- optimised build --------
-CFLAGS = $(WFLAGS) $(OFLAGS) -fomit-frame-pointer -fno-strength-reduce
+CFLAGS = $(WFLAGS) $(OFLAGS) -DALLEGRO_STATICLINK -Wl,--subsystem,windows
 SFLAGS = $(WFLAGS)
 ifndef SYMBOLMODE
 LFLAGS += -s
 endif
 ifdef STATICLINK_ALLEGRO
-LIB_FLAGS = -lalleg_s
+LIB_FLAGS = -Wl,--subsystem,windows -lalleg -lgdi32 -static -lalleggl -ljpgalleg -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lole32 -ldinput -lddraw -ldxguid -lwinmm -ldsound -static-libgcc
 else
 LIB_FLAGS = -lalleg
 endif
