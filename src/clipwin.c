@@ -1,11 +1,12 @@
-#ifdef DJGPP
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include "cgui/mem.h"
+#include "cgui.h"
 #include "cgui/clipwin.h"
+#include "allegro.h"
 
+#ifdef DJGPP
 #ifndef CGUI_SCAN_DEPEND
 #include <dpmi.h>
 #include <sys/movedata.h>
@@ -125,7 +126,7 @@ extern char *GetFromWinClip(void)
 /* Inserts the string str into the Windows clipboard, by way of some DOS
    memory. If DOS-memory is not large enough to receive str, as much as
    possible will be copied. Returns 1 on sucess, otherwise 0 */
-extern int InsertIntoWinClip(char *str)
+extern int InsertIntoSystemsClipboard(char *str)
 {
    __dpmi_regs r;
    unsigned dosmem;
@@ -183,9 +184,104 @@ extern int CheckWinClip(void)
    } else
       return 0;
 }
+#endif
+#ifdef ALLEGRO_UNIX
+#include <limits.h>
+#include <X11/Xlib.h>
+
+typedef struct clipX {
+  Display *display;
+  Window window;
+} clipX;
+
+void close_X_clipboard(clipX *xclip)
+{
+  XDestroyWindow(xclip->display, xclip->window);
+  XCloseDisplay(xclip->display);
+  free(xclip);
+}
+
+static char *get_X_copy_buffer(clipX *xclip, const char *buffer)
+{
+   char *result;
+   char *s;
+   unsigned long ressize, restail;
+   int resbits;
+   Atom bufid = XInternAtom(xclip->display, buffer, False);
+   Atom fmtid = XInternAtom(xclip->display, "UTF8_STRING", False);
+   Atom propid = XInternAtom(xclip->display, "XSEL_DATA", False);
+   Atom incrid = XInternAtom(xclip->display, "INCR", False);
+   XEvent event;
+
+   XConvertSelection(xclip->display, bufid, fmtid, propid, xclip->window, CurrentTime);
+   do {
+      XNextEvent(xclip->display, &event);
+   } while (event.type != SelectionNotify || event.xselection.selection != bufid);
+
+   if (event.xselection.property) {
+      XGetWindowProperty(xclip->display, xclip->window, propid, 0, LONG_MAX/4, False, AnyPropertyType,
+      &fmtid, &resbits, &ressize, &restail, (unsigned char**)&result);
+
+      if (fmtid != incrid) {
+         s = strdup(result);
+      } else {
+         s = strdup("");
+      }
+      XFree(result);
+   } else {
+      s = strdup("");
+   }
+   return s;
+}
+
+char *get_X_clipboard(clipX *xclip)
+{
+   return get_X_copy_buffer(xclip, "CLIPBOARD");
+}
+
+char *get_X_primary(clipX *xclip)
+{
+   return get_X_copy_buffer(xclip, "PRIMARY");
+}
+
+clipX * init_X_clipboard(void)
+{
+   clipX *xclip = calloc(sizeof(clipX), 1);
+   xclip->display = XOpenDisplay(NULL);
+   unsigned long color = BlackPixel(xclip->display, DefaultScreen(xclip->display));
+   xclip->window = XCreateSimpleWindow(xclip->display, DefaultRootWindow(xclip->display), 0,0, 1,1, 0, color, color);
+   return xclip;
+}
+
+int InsertIntoSystemsClipboard(const char *selection)
+{
+   char *cmd;
+   int ok = 0;
+   if (selection) {
+      cmd = msprintf("echo -n \"%s\" | xsel -b &", selection);
+      ok = !system(cmd);
+      free(cmd);
+   }
+   return ok;
+}
+
+int InsertIntoPrimaryBuffer(const char *selection)
+{
+   char *cmd;
+   int ok = 0;
+   if (selection) {
+      cmd = msprintf("echo -n \"%s\" | xsel -p &", selection);
+      ok = !system(cmd);
+      free(cmd);
+   }
+   return ok;
+}
+
 #else
 #include "cgui.h"
-extern int InsertIntoWinClip(char *str) {return str!=NULL;}
+
+extern int InsertIntoSystemsClipboard(char *str) {return str!=NULL;}
+extern int InsertIntoPrimaryBuffer(const char *selection) {return selection != NULL;}
 extern char *GetFromWinClip(void) {return NULL;}
 extern int CheckWinClip(void) {return 0;}
 #endif

@@ -27,14 +27,13 @@ int main(void)
 {
    int id;
    static const char *combo_strings[NR_OF_ITEMS] = {"123 Ham", "397 Cabbage", "228 Pork", "499 Coffe"};
-   static int n = NR_OF_ITEMS;
    static char edit_string[STRING_LEN];
    static int sel;
    InitCgui(1024, 768, 15);
    MkDialogue(ADAPTIVE, "Combo boxes", 0);
    AddTextBox(DOWNLEFT, "This example shows how to use a combo box.", 500, 0, TB_FRAMESINK|TB_LINEFEED_);
    id = AddEditBox(DOWNLEFT, 80, "", FSTRING, STRING_LEN, edit_string);
-   AttachComboProperty(id, &sel, combo_strings, &n);
+   AttachComboProperty(id, &sel, combo_strings, NR_OF_ITEMS);
    AddButton(DOWNLEFT, "\33E~xit", shut_down, NULL);
    AddButton(RIGHT, "Show c~ode", show_code, NULL);
    DisplayWin();

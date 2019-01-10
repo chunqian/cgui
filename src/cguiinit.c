@@ -119,6 +119,7 @@ extern int InitCguiEx(int w, int h, int cd, int *errno_ptr, int (*atexit_ptr)(vo
    cgui_starting_in_progress = 1;
    InitTimer();
    CguiInitKeyboard();
+   CguiInitEditBox();
    InitGraph(w, h, cd);
    InitFont();
    cgui_starting_in_progress = 2;
