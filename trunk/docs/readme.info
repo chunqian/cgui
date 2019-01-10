@@ -82,10 +82,12 @@ since it is exactly the same way as you used when installing Allegro:
      this for you.  (Under Windows NT and Windows 2000, you will have to
      run this file every time you open a DOS box, or configure the
      environment variables in Control Panel/System/Environment.)
-   * Compile the library.  This is done by running
+   * Compile the library.  This is done by first running
+          make dat2c
+
+     at the command line followed by the command
           make
 
-     at the command line.
    * Install the files to common directories.  This is done by running
 
           make install
@@ -167,8 +169,8 @@ Node: Top224
 Node: Introduction694
 Node: Requirements1214
 Node: Installation1742
-Node: MSys4938
-Node: Usage5181
-Node: Contact Info5527
+Node: MSys4989
+Node: Usage5232
+Node: Contact Info5578
 
 End Tag Table

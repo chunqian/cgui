@@ -86,12 +86,16 @@ Windows NT and Windows 2000, you will have to run this file every time
 you open a DOS box, or configure the environment variables in Control
 Panel/System/Environment.)
 @item 
-Compile the library. This is done by running
+Compile the library. This is done by first running
+@example
+make dat2c
+@end example
+
+at the command line followed by the command
 @example
 make
 @end example
 
-at the command line.
 @item 
 Install the files to common directories. This is done by running
 @example
