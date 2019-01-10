@@ -22,6 +22,7 @@
 #include "list.h"
 #include "timer.h"
 #include "cguiinit.h"
+#include "obedbox.h"
 #include "event.h"
 
 #include "statelog.h"
