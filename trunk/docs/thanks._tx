@@ -9,7 +9,7 @@
 @#locale=latin1
 @document_title=CGUI Contributors
 @# Note: this version number is patched by fixver.sh
-@manh="version 2.0.5" "CGUI" "CGUI thanks"
+@manh="version 2.1.0" "CGUI" "CGUI thanks"
 @rtfh=Adime Thanks List
 @$\input texinfo
 @$@setfilename thanks.inf

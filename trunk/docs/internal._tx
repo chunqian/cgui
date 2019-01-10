@@ -13,7 +13,7 @@
 @document_title=CGUI Internal description
 @rtfh=CGUI Internal
 @# Note: this version number is patched by fixver.sh
-@manh="version 2.0.5" "CGUI" "CGUI Internal"
+@manh="version 2.1.0" "CGUI" "CGUI Internal"
 @$\input texinfo
 @$@setfilename internal.inf
 @$@settitle CGUI Internal

@@ -7,7 +7,7 @@
 @#locale=latin1
 @document_title=CGUI whishlist
 @# Note: this version number is patched by fixver.sh
-@manh="version 2.0.5" "CGUI" "CGUI whishlist"
+@manh="version 2.1.0" "CGUI" "CGUI whishlist"
 @rtfh=CGUI Wish List
 @$\input texinfo
 @$@setfilename wishlist.inf

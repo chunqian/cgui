@@ -7,7 +7,7 @@
 @#locale=latin1
 @document_title=Changes in CGUI
 @# Note: this version number is patched by fixver.sh
-@manh="version 2.0.5" "CGUI" "CGUI changes"
+@manh="version 2.1.0" "CGUI" "CGUI changes"
 @rtfh=Changes in CGUI
 @$\input texinfo
 @$@setfilename changes.inf
