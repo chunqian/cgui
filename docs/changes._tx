@@ -38,6 +38,22 @@
 <center><b>The CGUI Changes File</b></center>
 @heading
 
+<b>Changes from 2.0.5 to 2.1.0:</b>
+<ul>
+   <li>
+      Added combo box.
+   </li>
+   <li>
+      Added more features to the editbox: Date and float formats, optional limit of decimals, automatic adaption to the decimal point format of the locale, optional pre-selection of text.
+   </li>
+   <li>
+      Added more features to the text box.
+   </li>
+   <li>
+      Added copy/paste for Linux.
+   </li>
+</ul>
+
 <b>Changes from 2.0.4 to 2.0.5:</b>
 <ul>
    <li>
