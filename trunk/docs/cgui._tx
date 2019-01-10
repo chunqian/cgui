@@ -1090,6 +1090,10 @@ Objects
          <li> FBPOINTS - A signed integer number eventually followed by a
                half-character. Size of *data is sizeof(char). The value pointed
                to is interpreted as its integer value divided by 2.
+         <li> ISO8601_DATE - The variable pointed to by data has type time_t.
+               The displayed text in the edit box has the ISO8601 standard
+               format of date (time within day are ignored) of the value of
+               that time_t variable.
          <li> FFLOAT - A floating point number. Size of *data is sizeof(float).
          <li> FHEX1 - A hexadecimal number. Size of data is sizeof(char).
          <li> FHEX2 - A hexadecimal number. Size of data is sizeof(short).
@@ -1133,6 +1137,18 @@ Objects
         int* in case of FINT format etc.
    </ul>
    Return value: an identification code to the object.
+
+@@int @CguiEditBoxSetFloatDecimals(int id, int max_nr_of_decimals);
+@xref AddEditBox
+   Sets the maximum number of digits that will be printed after the decimal 
+   point of floating point numbers.<br>
+   Parameters:
+   <ul>
+   <li> it: The id of an edit box.
+   <li> max_nr_of_decimals: The number of decimals to show.
+   </ul>
+   Returns 0 if it fails (i.e. id does not refer to an existing edit box, or
+   the edit box has not a floating type) else non-0.
 
 @@void @GetEditData(int *scan, int *ascii, int *offset);
 @xref AddEditBox
@@ -1178,6 +1194,15 @@ Objects
    an paste operation. If `mode' is 0 the current selection will remain
    unchanged. The default is 0. The setting is global.
 
+@@int @CguiEditBoxSelectAll(int id);
+@xref AddEditBox
+   Selects all text in an edit box.
+   Parameters:
+   <ul>
+   <li> id: the id-key of the edit box.
+   </ul>
+   Returns 0 if it fails (i.e. id is invalid) else non-0.
+
 @@int @TabOnCR(int id);
 @xref AddEditBox
    Makes the carriage returns work like tabs in an edit-box, i.e. focus
@@ -1186,25 +1211,26 @@ Objects
    large amout of data.
    Returns 0 if it fails (i.e. id is invalid) else non-0.
 
-@@int @AttachComboProperty(int id, int *sel, const char * const *strings, const int *n);
+@@int @AttachComboProperty(int id, int *sel, const char * const *strings, int n);
 @xref AddEditBox
    Extends an edit box to be a combo box. The list with alternative predefined
    texts will drop down when the user presses arrow down or arrow up. The drop 
-   down list will be closed without action when the user presses the ESC key.
+   down list will be closed without action if the user presses the ESC key.
    It will be closed and the selected string will be copied into the edit field
-   when the user preses enter och klicks on an alternative in the list. The 
+   when the user preses enter or klicks on an alternative in the list. The 
    list can be navigated by use of the arrow keys.<br>
    Parameters:
    <ul>
    <li> id: the id-key of the edit box to be a combo
    <li> sel: a pointer to a variable that will hold the index in the string 
-        array that was last selected by the user.
+        array that was last selected by the user. If no selection is done by
+        the user it will keep its original value.
    <li> strings: An array of pointers to strings to be shown in the drop down
         list of the combo.
-   <li> n: A pointer to a varible holding the number of strings in the array
-        `strings'.
+   <li> n: The number of strings in the array `strings'.
    </ul>
    Returns 0 if it fails (i.e. id does not refer to an edit box) else non-0.
+
 
 @\int @AddStatusField(int x, int y, int width,
 @\                           void (*FormatFunc)(void *data, char *string),

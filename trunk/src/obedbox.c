@@ -21,6 +21,7 @@
 
 #include "obedbox.h"
 #include "edbmenu.h"
+#include "clipwin.h"
 #include "combo.h"
 #include "event.h"
 #include "cguiinit.h"
@@ -40,6 +41,10 @@
 #define set_clip_rect set_clip
 #endif
 
+#define SIZE_OF_NUMBER_STRING 60
+
+static int decimal_point;
+
 struct t_editbox {
    void (*Action) (void *);
    void *data;
@@ -48,7 +53,9 @@ struct t_editbox {
    int scan, ascii;
    char *curpos;
    long copy;
-
+#ifdef ALLEGRO_UNIX
+   clipX *xclip;
+#endif
    /* The x-position of the text-cursor */
    int x;
    int width;
@@ -118,6 +125,12 @@ struct t_editbox {
 
    /* Must be there to to know if the screen resolution has changed in which case it is necessary to re-make the bitmap */
    int curh, curw;
+
+   /* A flag telling if rounding of float type decimals should be done. */
+   int is_max_nr_of_decimals;
+
+   /* The number of decimals to limit float types display to. */
+   int max_nr_of_decimals;
 };
 
 static char *clipboard;
@@ -211,6 +224,13 @@ static int IsDelimiter(char chr)
    return 0;
 }
 
+void TimeAsDate(char *buf, time_t time)
+{
+   struct tm *tmtime;
+   tmtime = gmtime(&time);
+   strftime(buf, SIZE_OF_NUMBER_STRING, "%Y-%m-%d", tmtime);
+}
+
 static void FormatItem2Text(t_editbox *edb)
 {
    char *text;
@@ -218,6 +238,8 @@ static void FormatItem2Text(t_editbox *edb)
    void *item;
    long lval = 0;
    long undef = 0;
+   char buf[100];
+   char *fmt;
 
    text = edb->text;
    item = edb->item;
@@ -243,12 +265,24 @@ static void FormatItem2Text(t_editbox *edb)
       undef = L_UNDEF_VAL;
       break;
    case FFLOAT:
-      sprintf(tmp, "%f", *(float *) item);
+      if (edb->is_max_nr_of_decimals) {
+         sprintf(buf, "%%.%df", edb->max_nr_of_decimals);
+         fmt = buf;
+      } else {
+         fmt ="%f";
+      }
+      sprintf(tmp, fmt, *(float *) item);
       tmp[edb->string_buffer_size-1] = 0;
       strcpy(text, tmp);
       break;
    case FDOUBLE:
-      sprintf(tmp, "%lf", *(double *) item);
+      if (edb->max_nr_of_decimals) {
+         sprintf(buf, "%%.%dlf", edb->max_nr_of_decimals);
+         fmt = buf;
+      } else {
+         fmt ="%lf";
+      }
+      sprintf(tmp, fmt, *(double *) item);
       tmp[edb->string_buffer_size-1] = 0;
       strcpy(text, tmp);
       break;
@@ -291,6 +325,9 @@ static void FormatItem2Text(t_editbox *edb)
    case FOCT4:
       sprintf(text, "%o", *(unsigned int *) item);
       break;
+   case ISO8601_DATE:
+      TimeAsDate(text, *(time_t *) item);
+      break;
    }
    if ((edb->keyaction & BL0) && !edb->usertyped) {
       switch (edb->format) {
@@ -309,6 +346,28 @@ static void FormatItem2Text(t_editbox *edb)
    }
    if (edb->format != FPTRSTR)
       text[edb->string_buffer_size-1] = 0;
+}
+
+static time_t StringToTime(const char *text)
+{
+   struct tm tm = {0};
+   sscanf(text, "%d-%d-%d", &tm.tm_year, &tm.tm_mon, &tm.tm_mday);
+   tm.tm_isdst = -1;
+   tm.tm_mon--;
+   tm.tm_mday++;
+   if (tm.tm_year >= 0 && tm.tm_year < 100) {
+    tm.tm_year += 2000;
+   }
+   tm.tm_year -= 1900;
+   return mktime(&tm);
+}
+
+static int IsStringDate(const char *text)
+{
+   struct tm tm = {0};
+   int n = 0;
+   sscanf(text, "%d-%d-%d %n", &tm.tm_year, &tm.tm_mon, &tm.tm_mday, &n);
+   return n == 0 || text[n] != 0;
 }
 
 static void DecodeText(t_editbox *edb)
@@ -397,6 +456,9 @@ static void DecodeText(t_editbox *edb)
    case FOCT4:
       sscanf(edb->text, "%o", &tmp);
       *(unsigned int *) edb->item = tmp;
+      break;
+   case ISO8601_DATE:
+      *(time_t*)edb->item = StringToTime(edb->text);
       break;
    }
 }
@@ -507,6 +569,9 @@ static void RestoreItem(t_editbox *edb)
    case FOCT4:
       *(unsigned int *) edb->item = edb->copy;
       break;
+   case ISO8601_DATE:
+      *(time_t *) edb->item = edb->copy;
+      break;
    }
 }
 
@@ -564,6 +629,9 @@ static void SaveCopy(t_editbox *edb)
    case FOCT4:
       edb->copy = *(unsigned int *) edb->item;
       break;
+   case ISO8601_DATE:
+      edb->copy = *(time_t *) edb->item;
+      break;
    }
 }
 
@@ -578,6 +646,13 @@ static void TextCursorBlink(void *data)
 
 static void TerminateEditing(t_editbox *edb)
 {
+   if (edb->format == ISO8601_DATE) {
+      if (IsStringDate(edb->text)) {
+         *(time_t*)edb->item = edb->copy;
+         TimeAsDate(edb->text, *(time_t *)edb->item);
+      }
+   }
+
    UnInstallKBHandler(EditBoxKeyboardCallback);
    edb->b->x = edb->x + edb->b->x1 + edb->b->dx1 + 1;
    edb->edit_in_progress = 0;
@@ -588,6 +663,12 @@ static void TerminateEditing(t_editbox *edb)
    _KillEventOfCgui(edb->blinkid);
    edb->blinkid = 0;
    edb->b->tf->Refresh(edb->b);
+#ifdef ALLEGRO_UNIX
+   if (edb->xclip) {
+      close_X_clipboard(edb->xclip);
+      edb->xclip = NULL;
+   }
+#endif
 }
 
 /* This function makes an update of the complete edit field by a call to the
@@ -768,6 +849,7 @@ static char *ProcessPrintableLetter(t_editbox *edb)
    char *writepos_ptr, *text, buf[10];
    unsigned char half = HALF_CHAR;
    int ascii, nochar, newchars, ok, writepos_index, i;
+   char date_buf[100];
 
    text = edb->text;
    writepos_ptr = edb->curpos;
@@ -788,7 +870,7 @@ static char *ProcessPrintableLetter(t_editbox *edb)
       break;
    case FFLOAT:
    case FDOUBLE:
-      if (isdigit(ascii) || ascii == '.' || (ascii == '-' && text == writepos_ptr))
+      if (isdigit(ascii) || ascii == decimal_point || (ascii == '-' && text == writepos_ptr))
          ok = 1;
       break;
    case FHEX1:
@@ -821,6 +903,12 @@ static char *ProcessPrintableLetter(t_editbox *edb)
    case FSTRING:
    case FPTRSTR:
       ok = 1;
+      break;
+   case ISO8601_DATE:
+      if (isdigit(ascii)) {
+         ok = 1;
+      }
+      break;
    }
    if (ok) {
       if (_cgui_utf8_format_is_requested) {
@@ -854,41 +942,55 @@ static char *ProcessPrintableLetter(t_editbox *edb)
    return writepos_ptr;
 }
 
-#ifdef DJGPP
-/* return true if fail */
-static int CopyToWinClip(t_editbox *edb)
+static char *GetSelection(t_editbox *edb)
 {
-   char *s1, *s2;
-   int c;
+   char *s1;
+   char *s2;
+   char *selection;
 
-   if (edb->mark1 == edb->mark2)
-      return 0;
-   if (edb->mark1 > edb->mark2) {
-      s1 = edb->mark2;
-      s2 = edb->mark1;
+   if (edb->mark1 == edb->mark2) {
+      selection = NULL;
    } else {
-      s1 = edb->mark1;
-      s2 = edb->mark2;
+      if (edb->mark1 > edb->mark2) {
+         s1 = edb->mark2;
+         s2 = edb->mark1;
+      } else {
+         s1 = edb->mark1;
+         s2 = edb->mark2;
+      }
+      selection = GetMem0(char, s2 - s1 + 1);
+      strncpy(selection, s1, s2 - s1);
    }
-   c = *s2;
-   *s2 = 0;
-   InsertIntoWinClip(s1);
-   *s2 = c;
-   return 1;
+   return selection;
 }
-#else
-#define CopyToWinClip(edb) InsertIntoClipBoard(edb)
-#endif
+/* return true if fail */
+static int CopyToGlobalBuffer(t_editbox *edb)
+{
+   char *selection;
+   int ok;
+   if ((selection = GetSelection(edb))) {
+      ok = InsertIntoSystemsClipboard(selection);
+      free(selection);
+   } else {
+      ok = 0;
+   }
+   return ok;
+}
 
 /* return true if fail */
 static int CopyFromWinClip(t_editbox *edb)
 {
-   char *s;
+   char *s = NULL;
 
 #ifdef DJGPP
    s = GetFromWinClip();
 #else
-   s = MkString(clipboard);
+   #ifdef ALLEGRO_UNIX
+   s = get_X_clipboard(edb->xclip);
+   #else
+   if (clipboard)
+      s = MkString(clipboard);
+   #endif
 #endif
    if (s) {
       Paste(edb, s);
@@ -899,11 +1001,11 @@ static int CopyFromWinClip(t_editbox *edb)
 }
 
 /* Processes the key-press as found in edb->ascii and edb->scan considering also the allegro key array
-   and the KB_NUMLOCK_FLAG flag from key_shifts (seems that the latter is not possible to obtain in 
+   and the KB_NUMLOCK_FLAG flag from key_shifts (seems that the latter is not possible to obtain in
    any other way).
    Tries to detect it is a editing command key or a just typing a letter. In case of command, handled
    immediately, while the processing of printable letters is passed on to a helper function.
-   In general we try to mimic what we beleve is some kind of "standard windowed environment behavior" 
+   In general we try to mimic what we beleve is some kind of "standard windowed environment behavior"
    when interpreting commands. */
 static int ProcessKeyPress(t_editbox *edb)
 {
@@ -972,8 +1074,12 @@ static int ProcessKeyPress(t_editbox *edb)
                         input_position = PrevWord(input_position, text);
                         CutSubstring(input_position, cut_selection_end);
                      } else {
-                        input_position--;
-                        CutSubstring(input_position, input_position + 1);
+                        if (edb->format == ISO8601_DATE && input_position[-1] == '-') {
+                           /* Don't allow deleting a - . */
+                        } else {
+                           input_position--;
+                           CutSubstring(input_position, input_position + 1);
+                        }
                      }
                   }
                }
@@ -981,7 +1087,11 @@ static int ProcessKeyPress(t_editbox *edb)
 
             case KEY_LEFT:
             case KEY_4_PAD:
-               if (!input_position_at_beginning) {
+               if (input_position_at_beginning && !persistent_selection) {
+                  if (!shift) {
+                     edb->mark1 = edb->mark2 = NULL;
+                  }
+               } else {
                   if (shift && ctrl) {
                      /* Ctrl-shift-left arrow: extend selection to include prev word */
                      if (edb->mark1 == NULL) {
@@ -1010,7 +1120,11 @@ static int ProcessKeyPress(t_editbox *edb)
 
             case KEY_RIGHT:
             case KEY_6_PAD:
-               if (!input_position_at_end) {
+               if (input_position_at_end && !persistent_selection) {
+                  if (!shift) {
+                     edb->mark1 = edb->mark2 = NULL;
+                  }
+               } else {
                   if (shift && ctrl) {
                      /* Ctrl-shift-right arrow: extend selection to include next word */
                      if (edb->mark1 == NULL) {
@@ -1039,7 +1153,11 @@ static int ProcessKeyPress(t_editbox *edb)
 
             case KEY_END:
             case KEY_1_PAD:
-               if (!input_position_at_end) {
+               if (input_position_at_end && !persistent_selection) {
+                  if (!shift) {
+                     edb->mark1 = edb->mark2 = NULL;
+                  }
+               } else {
                   if (shift && ctrl) {
                   } else if (shift) {
                      /* Shift-End: extend selection to include rest of the line */
@@ -1061,7 +1179,11 @@ static int ProcessKeyPress(t_editbox *edb)
 
             case KEY_HOME:
             case KEY_7_PAD:
-               if (!input_position_at_beginning) {
+               if (input_position_at_beginning && !persistent_selection) {
+                  if (!shift) {
+                     edb->mark1 = edb->mark2 = NULL;
+                  }
+               } else {
                   if (shift && ctrl) {
                   } else if (shift) {
                      /* Shift-Home: extend selection to include all from the beginning of the line */
@@ -1122,7 +1244,9 @@ static int ProcessKeyPress(t_editbox *edb)
 
             case KEY_DEL_PAD:
             case KEY_DEL:
-               if (!input_position_at_end) {
+               if (input_position_at_end && !persistent_selection) {
+                  input_position = DeleteMarked(edb);
+               } else {
                   if (!persistent_selection && edb->mark1 && edb->mark2 && (edb->mark1 != edb->mark2)) {
                      input_position = DeleteMarked(edb);
                   }
@@ -1141,11 +1265,13 @@ static int ProcessKeyPress(t_editbox *edb)
                         /* Ctrl-delete: Delete next word. */
                         CutSubstring(input_position, NextWord(input_position));
                      } else {
-                        CutSubstring(input_position, input_position + 1);
+                        if (edb->format == ISO8601_DATE && *input_position == '-') {
+                           /* Don't allow deleting a - . */
+                        } else {
+                           CutSubstring(input_position, input_position + 1);
+                        }
                      }
                   }
-               } else {
-                  error = 1;
                }
                break;
 
@@ -1177,7 +1303,7 @@ static int ProcessKeyPress(t_editbox *edb)
                   switch (ascii) {
                   case KEY_C:
                      /* Ctrl-C: copy selection to Windows clipboard */
-                     if (!CopyToWinClip(edb)) {
+                     if (!CopyToGlobalBuffer(edb)) {
                         error = 1;
                      }
                      break;
@@ -1192,7 +1318,7 @@ static int ProcessKeyPress(t_editbox *edb)
                      break;
                   case KEY_X:
                      /* Ctrl-X: cut selection to Windows clipboard */
-                     if (CopyToWinClip(edb)) {
+                     if (CopyToGlobalBuffer(edb)) {
                         input_position = DeleteMarked(edb);
                      } else {
                         error = 1;
@@ -1301,6 +1427,11 @@ static void StartEdit(t_editbox *edb)
    if (edb->curpos == NULL) {
       edb->curpos = edb->text;
    }
+#ifdef ALLEGRO_UNIX
+   if (edb->xclip == NULL) {
+      edb->xclip = init_X_clipboard();
+   }
+#endif
 }
 
 static void EditMenu(void *data)
@@ -1322,6 +1453,14 @@ static void Action(void *data)
 
    if (edb->b->usedbutton == RIGHT_MOUSE) {
       MkScratchMenu(edb->b->id, EditMenu, edb);
+#ifdef ALLEGRO_UNIX
+   } else if (edb->b->usedbutton == MID_MOUSE) {
+      char *s = get_X_primary(edb->xclip);
+      if (*s) {
+         Paste(edb, s);
+         Release(s);
+      }
+#endif
    } else if (!edb->edit_in_progress) {
       TextCursorBlink(edb);
       SetCurrentPosition(edb);
@@ -1539,8 +1678,8 @@ static void MakeEdit(t_object * b, int format, int string_buffer_size, void *ite
          *edb->ptr = edb->text = GetMem0(char, 1);
       edb->text = *edb->ptr;
    } else {
-      edb->string_buffer_size = 60;
-      edb->textcopy = GetMem0(char, 62);  /* will be enough to contain any number */
+      edb->string_buffer_size = SIZE_OF_NUMBER_STRING;
+      edb->textcopy = GetMem0(char, SIZE_OF_NUMBER_STRING+2);  /* will be enough to contain any number */
       edb->text = edb->textcopy;
    }
    b->appdata = edb;
@@ -1700,6 +1839,16 @@ static void StartScrollEditor(t_editbox *edb)
    }
 }
 
+static int InsertIntoBuffer(t_editbox *edb)
+{
+   char *selection;
+   int ok;
+   selection = GetSelection(edb);
+   ok = InsertIntoPrimaryBuffer(selection);
+   free(selection);
+   return ok;
+}
+
 static int Slide(int x nouse, int y nouse, void *src, int id nouse,
                  int reason)
 {
@@ -1728,6 +1877,7 @@ static int Slide(int x nouse, int y nouse, void *src, int id nouse,
             b->tf->Refresh(b);
          }
       }
+      InsertIntoBuffer(edb);
       break;
    case SL_STOPPED:
       StopScrollEditor(edb);
@@ -1742,6 +1892,13 @@ static int Slide(int x nouse, int y nouse, void *src, int id nouse,
       return 1;
    }
    return 1;
+}
+
+extern void CguiInitEditBox(void)
+{
+   char buf[10] = {0};
+   sprintf(buf, "%0.1lf", 0.0);
+   decimal_point = buf[1];
 }
 
 /* Application interface: */
@@ -1834,6 +1991,38 @@ extern void CguiEditBoxSetSelectionMode(int mode)
    persistent_selection = !mode;
 }
 
+extern int CguiEditBoxSelectAll(int id)
+{
+   t_editbox *edb;
+   t_object *b;
+
+   b = GetObject(id);
+   if (b && b->Action == Action) {
+      edb = b->appdata;
+      edb->mark1 = edb->text;
+      edb->mark2 = edb->text + strlen(edb->text);
+      return 1;
+   }
+   return 0;
+}
+
+extern int CguiEditBoxSetFloatDecimals(int id, int max_nr_of_decimals)
+{
+   t_editbox *edb;
+   t_object *b;
+
+   b = GetObject(id);
+   if (b && b->Action == Action) {
+      edb = b->appdata;
+      if (edb->format == FFLOAT || edb->format == FDOUBLE) {
+         edb->is_max_nr_of_decimals = 1;
+         edb->max_nr_of_decimals = max_nr_of_decimals;
+         return 1;
+      }
+   }
+   return 0;
+}
+
 extern int AddEditBox(int x, int y, int width, const char *label, int format,
                       int string_buffer_size, void *data)
 {
@@ -1843,7 +2032,7 @@ extern int AddEditBox(int x, int y, int width, const char *label, int format,
 
    b = CreateObject(x, y, opwin->win->opnode);
    InsertLabel(b, label);
-   b->click = LEFT_MOUSE|RIGHT_MOUSE;
+   b->click = LEFT_MOUSE|RIGHT_MOUSE|MID_MOUSE;
    MakeEdit(b, format, string_buffer_size, data, width);
    SetObjectSlidable(b->id, Slide, LEFT_MOUSE, b);
    if (b->tablink == NULL)

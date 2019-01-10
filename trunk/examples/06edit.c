@@ -68,6 +68,7 @@ void make_object_window(void)
    static char string3[300] = "";
    static int intval = 13;
    static t_stdata st_data;
+   static time_t t;
    int id;
 
    MkDialogue(ADAPTIVE, "Edit boxes - advanced options", 0);
@@ -99,6 +100,8 @@ void make_object_window(void)
    TabOnCR(id);
    id = AddEditBox(DOWNLEFT, 100, "Changes are reflected in the status field", FSTRING, 300, string);
    AddHandler(id, catch_edit, &st_data.id);
+   TabOnCR(id);
+   id = AddEditBox(DOWNLEFT, 100, "Time", ISO8601_DATE, 0, &time);
    TabOnCR(id);
    AddButton(DOWNLEFT, "\33E~xit", shut_down, NULL);
    AddButton(RIGHT, "Show c~ode", show_code, NULL);

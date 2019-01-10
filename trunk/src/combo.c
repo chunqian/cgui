@@ -7,6 +7,7 @@
 struct t_editbox;
 
 struct t_combo_box {
+   int n;
    t_dropbox *dd;
    int *sel;
    const char * const *strings;
@@ -19,7 +20,7 @@ static void ComboAction(t_combo_box *combo_box)
    EditBoxUpdateString(combo_box->edb, combo_box->strings[*combo_box->sel]);
 }
 
-extern int AttachComboProperty(int id, int *sel, const char * const *strings, const int *n)
+extern int AttachComboProperty(int id, int *sel, const char * const *strings, int n)
 {
    t_editbox *edb;
    t_combo_box *combo_box;
@@ -27,7 +28,8 @@ extern int AttachComboProperty(int id, int *sel, const char * const *strings, co
    combo_box = GetMem0(t_combo_box, 1);
    edb = EditBoxAttachComboProperty(id, ComboAction, combo_box);
    if (edb) {
-      combo_box->dd = CreateDropDownData(GetObject(id), sel, strings, n);
+      combo_box->n = n;
+      combo_box->dd = CreateDropDownData(GetObject(id), sel, strings, &combo_box->n);
       combo_box->sel = sel;
       combo_box->strings = strings;
       combo_box->edb = edb;

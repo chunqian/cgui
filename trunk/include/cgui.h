@@ -130,13 +130,13 @@ CGUI_FUNC(int, MkGroove, (void));
 
 /* Objects */
 CGUI_FUNC(int, AddButton, (int x, int y, const char *label, CGUI_METHOD(void, CallBack, (void *data)), void *data));
-enum cgui_widget_sates {CGUI_WIDGET_STATE_NORMAL, 
-CGUI_WIDGET_STATE_OVER, 
-CGUI_WIDGET_STATE_DOWN, 
-CGUI_WIDGET_STATE_DOWN_BESIDE, 
-CGUI_WIDGET_STATE_GRIPPED, 
+enum cgui_widget_sates {CGUI_WIDGET_STATE_NORMAL,
+CGUI_WIDGET_STATE_OVER,
+CGUI_WIDGET_STATE_DOWN,
+CGUI_WIDGET_STATE_DOWN_BESIDE,
+CGUI_WIDGET_STATE_GRIPPED,
 CGUI_WIDGET_STATE_DRAGGING_OVER};
-CGUI_FUNC(int, AddUserDefinedWidget, (int x, int y, int w, int h, CGUI_METHOD(void, Draw, (void *, struct BITMAP *bmp, enum cgui_widget_sates state)), 
+CGUI_FUNC(int, AddUserDefinedWidget, (int x, int y, int w, int h, CGUI_METHOD(void, Draw, (void *, struct BITMAP *bmp, enum cgui_widget_sates state)),
           CGUI_METHOD(void, single_click, (void*)), void *data));
 CGUI_FUNC(int, AddCheck, (int x, int y, const char *label, int *sel));
 #define R_HORIZONTAL 0
@@ -144,7 +144,7 @@ CGUI_FUNC(int, AddCheck, (int x, int y, const char *label, int *sel));
 CGUI_FUNC(int, AddFlip, (int x, int y, const char *label, const char *const*strs, int *sel));
 CGUI_FUNC(int, AddDropDown, (int x, int y, int width, const char *label, int *sel, const void *data, int n, CGUI_METHOD(void, CallBack, (const void *data, int i, char *s))));
 CGUI_FUNC(int, AddDropDownS, (int x, int y, int width, const char *label, int *sel, const char * const *strs, int n));
-CGUI_FUNC(int, AddDropDownD, (int x, int y, int width, const char *label, int *sel, const void *listdata, 
+CGUI_FUNC(int, AddDropDownD, (int x, int y, int width, const char *label, int *sel, const void *listdata,
                         CGUI_METHOD(const void *, Iterate, (const void *listdata, const void *it, char *text))));
 CGUI_VAR(int , cgui_drop_down_list_row_spacing);
 CGUI_FUNC(int, MkRadioContainer, (int x, int y, int *var, int direction));
@@ -190,11 +190,14 @@ CGUI_FUNC(int, UpdateTextBoxText, (int id, const char *s));
 CGUI_FUNC(int, AddEditBox, (int x, int y, int width, const char *label, int format, int string_buffer_size, void *data));
 /* Edit-box optional stuff */
 #define TERMINATE_EDIT 999
-CGUI_FUNC(int, AttachComboProperty, (int id, int *sel, const char * const *strings, const int *n));
+CGUI_FUNC(int, AttachComboProperty, (int id, int *sel, const char * const *strings, int n));
+CGUI_FUNC(int, CguiEditBoxSetFloatDecimals, (int id, int max_nr_of_decimals));
 CGUI_FUNC(void, CguiEditBoxSetSelectionMode, (int mode));
 CGUI_FUNC(void, GetEditData, (int *scan, int *ascii, int *offset));
 CGUI_FUNC(void, SetEditData, (int scan, int ascii, int offset));
 CGUI_FUNC(int, TabOnCR, (int id));
+CGUI_FUNC(int, CguiEditBoxSelectAll, (int id));
+
 #ifdef FLONG
    #undef FLONG
 #endif
@@ -218,6 +221,7 @@ CGUI_FUNC(int, TabOnCR, (int id));
 #define FOCT2     15            /* 2-digit view 4-byte value  */
 #define FOCT3     16            /* 3-digit view 4-byte value  */
 #define FOCT4     17            /* 4-digit view 4-byte value  */
+#define ISO8601_DATE 18
 #define FNAME     0x20
 #define FBLANK0   0x40
 #define FUNDEF    0x6000
@@ -242,8 +246,9 @@ CGUI_FUNC(int, InsertPoint, (int id));
 #define IMAGE_CMP_SPRITE   3
 CGUI_FUNC(int, RegisterImage, (void *data, const char *imagename, int type, int id));
 CGUI_FUNC(const void *, GetRegisteredImage, (const char *name, int *type, int id));
-#define LEFT_MOUSE      1 /* mouse button values in calls to below */
-#define RIGHT_MOUSE     2
+#define LEFT_MOUSE      0x1 /* mouse button values in calls to below */
+#define RIGHT_MOUSE     0x2
+#define MID_MOUSE       0x4
 CGUI_FUNC(void, SetObjectSlidable, (int id, CGUI_METHOD(int, Slider, (int x, int y, void *src, int id, int reason)), int buttons, void *data));
 CGUI_FUNC(void, SetObjectDouble, (int id, CGUI_METHOD(void, DoubleCall, (void *)), void *data, int button));
 CGUI_FUNC(void, SetObjectGrippable, (int id, CGUI_METHOD(void *, Grip, (void *src, int id, int reason)), int flags, int buttons, void *data));
