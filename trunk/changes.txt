@@ -6,6 +6,22 @@ The CGUI Changes File
 ==========================
 ============  ============
 ==========================
+Changes from 2.0.5 to 2.1.0:
+
+   
+      Added combo box.
+   
+   
+      Added more features to the editbox: Date and float formats, optional limit of decimals, automatic adaption to the decimal point format of the locale, optional pre-selection of text.
+   
+   
+      Added more features to the text box.
+   
+   
+      Added copy/paste for Linux.
+   
+
+
 Changes from 2.0.4 to 2.0.5:
 
    
