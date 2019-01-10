@@ -134,8 +134,6 @@ How to release a new version of CGUI:
 
   Run "sh misc/fixver.sh [version]".
   Run "sh misc/fixdll.sh".
-  Run "sh misc/zipup.sh". It works under dos/djgpp, haven't tested
-      elsewhere.
-  Notify [AL] and create a news item at allegro.cc.
+  Run "sh misc/zipup.sh". 
 
 

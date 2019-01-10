@@ -59,10 +59,12 @@ exactly the same way as you used when installing Allegro:
    you open a DOS box, or configure the environment variables in Control
    Panel/System/Environment.)
 
-   Compile the library. This is done by running
+   Compile the library. This is done by first running
+make dat2c
+
+   at the command line followed by the command
 make
 
-   at the command line.
 
    Install the files to common directories. This is done by running
 
