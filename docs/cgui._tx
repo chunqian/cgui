@@ -11,7 +11,7 @@
 @html_footer=Back to contents
 @rtfh=CGUI  - a C-based GUI
 @# Note: this version number is patched by fixver.sh
-@manh="version 2.0.5" "CGUI" "CGUI manual"
+@manh="version 2.1.0" "CGUI" "CGUI manual"
 @$\input texinfo
 @$@setfilename cgui.inf
 @$@settitle CGUI Manual
@@ -29,7 +29,7 @@
 <center><b>A C Graphical User Interface [add on to Allegro] by Christer Sandberg</b></center>
 <center>Email: <email>rya.christer@gmail.com</a></center>
 <center>Homepage: <a href="http://cgui.sourceforge.net/">http://cgui.sourceforge.net/</a></center>
-<center><b>The Manual of CGUI 2.0.5
+<center><b>The Manual of CGUI 2.1.0
 </center>
 @!text
 @heading

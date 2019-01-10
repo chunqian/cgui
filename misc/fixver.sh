@@ -3,8 +3,8 @@
 #  Shell script to adjust the version numbers and dates in cgui.h,
 #  dllver.rc, readme._tx, cgui._tx and makefile.ver.
 cv1=2
-cv2=0
-cv3=5
+cv2=1
+cv3=0
 cv4=
 
 echo "Changing version from $cv1.$cv2.$cv3 $cv4 to $1.$2.$3 $4" 1>&2

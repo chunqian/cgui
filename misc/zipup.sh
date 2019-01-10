@@ -9,8 +9,8 @@
 ##
 
 # note: these are patched by fixver.sh script.
-zipversion=205
-tgzversion=2.0.5
+zipversion=210
+tgzversion=2.1.0
 
 if [ "$1" != "-q" ]; then
 

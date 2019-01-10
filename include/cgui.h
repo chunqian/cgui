@@ -22,11 +22,11 @@
 #endif
 
 #define CGUI_VERSION_MAJOR      2
-#define CGUI_VERSION_MINOR      0
-#define CGUI_VERSION_PATCH      5
-#define CGUI_VERSION_STRING     "2.0.5"
-#define CGUI_DATE               20151215    /* yyyymmdd */
-#define CGUI_DATE_STRING "Dec 15, 2015"
+#define CGUI_VERSION_MINOR      1
+#define CGUI_VERSION_PATCH      0
+#define CGUI_VERSION_STRING     "2.1.0"
+#define CGUI_DATE               20190110    /* yyyymmdd */
+#define CGUI_DATE_STRING "Jan 10, 2019"
 
 /* Init */
 

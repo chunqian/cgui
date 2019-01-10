@@ -2,9 +2,9 @@
 # this file is patched by fixver.sh
 
 # DLL filename number for Windows
-LIB_VERSION = 20
+LIB_VERSION = 21
 
 # Shared library versions for Unix
 # todo: this is unused at the moment
-shared_version = 2.0.5
-shared_major_minor = 2.0
+shared_version = 2.1.0
+shared_major_minor = 2.1
