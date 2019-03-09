@@ -11,6 +11,9 @@ typedef struct t_tab {
    void (*Free) (struct t_object *);
    void (*Unlink) (struct t_object *);
    void *data;
+   void (*Leave) (void *data);
+   void *leave_data;
+   int dirty;
 } t_tab;
 
 extern void MakeTabWin(struct t_object *b);

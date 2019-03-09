@@ -13,8 +13,6 @@ typedef struct t_tabwin {
    int *index;
    void (*Free) (struct t_object *);
    void (*SetSize) (struct t_object *);
-   void (*Leave) (void *data);
-   void *leave_data;
 } t_tabwin;
 
 #define TABSPACE 5

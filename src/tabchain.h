@@ -54,7 +54,7 @@ struct t_window;
 struct t_tabchain;
 struct t_object;
 
-extern void RemoveTabChain(struct t_window *w);
+extern void _RemoveTabChain(struct t_window *w);
 extern void GetTabChainFocus(struct t_window *w, struct t_object **linkob, struct t_object **subob);
 
 extern struct t_object *SubFocusOfLink(struct t_tabchain *tc);

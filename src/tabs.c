@@ -70,31 +70,34 @@ static void SetSize(t_object *b)
    b->x2 = text_length(b->font, b->label) + TABSPACE * 2;
 }
 
-static t_tabwin *current_tabwin;
 extern void HookLeaveTab(void (*callback) (void *data), void *data)
 {
-   if (current_tabwin) {
-      current_tabwin->Leave = callback;
-      current_tabwin->leave_data = data;
+   return;
+}
+
+static void FreeAppdata(t_tab *t)
+{
+   if (t->dirty && t->Leave) {
+      t->Leave(t->leave_data);
+      t->dirty = 0;
    }
 }
 
 extern void MakeTabWin(t_object *b)
 {
-   t_tabwin *tw, *tmp;
+   t_tabwin *tw;
    t_tab *t;
    int id;
 
    t = b->appdata;
    tw = t->tw;
    if (t->callback) {
-      tmp = current_tabwin;
-      current_tabwin = tw;
       id = opwin->win->opnode->ob->id;
       SelectContainer(tw->app->ob->id);
+      FreeAppdata(t);
       t->callback(t->data, t->b->id);
+      t->dirty = 1;
       SelectContainer(id);
-      current_tabwin = tmp;
    }
 }
 
@@ -134,15 +137,31 @@ static void RemoveTab(t_object *b)
 static void TabSetFocus(t_object *sf)
 {
    t_tab *t;
-   t_tabwin *tw;
 
    t = sf->appdata;
-   tw = t->tw;
-   if (tw->Leave) {
-      tw->Leave(tw->leave_data);
-      tw->Leave = NULL;
-   }
    TabSelected(t);
+}
+
+static void TabFree(t_object *b)
+{
+   t_tab *t;
+   t = b->appdata;
+   FreeAppdata(t);
+   XtendedFree(b);
+}
+
+extern int InstallLeaveTabCallBack(int tabid, void (*CallBack)(void *data), void *data)
+{
+   t_object *b;
+   t_tab *t;
+   b = GetObject(tabid);
+   if (b && b->tf->Draw == DrawTab) {
+      t = b->appdata;
+      t->Leave = CallBack;
+      t->leave_data = data;
+      return 1;
+   }
+   return 0;
 }
 
 /* Application interface: */
@@ -166,7 +185,7 @@ extern int AddTab(int id, void (*callback) (void *data, int mb),
          virgin = 0;
          tf = default_type_functions;
          tf.Draw = DrawTab;
-         tf.Free = XtendedFree;
+         tf.Free = TabFree;
          tf.Remove = RemoveTab;
          tf.SetSize = SetSize;
          tf.SetFocus = TabSetFocus;
