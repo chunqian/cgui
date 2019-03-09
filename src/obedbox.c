@@ -234,6 +234,7 @@ void TimeAsDate(char *buf, time_t time)
 static void FormatItem2Text(t_editbox *edb)
 {
    char *text;
+   char *p;
    char tmp[100];
    void *item;
    long lval = 0;
@@ -339,6 +340,16 @@ static void FormatItem2Text(t_editbox *edb)
       case FBPOINTS:
          if (*text == '0')
             *text = 0;
+         break;
+      case FDOUBLE:
+      case FFLOAT:
+         p = text;
+         while (*p && (*p == '0' || *p == ',' || *p == '.'))
+            ++p;
+         if (*p == 0) {
+            *text = 0;
+         }
+         break;
       }
    }
    if ((edb->keyaction & FUND) && (lval & undef) == undef) {
