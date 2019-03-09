@@ -144,8 +144,6 @@ static void FreeTabWin(t_object * b)
 
    nd = b->node;
    tw = nd->data;
-   if (tw->Leave)
-      tw->Leave(tw->leave_data);
    tw->Free(b);
    Release(tw);
 }

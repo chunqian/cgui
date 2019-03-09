@@ -556,7 +556,7 @@ extern int MoveFocusToNextSubObject(t_object *nf, t_object *sf, int scan, int as
 /* Flushes the entire tab-chain. It is not really needed since
    `UnlinkFromTabChain' will do the same. However the latter requires O(n*n)
    for searching. */
-extern void RemoveTabChain(t_window *w)
+extern void _RemoveTabChain(t_window *w)
 {
    t_tabchain *tc, *next;
 
@@ -771,7 +771,60 @@ extern void InitTabChain(void)
    }
 }
 
+static int ChainExist(t_window *win)
+{
+   return win->tc != NULL;
+}
+
+/* precondition: ChainExist() returns 0. */
+static void PlantFirstLink(t_object *b)
+{
+   t_tabchain *tc;
+   tc = GetMem0(t_tabchain, 1);
+   b->parent->win->tc = tc->next = tc->prev = tc;
+}
+
+/* Insert `to' as a link between `from' and its successor.
+  precondition: to->tablink == 0. */
+static void InsertLink(t_object *from, t_object *to)
+{
+   t_tabchain *l1, *l2, *l3;
+   to->tablink = GetMem0(t_tabchain, 1);
+   l1 = from->tablink;
+   l2 = to->tablink;
+   l3 = l1->next;
+   l1->next = l2;
+   l3->prev = l2;
+   l2->prev = l1;
+   l2->next = l3;
+}
+
 /* Application interface: */
+
+extern int SetLinkInTabChain(int idfrom, int idto)
+{
+   t_object *from, *to;
+   from = GetObject(idfrom);
+   to = GetObject(idto);
+   if (from && to) {
+      if (from->tf->DoJoinTabChain == SingleDoJoinTabChain &&
+            to->tf->DoJoinTabChain == SingleDoJoinTabChain) {
+         if (!ChainExist(to->parent->win)) {
+            PlantFirstLink(from);
+         }
+         if (from->tablink && to->tablink == NULL) {
+            InsertLink(from, to);
+            return 1;
+         }
+      }
+   }
+   return 0;
+}
+
+extern void RemoveTabChain(void)
+{
+   _RemoveTabChain(opwin->win);
+}
 
 extern int GetCurrentFocus(int id)
 {

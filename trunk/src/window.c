@@ -697,7 +697,7 @@ static void FreeWin(t_object *b)
       opwin = NULL;
    w = b->node->win;
    w->Free(b); /* Run default free (node) to recurse the tree */
-   RemoveTabChain(w);
+   _RemoveTabChain(w);
    Release(w);
 }
 

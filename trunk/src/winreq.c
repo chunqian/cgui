@@ -290,9 +290,9 @@ static int required_buffer_size(const char *format, va_list ap)
             case 's':
             s=va_arg(ap, char *);
                if(s)
-         		x = strlen(s);
+               x = strlen(s);
             else
-         		x=strlen("(null)");
+               x=strlen("(null)");
                p++;
                break;
             default:
