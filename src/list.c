@@ -406,6 +406,7 @@ int CGUI_list_fixfont;
 int cgui_list_fix_digits;
 int CGUI_list_row_f_color;
 int CGUI_list_row_b_color;
+int CGUI_list_row_d_color;
 static int color_conversion_prepared, rfr, rfg, rfb, rbr, rbg, rbb;
 
 static void ListPrepareNewScreenMode(t_object *b nouse)
@@ -982,7 +983,6 @@ static void Draw(t_object *b)
    column_end = x2;
    strike_x = col_x = x1 + 2;
    set_clip_rect(bmp, x1, y1, x2, y2);
-   hline(bmp, x1, y2, x2, l->row_delimiter_color);
 
    if (b->state == MS_FIRST_DOWN && GetRowIndex(b) < *l->n && (b->usedbutton == LEFT_MOUSE || b->usedbutton == RIGHT_MOUSE)) {
       b->hasfocus = 1;
@@ -1012,6 +1012,7 @@ static void Draw(t_object *b)
             CGUI_list_row_font = l->font;
             CGUI_list_row_f_color = fcolor;
             CGUI_list_row_b_color = bcolor;
+            CGUI_list_row_d_color = l->row_delimiter_color;
             s = buf;
             if (l->CreateColumnTextOfRow) {
                ret = l->CreateColumnTextOfRow(appdata, s, colnr);
@@ -1033,6 +1034,7 @@ static void Draw(t_object *b)
             }
             /* Note that the colors may have been changed by the user here */
             if (colnr == 0) {
+               hline(bmp, x1, y2, x2, CGUI_list_row_d_color);
                bgx = x1;
                if (l->treeview) {
                   bgx += GetLevel(b) * l->level_width;

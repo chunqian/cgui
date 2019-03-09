@@ -349,6 +349,7 @@ CGUI_VAR(struct FONT *, CGUI_list_font);
 CGUI_VAR(struct FONT *, CGUI_list_row_font);
 CGUI_VAR(int , CGUI_list_row_f_color);
 CGUI_VAR(int , CGUI_list_row_b_color);
+CGUI_VAR(int , CGUI_list_row_d_color);
 CGUI_VAR(int , CGUI_list_vspace);
 CGUI_VAR(int , CGUI_list_fixfont);
 CGUI_VAR(int , cgui_list_fix_digits);
@@ -409,12 +410,14 @@ CGUI_FUNC(void, CguiUseIcons, (const char *filename));
 /* Tab windows */
 CGUI_FUNC(int, CreateTabWindow, (int x, int y, int width, int height, int *status));
 CGUI_FUNC(int, AddTab, (int id, CGUI_METHOD(void, callback, (void *data, int id)), void *data, const char *label));
-CGUI_FUNC(void, HookLeaveTab, (CGUI_METHOD(void, callback, (void *data)), void *data));
+CGUI_FUNC(int, InstallLeaveTabCallBack, (int tabid, CGUI_METHOD(void, callback, (void *data)), void *data));
 
 /* Functions for all kind of objects */
 CGUI_FUNC(int, SetFocusOn, (int id));
+CGUI_FUNC(void, RemoveTabChain, (void));
 CGUI_FUNC(int, JoinTabChain, (int id));
 CGUI_FUNC(int, GetCurrentFocus, (int id));
+CGUI_FUNC(int, SetLinkInTabChain, (int idfrom, int idto));
 
 /* Fonts */
 CGUI_FUNC(void, SetCguiFont, (struct FONT *f));
