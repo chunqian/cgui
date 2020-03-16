@@ -85,7 +85,7 @@ static void show_code(void *data)
    (void)data;
 
    MkDialogue(ADAPTIVE, "Code view", W_FLOATING);
-   id = AddTextBox(DOWNLEFT, "../examples/29trees.c", 670, 54, TB_TEXTFILE|TB_FRAMESINK|TB_PREFORMAT|3);
+   id = AddTextBox(DOWNLEFT, "../examples/27trees.c", 670, 54, TB_TEXTFILE|TB_FRAMESINK|TB_PREFORMAT|3);
    MakeStretchable(id, NULL, NULL, 0);
    AddButton(DOWNLEFT, "#27;~Close", CloseWin, NULL);
    DisplayWin();
@@ -150,7 +150,7 @@ int main(void)
    list_id = AddList(DOWNLEFT, root, NULL, 300, LEFT_MOUSE, row_text_creater, show_content, 4);
    MakeStretchable(list_id, NULL, NULL, 0);
    SetIndexedList(list_id, index_creater);
-   ListTreeView(list_id, 20, is_leaf, TR_HIDE_ROOT);    /* <--- This will do it (i.e. the turning the list into a tree viewer) */
+   ListTreeView(list_id, 20, is_leaf, TR_HIDE_ROOT);    /* <--- This will do it (i.e. turning the list into a tree viewer) */
    DisplayWin();
    ProcessEvents();
    destroy_tree(root);
