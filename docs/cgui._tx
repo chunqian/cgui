@@ -923,7 +923,7 @@ Objects
    Return value: an identification key to the object.
 
 @\int @AddDropDownD(int x, int y, int width, const char *label,
-@@                int *sel, const void *listdata, const void (*Iterate)(const void *listdata, const void *it, char *text));
+@@                int *sel, const void *listdata, const void *(*Iterate)(const void *listdata, const void *it, char *text));
 @xref AddDropDown
    This is similar to AddDropDown, but instead of a list of strings you provide 
    a pointer to some data (preferably some kind of linked list) a pointer to an 
@@ -3066,14 +3066,12 @@ Listboxes
 @@int @ListTreeView(int listid, int level_width, int (*IsLeaf)(void *rowobject), int options);
 @xref AddList
 @xref ListTreeSetNodesExpandedState
-   This function will turn a normal list box into a tree viewer. In most
+   This function will change a list box into a tree viewer. In most
    respects it is just an ordinary list, however special list facilites like
    list columns and "hooked lists" are not supposed to work.<br>
-   Your tree implementation may be whatever you like, you can use either an
-   iterator function for arrays (using `SetIndexedList' to install it) or for
-   linked lists (using `SetLinkedList' to install it). The return value (if not
-   NULL) will always turn up later as the first parameter of your iterator
-   function as the root data of that level in the tree.<br>
+   Your tree implementation may such that the object pointed to by `listdata'
+   in the call to `AddList' is of the same type as the object pointed to by the
+   return value of  `CreateRowData'.<br>
    Note however, if you use the array style iterator, then it should be
    prepared to be called with any size of the 'index' parameter and return
    NULL in case the index is too big (the list box will use that to draw some
@@ -3086,8 +3084,8 @@ Listboxes
    you need to at least pass LEFT_MOUSE for the 'mousebuttons' parameter
    to AddList.<br>
    The list box itself will manage the expanding and collapsing of tree nodes.
-   Your call-back function handling row click will only be called when the row
-   is clicked, not when the node is expanded or collapsed.<br>
+   Your call-back function that handles row clicks will only be called when the
+   row is clicked, not when the node is expanded or collapsed.<br>
    Parameters:
    <ul>
    <li> listid: the id returned from `AddList'.
@@ -3095,11 +3093,13 @@ Listboxes
         Suitable value is 10 pixels or above (you should consider the
         the width of your icons when choosing a value)
    <li> IsLeaf: a pointer to a callback function that must return non-zero if
-        'rowobject' is a leaf and 0 if 'rowobject' is an internal node that
+        'rowobject' is a leaf and 0 if `rowobject' is an internal node that
         shall be possible to expand and collapse. <br>
-        'rowobject' is the data returned by your 'ApplicationDataAtIndex' or
-        'IterateLinkedListOfApplication' (installed by SetIndexedList or
-        SetLinkedList). <br>
+        'rowobject' is the data returned by your `CreateRowData' (installed 
+        by SetIndexedList or SetLinkedList) or, in case of the root object, a
+        pointer to that. This causes an limitation of the `listdata' type
+        passed to AddList: it needs to be the same as the data type returned
+        by `CreateRowData'. <br>
    <li> options: at present there is only one option:
       <ul>
       <li> TR_HIDE_ROOT: This flag will cause the outermost tree root not to
@@ -3685,19 +3685,16 @@ Tabwindows
         The behaviour when removing the last tab is undefined.
    </ul>
 
-
-@@void @HookLeaveTab(void (*callback)(void *data), void *data);
+@@int @InstallLeaveTabCallBack(int tabid, void (*callback)(void *data), void *data);
 @xref AddTab
    This function registers 'callback' to be a function that will be called
-   with 'data' when a tab in a tab-window is left. The tab will be left
-   either because the user selects some other tab in the same tab-window or
-   because the entire window is closed.<br>
-   HookLeaveTab must be called when generating the tab-window (i.e. by the
-   function installed by 'AddTab'), only at this stage the tab-window is
-   prepared to receive such a call.<br>
-   The purpose is to give your program the possibility to release memory
-   that you needed to allocate for the objects in the tab-window.
-
+   with 'data' when a tab in a tab-window goes out of scope (is left). The 
+   tab may be left either because the user selects some other tab in the same 
+   tab-window or because the entire window is closed.<br>
+   `tabid' is the id passed to the function that is installed with AddTab.
+   <br>
+   The purpose is to give your function that generates the widgets in a tab
+   window the possibility to release memory that was needed to allocate.
 
 @heading
 Hotkeys
@@ -3806,6 +3803,21 @@ Hotkeys
    Returns 1 on success and 0 if it fails. The parameter `id' shall be the
    id-key of an object (returned by the creating function).
 
+@@void @RemoveTabChain(void);
+@xref JoinTabChain
+@xref SetLinkInTabChain
+Removes an existing tab chain (either created explicit or automatically 
+by CGUI.
+
+@@int @SetLinkInTabChain(int idfrom, int idto);
+@xref RemoveTabChain
+@xref JoinTabChain
+Inserts a link from the widget represented by `idfrom' to the widget
+represented by `idto' and `idto' will have a link to the former sucessor of
+`idfrom'. If there is no tab chain in the current window before the call
+`idfrom' will be the first one in a new chain. Precondition: `idto' is not
+linked in an existing tab chain.
+Returns non-0 on success else 0.
 
 @@int @SetFocusOn(int id);
 @xref JoinTabChain

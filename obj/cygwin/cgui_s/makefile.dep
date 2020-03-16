@@ -13,12 +13,15 @@ obj/cygwin/cgui_s/cguiinit.o: src/cguiinit.c include/cgui.h include/cgui/cguicfg
  src/filebrow.h src/cursor.h src/node.h src/hotkey.h src/object.h \
  src/msm.h src/mstates.h src/mouse.h src/graphini.h src/window.h \
  src/tabchain.h src/menuitem.h src/winscr.h src/cgkeybrd.h src/list.h \
- src/timer.h src/cguiinit.h src/event.h src/statelog.h
-obj/cygwin/cgui_s/clipwin.o: src/clipwin.c include/cgui.h include/cgui/cguicfg.h
+ src/timer.h src/cguiinit.h src/obedbox.h src/event.h src/statelog.h
+obj/cygwin/cgui_s/clipwin.o: src/clipwin.c include/cgui/mem.h include/cgui/cguicfg.h \
+ include/cgui.h include/cgui/cguicfg.h include/cgui/clipwin.h
 obj/cygwin/cgui_s/clock.o: src/clock.c include/cgui.h include/cgui/cguicfg.h \
  include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
  src/tabchain.h src/hotkey.h src/node.h src/obheader.h src/font.h \
  src/id.h src/labldata.h src/clock.ht src/event.h
+obj/cygwin/cgui_s/combo.o: src/combo.c src/combo.h src/obedbox.h src/obdrop.h src/id.h \
+ include/cgui/mem.h include/cgui/cguicfg.h
 obj/cygwin/cgui_s/cursdata.o: src/cursdata.c
 obj/cygwin/cgui_s/cursor.o: src/cursor.c include/cgui.h include/cgui/cguicfg.h \
  include/cgui/mem.h include/cgui/cguicfg.h src/graphini.h src/cursor.h \
@@ -162,9 +165,10 @@ obj/cygwin/cgui_s/obdrop.o: src/obdrop.c include/cgui.h include/cgui/cguicfg.h \
  src/obbutton.h src/gencm.h src/menu.h src/list.h src/mstates.h src/id.h
 obj/cygwin/cgui_s/obedbox.o: src/obedbox.c include/cgui.h include/cgui/cguicfg.h \
  include/cgui/mem.h include/cgui/cguicfg.h src/obedbox.h src/edbmenu.h \
- src/event.h src/cguiinit.h src/window.h src/object.h src/tabchain.h \
- src/hotkey.h src/node.h src/obbutton.h src/mstates.h src/id.h \
- include/cgui/halfform.h include/cgui/clipwin.h src/ndresize.h
+ src/clipwin.h src/combo.h src/event.h src/cguiinit.h src/window.h \
+ src/object.h src/tabchain.h src/hotkey.h src/node.h src/obbutton.h \
+ src/mstates.h src/id.h include/cgui/halfform.h include/cgui/clipwin.h \
+ src/ndresize.h
 obj/cygwin/cgui_s/obflip.o: src/obflip.c include/cgui.h include/cgui/cguicfg.h src/object.h \
  src/obdrop.h src/obflip.h src/id.h
 obj/cygwin/cgui_s/obgroove.o: src/obgroove.c include/cgui.h include/cgui/cguicfg.h \
@@ -218,6 +222,9 @@ obj/cygwin/cgui_s/obtext.o: src/obtext.c include/cgui.h include/cgui/cguicfg.h \
  src/mstates.h src/window.h src/object.h src/tabchain.h src/hotkey.h \
  src/node.h src/event.h src/list.h src/font.h src/obtext.ht \
  src/labldata.h src/id.h
+obj/cygwin/cgui_s/obuser.o: src/obuser.c src/mstates.h include/cgui.h \
+ include/cgui/cguicfg.h include/cgui/mem.h include/cgui/cguicfg.h \
+ src/window.h src/object.h src/tabchain.h src/hotkey.h src/node.h
 obj/cygwin/cgui_s/rectlist.o: src/rectlist.c include/cgui.h include/cgui/cguicfg.h \
  include/cgui/mem.h include/cgui/cguicfg.h src/rectlist.h
 obj/cygwin/cgui_s/refresh.o: src/refresh.c include/cgui.h include/cgui/cguicfg.h \
@@ -265,8 +272,8 @@ obj/cygwin/cgui_s/window.o: src/window.c include/cgui.h include/cgui/cguicfg.h \
  src/cursor.h src/msm.h src/mstates.h src/id.h
 obj/cygwin/cgui_s/winreq.o: src/winreq.c include/cgui.h include/cgui/cguicfg.h \
  include/cgui/mem.h include/cgui/cguicfg.h src/window.h src/object.h \
- src/tabchain.h src/hotkey.h src/id.h src/cguiinit.h src/memint.h \
- src/winreq.h
+ src/tabchain.h src/hotkey.h src/obbutton.h src/node.h src/id.h \
+ src/setpos.h src/cguiinit.h src/memint.h src/winreq.h
 obj/cygwin/cgui_s/winscr.o: src/winscr.c src/winscr.h src/window.h src/object.h \
  src/tabchain.h src/hotkey.h src/node.h src/graphini.h src/memint.h \
  include/cgui.h include/cgui/cguicfg.h src/event.h include/cgui/mem.h \
@@ -304,6 +311,10 @@ obj/cygwin/cgui_s/24browse.o: examples/24browse.c include/cgui.h include/cgui/cg
 obj/cygwin/cgui_s/25viewer.o: examples/25viewer.c include/cgui.h include/cgui/cguicfg.h
 obj/cygwin/cgui_s/26joytst.o: examples/26joytst.c include/cgui.h include/cgui/cguicfg.h
 obj/cygwin/cgui_s/27trees.o: examples/27trees.c include/cgui.h include/cgui/cguicfg.h
+obj/cygwin/cgui_s/28colors.o: examples/28colors.c include/cgui.h include/cgui/cguicfg.h
+obj/cygwin/cgui_s/29usrdef.o: examples/29usrdef.c include/cgui.h include/cgui/cguicfg.h
+obj/cygwin/cgui_s/30combo.o: examples/30combo.c include/cgui.h include/cgui/cguicfg.h \
+ include/cgui/mem.h include/cgui/cguicfg.h
 obj/cygwin/cgui_s/game1.o: examples/game1.c include/cgui.h include/cgui/cguicfg.h \
  examples/ball.inc include/cgui/mem.h include/cgui/cguicfg.h
 obj/cygwin/cgui_s/game2.o: examples/game2.c include/cgui.h include/cgui/cguicfg.h \
