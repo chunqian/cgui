@@ -657,29 +657,31 @@ static void TextCursorBlink(void *data)
 
 static void TerminateEditing(t_editbox *edb)
 {
-   if (edb->format == ISO8601_DATE) {
-      if (IsStringDate(edb->text)) {
-         *(time_t*)edb->item = edb->copy;
-         TimeAsDate(edb->text, *(time_t *)edb->item);
+   if (ed_progr == edb) {
+      if (edb->format == ISO8601_DATE) {
+         if (IsStringDate(edb->text)) {
+            *(time_t*)edb->item = edb->copy;
+            TimeAsDate(edb->text, *(time_t *)edb->item);
+         }
       }
-   }
 
-   UnInstallKBHandler(EditBoxKeyboardCallback);
-   edb->b->x = edb->x + edb->b->x1 + edb->b->dx1 + 1;
-   edb->edit_in_progress = 0;
-   edb->cursor = 0;
-   edb->vstart = 0;
-   edb->curpos = edb->text;
-   ed_progr = NULL;
-   _KillEventOfCgui(edb->blinkid);
-   edb->blinkid = 0;
-   edb->b->tf->Refresh(edb->b);
+      UnInstallKBHandler(EditBoxKeyboardCallback);
+      edb->b->x = edb->x + edb->b->x1 + edb->b->dx1 + 1;
+      edb->edit_in_progress = 0;
+      edb->cursor = 0;
+      edb->vstart = 0;
+      edb->curpos = edb->text;
+      ed_progr = NULL;
+      _KillEventOfCgui(edb->blinkid);
+      edb->blinkid = 0;
+      edb->b->tf->Refresh(edb->b);
 #ifdef ALLEGRO_UNIX
-   if (edb->xclip) {
-      close_X_clipboard(edb->xclip);
-      edb->xclip = NULL;
-   }
+      if (edb->xclip) {
+         close_X_clipboard(edb->xclip);
+         edb->xclip = NULL;
+      }
 #endif
+   }
 }
 
 /* This function makes an update of the complete edit field by a call to the

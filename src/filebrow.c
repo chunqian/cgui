@@ -611,7 +611,7 @@ static void CreateGripObject(t_diskobj *dobj, t_browser *br)
    }
    for (i = 0; i < nsel; i++) {
       if (DiskObjectGetDirInfo(gr->dobjs[i]) == NULL) {
-         gr->contains_plain_files;
+         gr->contains_plain_files = 1;
       }
    }
    MkMultirowTextPointer(gr);
@@ -2140,7 +2140,6 @@ extern const char *FileSelect(const char *masks, const char *rpath, int flags, c
    return finalselection;
 }
 
-
 extern void FileManager(const char *winheader, int flags)
 {
    t_browser *br;
@@ -2164,6 +2163,10 @@ extern void FileManager(const char *winheader, int flags)
    br->flags = flags;
    HookExit(br->idwin, DestroyBrowseObject, br);
    nr_open_managers++;
+}
+
+extern char **FileBrowserGetGrippedFileNames(int id)
+{
 }
 
 extern void InitFileBrowser(void)
