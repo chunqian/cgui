@@ -2164,10 +2164,10 @@ extern void FileManager(const char *winheader, int flags)
    HookExit(br->idwin, DestroyBrowseObject, br);
    nr_open_managers++;
 }
-
+/*
 extern char **FileBrowserGetGrippedFileNames(int id)
 {
-}
+}*/
 
 extern void InitFileBrowser(void)
 {

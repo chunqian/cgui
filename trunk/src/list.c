@@ -114,6 +114,7 @@
 static int CGUI_list_row_bar_diagram_color;
 static double CGUI_list_row_bar_diagram_percentage;
 static int CGUI_list_row_bar_diagram_used;
+static double _cgui_wheel_speed = 2.0;
 
 typedef struct t_listchain t_listchain;
 typedef struct t_tree_node t_tree_node;
@@ -2110,7 +2111,7 @@ static void HandleMouseWheel(void *data)
    diff = z - GetZ(b);
    if (diff != 0) {
       SetZ(b, z);
-      lc->sti -= diff;
+      lc->sti -= diff * _cgui_wheel_speed;
       if (lc->sti > lc->n - 1) {
          lc->sti = lc->n - 1;
       } else if (lc->sti < 0) {
@@ -3216,6 +3217,11 @@ extern void CguiListBoxSetColumnSelection(int listid, int state)
    if (l) {
       l->column_selection = state;
    }
+}
+
+extern void CguiSetMouseWheelSpeed(double new_speed)
+{
+   _cgui_wheel_speed = new_speed;
 }
 
 /*void _PrintListTree(int listid)

@@ -342,6 +342,7 @@ CGUI_FUNC(int, CguiListBoxSetToolTip, (int listid, int mode, int options));
 CGUI_FUNC(void, CguiListBoxRowSetBar, (int color, double percentage));
 CGUI_FUNC(int, CguiListBoxRowGetClickedColumn, (int rowid));
 CGUI_FUNC(void, CguiListBoxSetColumnSelection, (int listid, int state));
+CGUI_FUNC(void, CguiSetMouseWheelSpeed, (double new_speed));
 
 CGUI_VAR(int , cgui_list_no_multiple_row_selection);
 CGUI_VAR(int, cgui_list_show_focused_row);
