@@ -3231,6 +3231,12 @@ Listboxes
    combination with CguiListBoxRowGetClickedColumn. If state is 0 it is
    turned off, else on. By default it is turned off.
 
+@@void @CguiSetMouseWheelSpeed(double new_speed);
+@xref AddList
+   List scrolling can be controlled by use of the mouse wheel. This function
+   can modify the number of rows that will be screolled for each increment of
+   the mouse wheel. The default setting is 2.
+
 @\int @SetListColumns(int listid,
 @\                 int (*RowTextCreater)(void *rowdata, char *s, int colnr),
 @\                 int *widths, int n, int options, char **labels,
