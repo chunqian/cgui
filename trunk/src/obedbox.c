@@ -227,7 +227,7 @@ static int IsDelimiter(char chr)
 void TimeAsDate(char *buf, time_t time)
 {
    struct tm *tmtime;
-   tmtime = gmtime(&time);
+   tmtime = localtime(&time);
    strftime(buf, SIZE_OF_NUMBER_STRING, "%Y-%m-%d", tmtime);
 }
 
@@ -365,7 +365,6 @@ static time_t StringToTime(const char *text)
    sscanf(text, "%d-%d-%d", &tm.tm_year, &tm.tm_mon, &tm.tm_mday);
    tm.tm_isdst = -1;
    tm.tm_mon--;
-   tm.tm_mday++;
    if (tm.tm_year >= 0 && tm.tm_year < 100) {
     tm.tm_year += 2000;
    }
