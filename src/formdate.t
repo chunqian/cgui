@@ -1,4 +1,4 @@
-<language=en>
+<language=gb>
 [formatletters]
 LETTER_DAY	"D"
 LETTER_MONTH	"M"

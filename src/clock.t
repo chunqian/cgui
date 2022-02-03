@@ -1,4 +1,4 @@
-<language=en>
+<language=gb>
 [clock]
 ADJUST_CLOCK_SETTINGS "Adjust watch settings"
 APPLY                 "Apply"

@@ -54,9 +54,9 @@ static char *GetLanguage(void)
 
    lang = get_config_string("cgui", "language", "");
    if (*lang == 0) {
-      lang = get_config_string("system", "language", "en");
+      lang = get_config_string("system", "language", "gb");
       if (*lang == 0)
-         lang = "en";
+         lang = "gb";
    }
    strcpy(langtxt, lang);
    return langtxt;
@@ -130,7 +130,7 @@ static char *FindLanguageSection(t_txtfile *t, char *rawtext, int size, int *lan
 
    GetLanguagePart(rawtext, size, t->lang, &langstart, &langend);
    if (langstart == -1) {
-      GetLanguagePart(rawtext, size, "en", &langstart, &langend);
+      GetLanguagePart(rawtext, size, "gb", &langstart, &langend);
       if (langstart == -1) {
          GetLanguagePart(rawtext, size, "", &langstart, &langend);
          if (langstart == -1) {

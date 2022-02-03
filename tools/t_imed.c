@@ -78,7 +78,7 @@ extern void add_intermediate_header_row(t_ifile *imed, char *label, int srcrow)
 
 extern void add_intermediate_text_row(t_ifile *imed, char *string, int srcrow)
 {
-   char tmp[MAXROWLEN], *s, *p;
+   char tmp[MAXROWLEN], *s, *p, *percent;
 
    p = tmp;
    p += sprintf(p, "#%d#{", srcrow);
@@ -119,18 +119,22 @@ extern void add_intermediate_text_row(t_ifile *imed, char *string, int srcrow)
             } else if (*s == 'd' || *s == 'i' || *s == 'f' || *s == 'e' ||
                   *s == 'c' || *s == 's' || *s == 'u' || *s == 'o' ||
                   *s == 'x' || *s == 'g' || *s == 'p' || *s == 'n' ||
-                  *s == 'E' || *s == 'G' || *s == 'X') {
+                  *s == 'E' || *s == 'G' || *s == 'X' || *s == '.') {
                p += sprintf(p, "%c", *s);
             } else {
-               allegro_message("Unterminated conversion specification in line %d:"
+               printf("Unterminated conversion specification in line %d:"
                             "\n%s\n", srcrow, string);
             }
          } else if (*s == 0) { /* syntax error in format string */
-            allegro_message("Unterminated conversion specification in line %d:"
+            printf("Unterminated conversion specification in line %d:"
                             "\n%s\n", srcrow, string);
             break;
          }
       }
+   }
+   percent = string;
+   while ((percent=strstr(percent, "%%"))) {
+      strcpy(percent, percent+1);
    }
    p += sprintf(p, "}%s", string);
    add_intermediate_row(imed, tmp);

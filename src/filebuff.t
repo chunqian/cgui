@@ -11,7 +11,7 @@ REMOVE_DIRECTORY_NN_FAILED_NN_CLOSE     "Det gick inte att ta bort katalogen %s.
 REMOVE_FILE_NN_FAILED_NN_CLOSE          "Det gick inte att ta bort filen %s. Meddelandet från systemet lyder:\"%s\"|Stäng"
 REMOVE_DATAFILE_NN_FAILED_NN_CLOSE      "Det gick inte att ta bort datafilsobjektet %s. Meddelandet från systemet lyder:\"%s\"|Stäng"
 
-<language = en>
+<language = gb>
 [filebuff]
 SELECTION_BUFFER "Selection buffer"
 CLOSE            "#27;Close"

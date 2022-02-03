@@ -81,7 +81,7 @@ UNIMPLEMENTED_VIEWER "Denna objekttyp saknar visningsfunktion"
 SELECT_HEADER_FILE "Ange namn för h-filen"
 SELECT             "Välj"
 
-<language = en>
+<language = gb>
 [filedial]
 PERMISSIONS_SET_ERROR "You are not allowed to change the permissions| OK "
 MODE_MASK         "Flags: "
