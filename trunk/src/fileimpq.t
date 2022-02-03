@@ -19,7 +19,7 @@ SHALL_THE_EXISTING_NN_BE_UPDATED_YES_NO "Ska det befintliga objektet (%s) uppdat
 PRETTIFY_NAME                 "Snygga till namn"
 RELATIVE_PATH                 "Använd relativ sökväg"
 
-<language=en>
+<language=gb>
 [file_import_query]
 PROPERTIES_OF_IMPORTED_OBJECT "Properties of imported object"
 IMPORT_NAME                   "Name:"

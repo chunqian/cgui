@@ -1,4 +1,4 @@
-<language = en>
+<language = gb>
 [graphini]
 SCREEN_RESOLUTION       "Enter new screen setting"
 SETTING_TAB             "Settings"

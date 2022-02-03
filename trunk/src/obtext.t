@@ -2,7 +2,7 @@
 [obtext]
 ERROR_OPENING_FILE_NN_OK "Det går inte att öppna filen %s.|#27;Fortsätt"
 
-<language=en>
+<language=gb>
 [obtext]
 ERROR_OPENING_FILE_NN_OK "Error opening file %s.|#27;Continue"
 

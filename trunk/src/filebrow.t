@@ -66,7 +66,7 @@ LOCATION          "Plats:"
 FILE_ACTION       "Kör"
 ENTER_PASSWORD    "Ange lösen"
 
-<language=en>
+<language=gb>
 [filebrow]
 DEVICE            "Disk device:"
 SHOW              "Show:"

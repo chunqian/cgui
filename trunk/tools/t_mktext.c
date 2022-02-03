@@ -93,7 +93,7 @@ int main(int const n, char const * const *strings)
                 "\tthe source files.\n"
                 " -i<PATH>\t<PATH> = path where to put the intermediate file(s). Default is current directory.\n"
                 " -t\tJust test input files, no files are generated\n"
-                " -h\tDisplay this inforamtion\n";
+                " -h\tDisplay this inforamtion";
 
    const char *dname=NULL;
    char path[MAXPATH];
@@ -119,7 +119,7 @@ int main(int const n, char const * const *strings)
          else if (tolower(strings[i][1]) == 'n' && tolower(strings[i][2]) == 'h')
             gen_header = 0;
          else if (tolower(strings[i][1]) == 'h' || (tolower(strings[i][1]) == '-' && tolower(strings[i][1]) == 'h')) {
-            allegro_message(help);
+            printf("%s\n", help);
             return 0;
          } else {
             allegro_message("Unkown option to mktext (%s)\n%s\n", strings[i],
@@ -229,7 +229,7 @@ int main(int const n, char const * const *strings)
       check_lang_equal(it, "<en>");
       print_final_text(dname, it);
       destroy_itree(it);
-      allegro_message("Done\n");
+      printf("Done\n");
    }
    for (i=0; i < srcs->n; i++)
       destroy_imed_file_image(imed[i]);
