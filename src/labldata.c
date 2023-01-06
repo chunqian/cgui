@@ -10,14 +10,14 @@
 
 
 static DATAFILE_PROPERTY cgui_cguilabl_prop[] = {
-    { "1-10-2019, 20:54", DAT_ID('D', 'A', 'T', 'E') },
+    { "2-25-2022, 18:23", DAT_ID('D', 'A', 'T', 'E') },
     { "CGUILABL", DAT_ID('N', 'A', 'M', 'E') },
     { "/home/christer/prog/cgui/trunk/resource/cguilabl", DAT_ID('O', 'R', 'I', 'G') },
     { 0, DAT_END }
 };
 
 const unsigned char cgui_cguilabl[32545] = 
-    "<en>\n[clock\n\"Adjust watch settings\n\"Apply\n\"Show se"
+    "<gb>\n[clock\n\"Adjust watch settings\n\"Apply\n\"Show se"
     "conds\n\"#27;Close\n[file_import_query\n\"Properties of"
     " imported object\n\"Name:\n\"Type:\n\"Matching_types\n\"Al"
     "l_types\n\"Do import\n\"Skip import\n\"You must check at"
