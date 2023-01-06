@@ -208,7 +208,7 @@ int main(int const n, char const * const *strings)
             allegro_message("Intermediate-file %s is corrupt\n", srcs->fn[i]);
          }
       }
-      if (check_lang_equal(it, "<en>"))
+      if (check_lang_equal(it, "<gb>"))
          allegro_message("Check is OK\n");
       destroy_itree(it);
    } else {
@@ -226,7 +226,7 @@ int main(int const n, char const * const *strings)
             allegro_message("Intermediate-file %s is corrupt\n", srcs->fn[i]);
          }
       }
-      check_lang_equal(it, "<en>");
+      check_lang_equal(it, "<gb>");
       print_final_text(dname, it);
       destroy_itree(it);
       printf("Done\n");
